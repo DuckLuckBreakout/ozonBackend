@@ -44,7 +44,10 @@ func (h *FavoritesHandler) AddProductToFavorites(w http.ResponseWriter, r *http.
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	if err = h.FavoritesUCase.AddProductToFavorites(uint64(productId), currentSession.UserData.Id); err != nil {
+	if err = h.FavoritesUCase.AddProductToFavorites(&models.FavoriteProduct{
+		ProductId: uint64(productId),
+		UserId: currentSession.UserData.Id,
+	}); err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
 	}
@@ -70,7 +73,10 @@ func (h *FavoritesHandler) DeleteProductFromFavorites(w http.ResponseWriter, r *
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	if err = h.FavoritesUCase.DeleteProductFromFavorites(uint64(productId), currentSession.UserData.Id); err != nil {
+	if err = h.FavoritesUCase.DeleteProductFromFavorites(&models.FavoriteProduct{
+		ProductId: uint64(productId),
+		UserId: currentSession.UserData.Id,
+	}); err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
 	}
@@ -109,7 +115,10 @@ func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *htt
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	listPreviewFavorites, err := h.FavoritesUCase.GetRangeFavorites(&paginator, currentSession.UserData.Id)
+	listPreviewFavorites, err := h.FavoritesUCase.GetRangeFavorites(&models.PaginatorFavorite{
+		Paginator: paginator,
+		UserId: currentSession.UserData.Id,
+	})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
@@ -129,7 +138,7 @@ func (h *FavoritesHandler) GetUserFavorites(w http.ResponseWriter, r *http.Reque
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	listFavorites, err := h.FavoritesUCase.GetUserFavorites(currentSession.UserData.Id)
+	listFavorites, err := h.FavoritesUCase.GetUserFavorites(&models.UserId{Id: currentSession.UserData.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return

@@ -14,6 +14,16 @@ type PostgresqlRepository struct {
 	db *sql.DB
 }
 
+type DtoUpdateOrder struct {
+	OrderId uint64 `json:"order_id"`
+	Status  string `json:"status"`
+}
+
+type DtoChangedOrder struct {
+	Number string `json:"number"`
+	UserId uint64 `json:"user_id"`
+}
+
 func NewSessionPostgresqlRepository(db *sql.DB) order.Repository {
 	return &PostgresqlRepository{
 		db: db,
@@ -170,22 +180,20 @@ func (r *PostgresqlRepository) AddOrder(order *models.Order, userId uint64,
 	return &orderNumber, nil
 }
 
-func (r *PostgresqlRepository) ChangeStatusOrder(orderId uint64,
-	status string) (*models.OrderNumber, uint64, error) {
+func (r *PostgresqlRepository) ChangeStatusOrder(order *DtoUpdateOrder) (*DtoChangedOrder, error) {
 	row := r.db.QueryRow(
 		"UPDATE user_orders "+
 			"SET status = $1 "+
 			"WHERE id = $2 "+
 			"RETURNING user_id, order_num",
-		status,
-		orderId,
+		order.Status,
+		order.OrderId,
 	)
 
-	var orderNumber models.OrderNumber
-	var userId uint64
-	if err := row.Scan(&userId, &orderNumber.Number); err != nil {
-		return nil, 0, errors.ErrDBInternalError
+	var changedOrder DtoChangedOrder
+	if err := row.Scan(&changedOrder.UserId, &changedOrder.Number); err != nil {
+		return nil, errors.ErrDBInternalError
 	}
 
-	return &orderNumber, userId, nil
+	return &changedOrder, nil
 }

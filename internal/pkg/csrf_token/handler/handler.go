@@ -29,8 +29,7 @@ func (h *CsrfTokenHandler) GetCsrfToken(w http.ResponseWriter, r *http.Request) 
 	}()
 
 	csrfToken := models.NewCsrfToken()
-	jwtToken, err := jwt_token.CreateJwtToken([]byte(csrfToken.Value),
-		time.Now().Add(models.ExpireCsrfToken*time.Second))
+	jwtToken, err := jwt_token.CreateJwtToken([]byte(csrfToken.Value), time.Now().Add(models.ExpireCsrfToken*time.Second))
 
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)

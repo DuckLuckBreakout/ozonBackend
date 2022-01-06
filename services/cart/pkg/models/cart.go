@@ -27,3 +27,7 @@ type TotalPrice struct {
 	TotalCost     int `json:"total_cost"`
 	TotalBaseCost int `json:"total_base_cost"`
 }
+
+type UserId struct {
+	Id uint64
+}

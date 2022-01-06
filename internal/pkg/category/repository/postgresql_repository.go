@@ -12,6 +12,23 @@ type PostgresqlRepository struct {
 	db *sql.DB
 }
 
+type DtoCategoryId struct {
+	Id   uint64               `json:"id"`
+}
+
+type DtoCategoryLevel struct {
+	Level   uint64               `json:"level"`
+}
+
+type DtoCategoriesCatalog struct {
+	Catalog []*models.CategoriesCatalog
+}
+
+type DtoBranchBorders struct {
+	Left uint64 `json:"left"`
+	Right uint64 `json:"right"`
+}
+
 func NewSessionPostgresqlRepository(db *sql.DB) category.Repository {
 	return &PostgresqlRepository{
 		db: db,
@@ -19,7 +36,7 @@ func NewSessionPostgresqlRepository(db *sql.DB) category.Repository {
 }
 
 // Get lower level in categories tree
-func (r *PostgresqlRepository) GetNextLevelCategories(categoryId uint64) ([]*models.CategoriesCatalog, error) {
+func (r *PostgresqlRepository) GetNextLevelCategories(categoryId *DtoCategoryId) (*DtoCategoriesCatalog, error) {
 	rows, err := r.db.Query(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node, c.level + 1  as level "+
@@ -31,7 +48,7 @@ func (r *PostgresqlRepository) GetNextLevelCategories(categoryId uint64) ([]*mod
 			"WHERE (c.left_node > current_node.left_node "+
 			"AND c.right_node < current_node.right_node "+
 			"AND c.level = current_node.level)",
-		categoryId,
+		categoryId.Id,
 	)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
@@ -51,16 +68,16 @@ func (r *PostgresqlRepository) GetNextLevelCategories(categoryId uint64) ([]*mod
 		categories = append(categories, nextLevelCategory)
 	}
 
-	return categories, nil
+	return &DtoCategoriesCatalog{categories}, nil
 }
 
 // Get categories in select level
-func (r *PostgresqlRepository) GetCategoriesByLevel(level uint64) ([]*models.CategoriesCatalog, error) {
+func (r *PostgresqlRepository) GetCategoriesByLevel(categoryLevel *DtoCategoryLevel) (*DtoCategoriesCatalog, error) {
 	rows, err := r.db.Query(
 		"SELECT c.id, c.name "+
 			"FROM categories c "+
 			"WHERE c.level = $1",
-		level,
+		categoryLevel.Level,
 	)
 	if err != nil {
 		return nil, errors.ErrDBInternalError
@@ -80,16 +97,16 @@ func (r *PostgresqlRepository) GetCategoriesByLevel(level uint64) ([]*models.Cat
 		categories = append(categories, nextLevelCategory)
 	}
 
-	return categories, nil
+	return &DtoCategoriesCatalog{categories}, nil
 }
 
 // Get left and right border of branch
-func (r *PostgresqlRepository) GetBordersOfBranch(categoryId uint64) (uint64, uint64, error) {
+func (r *PostgresqlRepository) GetBordersOfBranch(categoryId *DtoCategoryId) (*DtoBranchBorders, error) {
 	row := r.db.QueryRow(
 		"SELECT c.left_node, c.right_node "+
 			"FROM categories c "+
 			"WHERE c.id = $1",
-		categoryId,
+		categoryId.Id,
 	)
 
 	var left, right uint64
@@ -99,14 +116,17 @@ func (r *PostgresqlRepository) GetBordersOfBranch(categoryId uint64) (uint64, ui
 	)
 
 	if err != nil {
-		return 0, 0, errors.ErrDBInternalError
+		return nil, errors.ErrDBInternalError
 	}
 
-	return left, right, nil
+	return &DtoBranchBorders{
+		Left:  left,
+		Right: right,
+	}, nil
 }
 
 // Get path from root to category
-func (r *PostgresqlRepository) GetPathToCategory(categoryId uint64) ([]*models.CategoriesCatalog, error) {
+func (r *PostgresqlRepository) GetPathToCategory(categoryId *DtoCategoryId) (*DtoCategoriesCatalog, error) {
 	rows, err := r.db.Query(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node, c.level + 1  as level "+
@@ -118,7 +138,7 @@ func (r *PostgresqlRepository) GetPathToCategory(categoryId uint64) ([]*models.C
 			"WHERE (c.left_node <= current_node.left_node "+
 			"AND c.right_node >= current_node.right_node "+
 			"AND c.level BETWEEN 1 AND current_node.level)",
-		categoryId,
+		categoryId.Id,
 	)
 	if err != nil {
 		return nil, errors.ErrDBInternalError
@@ -138,5 +158,5 @@ func (r *PostgresqlRepository) GetPathToCategory(categoryId uint64) ([]*models.C
 		categories = append(categories, nextLevelCategory)
 	}
 
-	return categories, nil
+	return &DtoCategoriesCatalog{categories}, nil
 }

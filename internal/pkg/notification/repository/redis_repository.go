@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 
@@ -14,6 +13,19 @@ import (
 
 type RedisRepository struct {
 	conn *redis.Client
+}
+
+type DtoUserId struct {
+	Id uint64 `json:"id"`
+}
+
+type DtoNotificationKeys struct {
+	Auth   string `json:"auth"`
+	P256dh string `json:"p256dh"`
+}
+
+type DtoSubscribes struct {
+	Credentials map[string]*DtoNotificationKeys `json:"subscribes" valid:"notnull"`
 }
 
 func NewSessionRedisRepository(conn *redis.Client) notification.Repository {
@@ -26,8 +38,8 @@ func (r *RedisRepository) getNewKey(value uint64) string {
 	return fmt.Sprintf("notification:%d", value)
 }
 
-func (r *RedisRepository) AddSubscribeUser(userId uint64, subscribes *models.Subscribes) error {
-	key := r.getNewKey(userId)
+func (r *RedisRepository) AddSubscribeUser(userId *DtoUserId, subscribes *DtoSubscribes) error {
+	key := r.getNewKey(userId.Id)
 
 	data, err := json.Marshal(subscribes)
 	if err != nil {
@@ -42,9 +54,9 @@ func (r *RedisRepository) AddSubscribeUser(userId uint64, subscribes *models.Sub
 	return nil
 }
 
-func (r *RedisRepository) SelectCredentialsByUserId(userId uint64) (*models.Subscribes, error) {
-	subscribes := &models.Subscribes{}
-	key := r.getNewKey(userId)
+func (r *RedisRepository) SelectCredentialsByUserId(userId *DtoUserId) (*DtoSubscribes, error) {
+	subscribes := &DtoSubscribes{}
+	key := r.getNewKey(userId.Id)
 
 	data, err := r.conn.Get(context.Background(), key).Bytes()
 	if err != nil {
@@ -58,8 +70,8 @@ func (r *RedisRepository) SelectCredentialsByUserId(userId uint64) (*models.Subs
 	return subscribes, nil
 }
 
-func (r *RedisRepository) DeleteSubscribeUser(userId uint64) error {
-	key := r.getNewKey(userId)
+func (r *RedisRepository) DeleteSubscribeUser(userId *DtoUserId) error {
+	key := r.getNewKey(userId.Id)
 
 	err := r.conn.Del(context.Background(), key).Err()
 	if err != nil {

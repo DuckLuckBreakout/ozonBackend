@@ -6,5 +6,5 @@ import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 
 type UseCase interface {
 	GetCatalogCategories() ([]*models.CategoriesCatalog, error)
-	GetSubCategoriesById(categoryId uint64) ([]*models.CategoriesCatalog, error)
+	GetSubCategoriesById(categoryId *models.CategoryId) ([]*models.CategoriesCatalog, error)
 }

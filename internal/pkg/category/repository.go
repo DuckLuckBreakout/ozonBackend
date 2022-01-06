@@ -1,12 +1,14 @@
 package category
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import (
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category/repository"
+)
 
 //go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category Repository
 
 type Repository interface {
-	GetNextLevelCategories(categoryId uint64) ([]*models.CategoriesCatalog, error)
-	GetCategoriesByLevel(level uint64) ([]*models.CategoriesCatalog, error)
-	GetBordersOfBranch(categoryId uint64) (uint64, uint64, error)
-	GetPathToCategory(categoryId uint64) ([]*models.CategoriesCatalog, error)
+	GetNextLevelCategories(categoryId *repository.DtoCategoryId) (*repository.DtoCategoriesCatalog, error)
+	GetCategoriesByLevel(categoryLevel *repository.DtoCategoryLevel) (*repository.DtoCategoriesCatalog, error)
+	GetBordersOfBranch(categoryId *repository.DtoCategoryId) (*repository.DtoBranchBorders, error)
+	GetPathToCategory(categoryId *repository.DtoCategoryId) (*repository.DtoCategoriesCatalog, error)
 }

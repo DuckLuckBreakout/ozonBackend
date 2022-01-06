@@ -5,6 +5,8 @@ import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order"
+	orderRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order/repository"
+	notificationRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/server_push"
 )
@@ -22,12 +24,15 @@ func NewUseCase(notificationRepo notification.Repository, orderRepo order.Reposi
 }
 
 func (u *AdminUseCase) ChangeOrderStatus(updateOrder *models.UpdateOrder) error {
-	orderNumber, userId, err := u.OrderRepo.ChangeStatusOrder(updateOrder.OrderId, updateOrder.Status)
+	changedOrder, err := u.OrderRepo.ChangeStatusOrder(&orderRepo.DtoUpdateOrder{
+		OrderId: updateOrder.OrderId,
+		Status:  updateOrder.Status,
+	})
 	if err != nil {
 		return errors.ErrInternalError
 	}
 
-	subscribes, err := u.NotificationRepo.SelectCredentialsByUserId(userId)
+	subscribes, err := u.NotificationRepo.SelectCredentialsByUserId(&notificationRepo.DtoUserId{Id: changedOrder.UserId})
 	if err == nil {
 		for endpoint, keys := range subscribes.Credentials {
 			err = server_push.Push(&server_push.Subscription{
@@ -35,7 +40,9 @@ func (u *AdminUseCase) ChangeOrderStatus(updateOrder *models.UpdateOrder) error 
 				Auth:     keys.Auth,
 				P256dh:   keys.P256dh,
 			}, models.OrderNotification{
-				Number: *orderNumber,
+				Number: models.OrderNumber{
+					Number: changedOrder.Number,
+				},
 				Status: updateOrder.Status,
 			})
 

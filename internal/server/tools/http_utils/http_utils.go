@@ -11,6 +11,15 @@ import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
+type UserId struct {
+	Id uint64
+}
+
+type Session struct {
+	Value    string
+	UserData UserId
+}
+
 func SetJSONResponse(w http.ResponseWriter, body interface{}, statusCode int) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -53,8 +62,8 @@ func DestroyCookie(w http.ResponseWriter, cookie *http.Cookie) {
 	http.SetCookie(w, cookie)
 }
 
-func MustGetSessionFromContext(ctx context.Context) *models.Session {
-	session, ok := ctx.Value(models.SessionContextKey).(*models.Session)
+func MustGetSessionFromContext(ctx context.Context) *Session {
+	session, ok := ctx.Value(models.SessionContextKey).(*Session)
 	if !ok || session == nil {
 		panic(errors.ErrSessionNotFound.Error())
 	}

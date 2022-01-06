@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
 	"io/ioutil"
 	"net/http"
 
@@ -16,6 +17,36 @@ import (
 
 type NotificationHandler struct {
 	NotificationUCase notification.UseCase
+}
+
+type ApiNotificationKeys struct {
+	Auth   string `json:"auth"`
+	P256dh string `json:"p256dh"`
+}
+
+func (nk *ApiNotificationKeys) Sanitize() {
+	sanitizer := sanitizer.NewSanitizer()
+	nk.Auth = sanitizer.Sanitize(nk.Auth)
+	nk.P256dh = sanitizer.Sanitize(nk.P256dh)
+}
+
+type ApiUserIdentifier struct {
+	Endpoint string `json:"endpoint"`
+}
+
+func (ui *ApiUserIdentifier) Sanitize() {
+	sanitizer := sanitizer.NewSanitizer()
+	ui.Endpoint = sanitizer.Sanitize(ui.Endpoint)
+}
+
+type ApiNotificationCredentials struct {
+	ApiUserIdentifier
+	Keys ApiNotificationKeys `json:"keys"`
+}
+
+func (nc *ApiNotificationCredentials) Sanitize() {
+	nc.ApiUserIdentifier.Sanitize()
+	nc.Keys.Sanitize()
 }
 
 func NewHandler(notificationUCase notification.UseCase) notification.Handler {
@@ -40,7 +71,7 @@ func (h *NotificationHandler) SubscribeUser(w http.ResponseWriter, r *http.Reque
 	}
 	defer r.Body.Close()
 
-	var credentials models.NotificationCredentials
+	var credentials ApiNotificationCredentials
 	err = json.Unmarshal(body, &credentials)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -56,7 +87,17 @@ func (h *NotificationHandler) SubscribeUser(w http.ResponseWriter, r *http.Reque
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	err = h.NotificationUCase.SubscribeUser(currentSession.UserData.Id, &credentials)
+	err = h.NotificationUCase.SubscribeUser(
+		&models.UserId{Id: currentSession.UserData.Id},
+		&models.NotificationCredentials{
+			UserIdentifier: models.UserIdentifier{
+				Endpoint: credentials.Endpoint,
+			},
+			Keys:           models.NotificationKeys{
+				Auth:   credentials.Keys.Auth,
+				P256dh: credentials.Keys.P256dh,
+			},
+		})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotAddReview, http.StatusInternalServerError)
 		return
@@ -81,7 +122,7 @@ func (h *NotificationHandler) UnsubscribeUser(w http.ResponseWriter, r *http.Req
 	}
 	defer r.Body.Close()
 
-	var userIdentifier models.UserIdentifier
+	var userIdentifier ApiUserIdentifier
 	err = json.Unmarshal(body, &userIdentifier)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -97,7 +138,7 @@ func (h *NotificationHandler) UnsubscribeUser(w http.ResponseWriter, r *http.Req
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	err = h.NotificationUCase.UnsubscribeUser(currentSession.UserData.Id, userIdentifier.Endpoint)
+	err = h.NotificationUCase.UnsubscribeUser(&models.UserId{Id: currentSession.UserData.Id}, userIdentifier.Endpoint)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotAddReview, http.StatusInternalServerError)
 		return

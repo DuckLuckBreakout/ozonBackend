@@ -1,6 +1,9 @@
 package order
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import (
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order/repository"
+)
 
 //go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order Repository
 
@@ -11,5 +14,5 @@ type Repository interface {
 	CreateSortString(sortKey, sortDirection string) (string, error)
 	GetCountPages(userId uint64, countOrdersOnPage int) (int, error)
 	GetProductsInOrder(orderId uint64) ([]*models.PreviewOrderedProducts, error)
-	ChangeStatusOrder(orderId uint64, status string) (*models.OrderNumber, uint64, error)
+	ChangeStatusOrder(order *repository.DtoUpdateOrder) (*repository.DtoChangedOrder, error)
 }

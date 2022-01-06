@@ -23,12 +23,15 @@ func NewUseCase(cartClient proto.CartServiceClient, productRepo product.Reposito
 }
 
 // Add product in user cart
-func (u *CartUseCase) AddProduct(userId uint64, cartArticle *models.CartArticle) error {
-	_, err := u.CartClient.AddProduct(context.Background(), &proto.ReqCartArticle{
-		Position:  &proto.ProductPosition{Count: cartArticle.Count},
-		ProductId: cartArticle.ProductId,
-		UserId:    userId,
-	})
+func (u *CartUseCase) AddProduct(userId *models.UserId, cartArticle *models.CartArticle) error {
+	_, err := u.CartClient.AddProduct(
+		context.Background(),
+		&proto.ReqCartArticle{
+			Position:  &proto.ProductPosition{Count: cartArticle.Count},
+			ProductId: cartArticle.ProductId,
+			UserId:    userId.Id,
+		},
+	)
 
 	if err != nil {
 		return errors.ErrInternalError
@@ -38,11 +41,14 @@ func (u *CartUseCase) AddProduct(userId uint64, cartArticle *models.CartArticle)
 }
 
 // Delete product from cart
-func (u *CartUseCase) DeleteProduct(userId uint64, identifier *models.ProductIdentifier) error {
-	_, err := u.CartClient.DeleteProduct(context.Background(), &proto.ReqProductIdentifier{
-		ProductId: identifier.ProductId,
-		UserId:    userId,
-	})
+func (u *CartUseCase) DeleteProduct(userId *models.UserId, identifier *models.ProductIdentifier) error {
+	_, err := u.CartClient.DeleteProduct(
+		context.Background(),
+		&proto.ReqProductIdentifier{
+			ProductId: identifier.ProductId,
+			UserId:    userId.Id,
+		},
+	)
 
 	if err != nil {
 		return errors.ErrInternalError
@@ -52,12 +58,15 @@ func (u *CartUseCase) DeleteProduct(userId uint64, identifier *models.ProductIde
 }
 
 // Change product in user cart
-func (u *CartUseCase) ChangeProduct(userId uint64, cartArticle *models.CartArticle) error {
-	_, err := u.CartClient.ChangeProduct(context.Background(), &proto.ReqCartArticle{
-		Position:  &proto.ProductPosition{Count: cartArticle.Count},
-		ProductId: cartArticle.ProductId,
-		UserId:    userId,
-	})
+func (u *CartUseCase) ChangeProduct(userId *models.UserId, cartArticle *models.CartArticle) error {
+	_, err := u.CartClient.ChangeProduct(
+		context.Background(),
+		&proto.ReqCartArticle{
+			Position:  &proto.ProductPosition{Count: cartArticle.Count},
+			ProductId: cartArticle.ProductId,
+			UserId:    userId.Id,
+		},
+	)
 
 	if err != nil {
 		return errors.ErrInternalError
@@ -67,9 +76,11 @@ func (u *CartUseCase) ChangeProduct(userId uint64, cartArticle *models.CartArtic
 }
 
 // Get preview cart
-func (u *CartUseCase) GetPreviewCart(userId uint64) (*models.PreviewCart, error) {
-	userCart, err := u.CartClient.GetPreviewCart(context.Background(),
-		&proto.ReqUserId{UserId: userId})
+func (u *CartUseCase) GetPreviewCart(userId *models.UserId) (*models.PreviewCart, error) {
+	userCart, err := u.CartClient.GetPreviewCart(
+		context.Background(),
+		&proto.ReqUserId{UserId: userId.Id},
+	)
 
 	if err != nil {
 		return nil, errors.ErrInternalError
@@ -104,9 +115,11 @@ func (u *CartUseCase) GetPreviewCart(userId uint64) (*models.PreviewCart, error)
 }
 
 // Delete user cart
-func (u *CartUseCase) DeleteCart(userId uint64) error {
-	_, err := u.CartClient.DeleteCart(context.Background(),
-		&proto.ReqUserId{UserId: userId})
+func (u *CartUseCase) DeleteCart(userId *models.UserId) error {
+	_, err := u.CartClient.DeleteCart(
+		context.Background(),
+		&proto.ReqUserId{UserId: userId.Id},
+	)
 
 	if err != nil {
 		return errors.ErrInternalError

@@ -108,3 +108,13 @@ type RecommendationProduct struct {
 type PaginatorRecommendations struct {
 	Count int `json:"count"`
 }
+
+type FavoriteProduct struct {
+	ProductId uint64 `json:"product_id"`
+	UserId uint64 `json:"user_id"`
+}
+
+type PaginatorFavorite struct {
+	Paginator PaginatorFavorites `json:"paginator"`
+	UserId uint64 `json:"user_id"`
+}

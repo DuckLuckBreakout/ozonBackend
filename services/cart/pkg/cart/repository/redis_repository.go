@@ -7,13 +7,23 @@ import (
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/models"
-
 	"github.com/go-redis/redis/v8"
 )
 
 type RedisRepository struct {
 	conn *redis.Client
+}
+
+type DtoUserId struct {
+	Id uint64 `json:"id"`
+}
+
+type DtoProductPosition struct {
+	Count uint64 `json:"count"`
+}
+
+type DtoCart struct {
+	Products map[uint64]*DtoProductPosition `json:"products" valid:"notnull"`
 }
 
 func NewSessionRedisRepository(conn *redis.Client) cart.Repository {
@@ -27,8 +37,8 @@ func (r *RedisRepository) getNewKey(value uint64) string {
 }
 
 // Delete user cart
-func (r *RedisRepository) DeleteCart(userId uint64) error {
-	key := r.getNewKey(userId)
+func (r *RedisRepository) DeleteCart(userId *DtoUserId) error {
+	key := r.getNewKey(userId.Id)
 
 	err := r.conn.Del(context.Background(), key).Err()
 	if err != nil {
@@ -38,9 +48,9 @@ func (r *RedisRepository) DeleteCart(userId uint64) error {
 }
 
 // Select user cart by id
-func (r *RedisRepository) SelectCartById(userId uint64) (*models.Cart, error) {
-	userCart := &models.Cart{}
-	key := r.getNewKey(userId)
+func (r *RedisRepository) SelectCartById(userId *DtoUserId) (*DtoCart, error) {
+	userCart := &DtoCart{}
+	key := r.getNewKey(userId.Id)
 
 	data, err := r.conn.Get(context.Background(), key).Bytes()
 	if err != nil || data == nil {
@@ -55,8 +65,8 @@ func (r *RedisRepository) SelectCartById(userId uint64) (*models.Cart, error) {
 }
 
 // Add new user cart
-func (r *RedisRepository) AddCart(userId uint64, userCart *models.Cart) error {
-	key := r.getNewKey(userId)
+func (r *RedisRepository) AddCart(userId *DtoUserId, userCart *DtoCart) error {
+	key := r.getNewKey(userId.Id)
 
 	data, err := json.Marshal(userCart)
 	if err != nil {

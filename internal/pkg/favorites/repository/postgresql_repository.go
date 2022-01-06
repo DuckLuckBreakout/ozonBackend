@@ -14,18 +14,40 @@ type PostgresqlRepository struct {
 	db *sql.DB
 }
 
+type DtoFavoriteProduct struct {
+	ProductId uint64 `json:"product_id"`
+	UserId uint64 `json:"user_id"`
+}
+
+type DtoCountPages struct {
+	Count int `json:"count"`
+	UserId uint64 `json:"user_id"`
+}
+
+type DtoCounter struct {
+	Count int `json:"count"`
+}
+
+type DtoUserId struct {
+	Id uint64 `json:"id"`
+}
+
+type DtoUserFavorites struct {
+	Products []uint64 `json:"products"`
+}
+
 func NewSessionPostgresqlRepository(db *sql.DB) favorites.Repository {
 	return &PostgresqlRepository{
 		db: db,
 	}
 }
 
-func (r *PostgresqlRepository) AddProductToFavorites(productId, userId uint64) error {
+func (r *PostgresqlRepository) AddProductToFavorites(favorite *DtoFavoriteProduct) error {
 	_, err := r.db.Exec(
 		"INSERT INTO favorites(product_id, user_id) "+
 			"VALUES ($1, $2)",
-		productId,
-		userId,
+		favorite.ProductId,
+		favorite.UserId,
 	)
 	if err != nil {
 		return errors.ErrDBInternalError
@@ -34,12 +56,12 @@ func (r *PostgresqlRepository) AddProductToFavorites(productId, userId uint64) e
 	return nil
 }
 
-func (r *PostgresqlRepository) DeleteProductFromFavorites(productId, userId uint64) error {
+func (r *PostgresqlRepository) DeleteProductFromFavorites(favorite *DtoFavoriteProduct) error {
 	_, err := r.db.Exec(
 		"DELETE FROM favorites "+
 			"WHERE  (product_id = $1 AND user_id = $2)",
-		productId,
-		userId,
+		favorite.ProductId,
+		favorite.UserId,
 	)
 	if err != nil {
 		return errors.ErrDBInternalError
@@ -48,21 +70,21 @@ func (r *PostgresqlRepository) DeleteProductFromFavorites(productId, userId uint
 	return nil
 }
 
-func (r *PostgresqlRepository) GetCountPages(userId uint64, count int) (int, error) {
+func (r *PostgresqlRepository) GetCountPages(countPages *DtoCountPages) (*DtoCounter, error) {
 	row := r.db.QueryRow(
 		"SELECT count(*) "+
 			"FROM favorites "+
 			"WHERE user_id = $1",
-		userId,
+		countPages.UserId,
 	)
 
-	var countPages int
+	var counter int
 	if err := row.Scan(&countPages); err != nil {
-		return 0, errors.ErrDBInternalError
+		return nil, errors.ErrDBInternalError
 	}
-	countPages = int(math.Ceil(float64(countPages) / float64(count)))
+	counter = int(math.Ceil(float64(counter) / float64(countPages.Count)))
 
-	return countPages, nil
+	return &DtoCounter{Count: counter}, nil
 }
 
 func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (string, error) {
@@ -95,8 +117,11 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 	return fmt.Sprintf("ORDER BY %s %s ", orderTarget, orderDirection), nil
 }
 
-func (r *PostgresqlRepository) SelectRangeFavorites(paginator *models.PaginatorFavorites,
-	sortString string, userId uint64) ([]*models.ViewFavorite, error) {
+func (r *PostgresqlRepository) SelectRangeFavorites(
+	paginator *models.PaginatorFavorites,
+	sortString string,
+	userId uint64,
+) ([]*models.ViewFavorite, error) {
 	rows, err := r.db.Query(
 		"SELECT p.id, p.title, p.base_cost, p.total_cost, "+
 			"p.discount, p.images[1], "+
@@ -149,12 +174,12 @@ func (r *PostgresqlRepository) SelectRangeFavorites(paginator *models.PaginatorF
 	return products, nil
 }
 
-func (r *PostgresqlRepository) GetUserFavorites(userId uint64) (*models.UserFavorites, error) {
+func (r *PostgresqlRepository) GetUserFavorites(userId *DtoUserId) (*DtoUserFavorites, error) {
 	rows, err := r.db.Query(
 		"SELECT product_id "+
 			"FROM favorites "+
 			"WHERE user_id = $1",
-		userId,
+		userId.Id,
 	)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
@@ -174,7 +199,7 @@ func (r *PostgresqlRepository) GetUserFavorites(userId uint64) (*models.UserFavo
 		favoritesProducts = append(favoritesProducts, productId)
 	}
 
-	return &models.UserFavorites{
+	return &DtoUserFavorites{
 		Products: favoritesProducts,
 	}, nil
 }
