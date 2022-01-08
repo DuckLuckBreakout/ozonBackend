@@ -1,4 +1,4 @@
-package models
+package usecase
 
 import "github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
 

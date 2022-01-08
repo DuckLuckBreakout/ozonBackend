@@ -3,11 +3,11 @@ package http_utils
 import (
 	"context"
 	"encoding/json"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
@@ -63,7 +63,7 @@ func DestroyCookie(w http.ResponseWriter, cookie *http.Cookie) {
 }
 
 func MustGetSessionFromContext(ctx context.Context) *Session {
-	session, ok := ctx.Value(models.SessionContextKey).(*Session)
+	session, ok := ctx.Value(usecase.SessionContextKey).(*Session)
 	if !ok || session == nil {
 		panic(errors.ErrSessionNotFound.Error())
 	}
@@ -72,7 +72,7 @@ func MustGetSessionFromContext(ctx context.Context) *Session {
 }
 
 func MustGetRequireId(ctx context.Context) string {
-	requireId, ok := ctx.Value(models.RequireIdKey).(string)
+	requireId, ok := ctx.Value(usecase.RequireIdKey).(string)
 	if !ok {
 		panic(errors.ErrRequireIdNotFound.Error())
 	}

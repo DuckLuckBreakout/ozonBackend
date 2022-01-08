@@ -3,7 +3,6 @@ package usecase
 import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/models"
 )
 
@@ -19,12 +18,12 @@ func NewUseCase(cartRepo cart.Repository) cart.UseCase {
 
 // Add product in user cart
 func (u *CartUseCase) AddProduct(userId *models.UserId, cartArticle *models.CartArticle) error {
-	userIdentifier := &repository.DtoUserId{Id: userId.Id}
+	userIdentifier := &models.DtoUserId{Id: userId.Id}
 	userCart, err := u.CartRepo.SelectCartById(userIdentifier)
 	if err != nil {
-		userCart = &repository.DtoCart{}
-		userCart.Products = make(map[uint64]*repository.DtoProductPosition)
-		userCart.Products[cartArticle.ProductId] = &repository.DtoProductPosition{
+		userCart = &models.DtoCart{}
+		userCart.Products = make(map[uint64]*models.DtoProductPosition)
+		userCart.Products[cartArticle.ProductId] = &models.DtoProductPosition{
 			Count: cartArticle.ProductPosition.Count,
 		}
 	} else {
@@ -32,7 +31,7 @@ func (u *CartUseCase) AddProduct(userId *models.UserId, cartArticle *models.Cart
 		if _, ok := userCart.Products[cartArticle.ProductId]; ok {
 			userCart.Products[cartArticle.ProductId].Count += cartArticle.Count
 		} else {
-			userCart.Products[cartArticle.ProductId] = &repository.DtoProductPosition{
+			userCart.Products[cartArticle.ProductId] = &models.DtoProductPosition{
 				Count: cartArticle.ProductPosition.Count,
 			}
 		}
@@ -43,7 +42,7 @@ func (u *CartUseCase) AddProduct(userId *models.UserId, cartArticle *models.Cart
 
 // Delete product from cart
 func (u *CartUseCase) DeleteProduct(userId *models.UserId, identifier *models.ProductIdentifier) error {
-	userIdentifier := &repository.DtoUserId{Id: userId.Id}
+	userIdentifier := &models.DtoUserId{Id: userId.Id}
 	userCart, err := u.CartRepo.SelectCartById(userIdentifier)
 	if err != nil {
 		return err
@@ -62,7 +61,7 @@ func (u *CartUseCase) DeleteProduct(userId *models.UserId, identifier *models.Pr
 
 // Change product in user cart
 func (u *CartUseCase) ChangeProduct(userId *models.UserId, cartArticle *models.CartArticle) error {
-	userIdentifier := &repository.DtoUserId{Id: userId.Id}
+	userIdentifier := &models.DtoUserId{Id: userId.Id}
 	userCart, err := u.CartRepo.SelectCartById(userIdentifier)
 	if err != nil {
 		return err
@@ -71,7 +70,7 @@ func (u *CartUseCase) ChangeProduct(userId *models.UserId, cartArticle *models.C
 	if _, ok := userCart.Products[cartArticle.ProductId]; !ok {
 		return errors.ErrProductNotFoundInCart
 	}
-	userCart.Products[cartArticle.ProductId] = &repository.DtoProductPosition{
+	userCart.Products[cartArticle.ProductId] = &models.DtoProductPosition{
 		Count: cartArticle.ProductPosition.Count,
 	}
 
@@ -80,7 +79,7 @@ func (u *CartUseCase) ChangeProduct(userId *models.UserId, cartArticle *models.C
 
 // Get preview cart
 func (u *CartUseCase) GetPreviewCart(userId *models.UserId) (*models.Cart, error) {
-	userCart, err := u.CartRepo.SelectCartById(&repository.DtoUserId{Id: userId.Id})
+	userCart, err := u.CartRepo.SelectCartById(&models.DtoUserId{Id: userId.Id})
 	switch err {
 	case errors.ErrCartNotFound:
 		return &models.Cart{}, nil
@@ -100,5 +99,5 @@ func (u *CartUseCase) GetPreviewCart(userId *models.UserId) (*models.Cart, error
 
 // Delete user cart
 func (u *CartUseCase) DeleteCart(userId *models.UserId) error {
-	return u.CartRepo.DeleteCart(&repository.DtoUserId{Id: userId.Id})
+	return u.CartRepo.DeleteCart(&models.DtoUserId{Id: userId.Id})
 }

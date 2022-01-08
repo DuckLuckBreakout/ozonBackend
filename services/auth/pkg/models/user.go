@@ -18,3 +18,9 @@ type AuthUser struct {
 	Email    string `json:"email" valid:"email"`
 	Password []byte `json:"-"`
 }
+
+type ApiAuthUser struct {
+	Id       uint64 `json:"-"`
+	Email    string `json:"email" valid:"email"`
+	Password []byte `json:"-"`
+}

@@ -7,7 +7,7 @@ import (
 	"strconv"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/validator"
@@ -44,9 +44,9 @@ func (h *FavoritesHandler) AddProductToFavorites(w http.ResponseWriter, r *http.
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	if err = h.FavoritesUCase.AddProductToFavorites(&models.FavoriteProduct{
+	if err = h.FavoritesUCase.AddProductToFavorites(&usecase.FavoriteProduct{
 		ProductId: uint64(productId),
-		UserId: currentSession.UserData.Id,
+		UserId:    currentSession.UserData.Id,
 	}); err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
@@ -73,9 +73,9 @@ func (h *FavoritesHandler) DeleteProductFromFavorites(w http.ResponseWriter, r *
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	if err = h.FavoritesUCase.DeleteProductFromFavorites(&models.FavoriteProduct{
+	if err = h.FavoritesUCase.DeleteProductFromFavorites(&usecase.FavoriteProduct{
 		ProductId: uint64(productId),
-		UserId: currentSession.UserData.Id,
+		UserId:    currentSession.UserData.Id,
 	}); err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
@@ -100,7 +100,7 @@ func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *htt
 	}
 	defer r.Body.Close()
 
-	var paginator models.PaginatorFavorites
+	var paginator usecase.PaginatorFavorites
 	err = json.Unmarshal(body, &paginator)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -115,9 +115,9 @@ func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *htt
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	listPreviewFavorites, err := h.FavoritesUCase.GetRangeFavorites(&models.PaginatorFavorite{
+	listPreviewFavorites, err := h.FavoritesUCase.GetRangeFavorites(&usecase.PaginatorFavorite{
 		Paginator: paginator,
-		UserId: currentSession.UserData.Id,
+		UserId:    currentSession.UserData.Id,
 	})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
@@ -138,7 +138,7 @@ func (h *FavoritesHandler) GetUserFavorites(w http.ResponseWriter, r *http.Reque
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	listFavorites, err := h.FavoritesUCase.GetUserFavorites(&models.UserId{Id: currentSession.UserData.Id})
+	listFavorites, err := h.FavoritesUCase.GetUserFavorites(&usecase.UserId{Id: currentSession.UserData.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return

@@ -1,4 +1,4 @@
-package models
+package usecase
 
 // All cart information
 // This models saved in database

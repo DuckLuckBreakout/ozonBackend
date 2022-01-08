@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"context"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"net/http"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
@@ -22,7 +22,7 @@ func Auth(sm session.UseCase) func(http.Handler) http.Handler {
 				}
 			}()
 
-			sessionCookie, err := r.Cookie(models.SessionCookieName)
+			sessionCookie, err := r.Cookie(usecase.SessionCookieName)
 			if err != nil {
 				http_utils.SetJSONResponse(w, errors.ErrUserUnauthorized, http.StatusUnauthorized)
 				return
@@ -34,10 +34,10 @@ func Auth(sm session.UseCase) func(http.Handler) http.Handler {
 				return
 			}
 
-			ctx := context.WithValue(r.Context(), models.SessionContextKey,
-				&models.Session{
+			ctx := context.WithValue(r.Context(), usecase.SessionContextKey,
+				&usecase.Session{
 					Value: sessionCookie.Value,
-					UserData: models.UserId{
+					UserData: usecase.UserId{
 						Id: userId,
 					},
 				})

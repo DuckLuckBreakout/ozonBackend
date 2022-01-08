@@ -2,11 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/api"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
@@ -43,13 +44,15 @@ func (h *ReviewHandler) GetReviewStatistics(w http.ResponseWriter, r *http.Reque
 		return
 	}
 
-	productById, err := h.ReviewUCase.GetStatisticsByProductId(uint64(productId))
+	productById, err := h.ReviewUCase.GetStatisticsByProductId(&usecase.ProductId{Id: uint64(productId)})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetJSONResponse(w, productById, http.StatusOK)
+	http_utils.SetJSONResponse(w, api.ApiReviewStatistics{
+		Stars: productById.Stars,
+	}, http.StatusOK)
 }
 
 // Check rights for write new review
@@ -71,7 +74,10 @@ func (h *ReviewHandler) CheckReviewRights(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	err = h.ReviewUCase.CheckReviewUserRights(currentSession.UserData.Id, uint64(productId))
+	err = h.ReviewUCase.CheckReviewUserRights(
+		&usecase.UserId{Id: currentSession.UserData.Id},
+		&usecase.ProductId{Id: uint64(productId)},
+	)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusConflict)
 		return
@@ -97,7 +103,7 @@ func (h *ReviewHandler) AddNewReview(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	var userReview models.Review
+	var userReview api.ApiReview
 	err = json.Unmarshal(body, &userReview)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -113,7 +119,17 @@ func (h *ReviewHandler) AddNewReview(w http.ResponseWriter, r *http.Request) {
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	err = h.ReviewUCase.AddNewReviewForProduct(currentSession.UserData.Id, &userReview)
+	err = h.ReviewUCase.AddNewReviewForProduct(
+		&usecase.UserId{Id: currentSession.UserData.Id},
+		&usecase.Review{
+			ProductId:     userReview.ProductId,
+			Rating:        userReview.Rating,
+			Advantages:    userReview.Advantages,
+			Disadvantages: userReview.Disadvantages,
+			Comment:       userReview.Comment,
+			IsPublic:      userReview.IsPublic,
+		},
+	)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotAddReview, http.StatusBadRequest)
 		return
@@ -139,7 +155,7 @@ func (h *ReviewHandler) GetReviewsForProduct(w http.ResponseWriter, r *http.Requ
 	}
 	defer r.Body.Close()
 
-	var paginator models.PaginatorReviews
+	var paginator api.ApiPaginatorReviews
 	err = json.Unmarshal(body, &paginator)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -159,11 +175,24 @@ func (h *ReviewHandler) GetReviewsForProduct(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	reviews, err := h.ReviewUCase.GetReviewsByProductId(uint64(productId), &paginator)
+	reviews, err := h.ReviewUCase.GetReviewsByProductId(
+		&usecase.ProductId{Id: uint64(productId)},
+		&usecase.PaginatorReviews{
+			PageNum: paginator.PageNum,
+			Count:   paginator.Count,
+			SortReviewsOptions: usecase.SortReviewsOptions{
+				SortKey:       paginator.SortKey,
+				SortDirection: paginator.SortDirection,
+			},
+		},
+	)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetJSONResponse(w, reviews, http.StatusOK)
+	http_utils.SetJSONResponse(w, &api.ApiRangeReviews{
+		ListPreviews:  reviews.ListPreviews,
+		MaxCountPages: reviews.MaxCountPages,
+	}, http.StatusOK)
 }

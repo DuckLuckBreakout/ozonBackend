@@ -28,7 +28,7 @@ func (r *RedisRepository) getNewKey(value string) string {
 }
 
 // Add user session in repository
-func (r *RedisRepository) AddSession(session *models.Session) error {
+func (r *RedisRepository) AddSession(session *models.DtoSession) error {
 	data := fmt.Sprintf("%d", session.UserId)
 	key := r.getNewKey(session.Value)
 
@@ -41,20 +41,20 @@ func (r *RedisRepository) AddSession(session *models.Session) error {
 }
 
 // Get user global id from redis db
-func (r *RedisRepository) SelectUserIdBySession(sessionValue string) (uint64, error) {
+func (r *RedisRepository) SelectUserIdBySession(sessionValue string) (*models.DtoUserId, error) {
 	key := r.getNewKey(sessionValue)
 
 	data, err := r.conn.Get(context.Background(), key).Bytes()
 	if err != nil {
-		return 0, errors.ErrSessionNotFound
+		return nil, errors.ErrSessionNotFound
 	}
 
 	userId, err := strconv.ParseUint(string(data), 10, 64)
 	if err != nil {
-		return 0, errors.ErrInternalError
+		return nil, errors.ErrInternalError
 	}
 
-	return userId, nil
+	return &models.DtoUserId{Id: userId}, nil
 }
 
 // Delete session from db

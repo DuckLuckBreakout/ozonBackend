@@ -1,4 +1,4 @@
-package models
+package usecase
 
 // Node of categories tree
 type CategoriesCatalog struct {
@@ -8,5 +8,5 @@ type CategoriesCatalog struct {
 }
 
 type CategoryId struct {
-	Id   uint64               `json:"id"`
+	Id uint64 `json:"id"`
 }

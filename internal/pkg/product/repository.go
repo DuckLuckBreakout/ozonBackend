@@ -1,20 +1,24 @@
 package product
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
 )
 
 //go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product Repository
 
 type Repository interface {
-	SelectProductById(productId uint64) (*models.Product, error)
-	GetCountPages(category uint64, count int, filterString string) (int, error)
-	GetCountSearchPages(category uint64, count int, searchString, filterString string) (int, error)
-	CreateSortString(sortKey, sortDirection string) (string, error)
-	SelectRangeProducts(paginator *models.PaginatorProducts,
-		sortString, filterString string) ([]*models.ViewProduct, error)
-	CreateFilterString(filter *models.ProductFilter) string
-	SearchRangeProducts(searchQuery *models.SearchQuery,
-		sortString, filterString string) ([]*models.ViewProduct, error)
-	SelectRecommendationsByReviews(productId uint64, count int) ([]*models.RecommendationProduct, error)
+	SelectProductById(productId *dto.DtoProductId) (*dto.DtoProduct, error)
+	SelectRecommendationsByReviews(rec *dto.DtoRecommendations) ([]*dto.DtoRecommendationProduct, error)
+	GetCountPages(cntPages *dto.DtoCountPages) (int, error)
+	GetCountSearchPages(srcPages *dto.DtoSearchPages) (int, error)
+	CreateSortString(sortStr *dto.DtoSortString) (string, error)
+	CreateFilterString(filter *dto.DtoProductFilter) string
+	SelectRangeProducts(
+		paginator *dto.DtoPaginatorProducts,
+		rageProducts *dto.DtoRageProducts,
+	) ([]*dto.DtoViewProduct, error)
+	SearchRangeProducts(
+		searchQuery *dto.DtoSearchQuery,
+		rageProducts *dto.DtoRageProducts,
+	) ([]*dto.DtoViewProduct, error)
 }

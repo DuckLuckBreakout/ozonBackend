@@ -3,9 +3,10 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"math"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 
@@ -23,7 +24,7 @@ func NewSessionPostgresqlRepository(db *sql.DB) product.Repository {
 }
 
 // Select one product by id
-func (r *PostgresqlRepository) SelectProductById(productId uint64) (*models.Product, error) {
+func (r *PostgresqlRepository) SelectProductById(productId *dto.DtoProductId) (*dto.DtoProduct, error) {
 	// Base product info
 	row := r.db.QueryRow(
 		"SELECT id, title, description, properties, base_cost, "+
@@ -43,7 +44,7 @@ func (r *PostgresqlRepository) SelectProductById(productId uint64) (*models.Prod
 	)
 
 	description := sql.NullString{}
-	productById := models.Product{}
+	productById := dto.DtoProduct{}
 	rating := sql.NullFloat64{}
 	countReviews := sql.NullInt64{}
 	err := row.Scan(
@@ -70,8 +71,7 @@ func (r *PostgresqlRepository) SelectProductById(productId uint64) (*models.Prod
 	return &productById, nil
 }
 
-func (r *PostgresqlRepository) SelectRecommendationsByReviews(productId uint64, count int) (
-	[]*models.RecommendationProduct, error) {
+func (r *PostgresqlRepository) SelectRecommendationsByReviews(rec *dto.DtoRecommendations) ([]*dto.DtoRecommendationProduct, error) {
 	rows, err := r.db.Query(
 		"WITH current_category AS ( "+
 			"    SELECT id_category "+
@@ -94,17 +94,17 @@ func (r *PostgresqlRepository) SelectRecommendationsByReviews(productId uint64, 
 			"    WHERE (p.id_category = current_category.id_category AND p.id <> $1) "+
 			"    LIMIT $2 "+
 			") AS orders ON orders.product_id = p.id",
-		productId,
-		count,
+		rec.ProductId,
+		rec.Count,
 	)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
 	}
 	defer rows.Close()
 
-	products := make([]*models.RecommendationProduct, 0)
+	products := make([]*dto.DtoRecommendationProduct, 0)
 	for rows.Next() {
-		product := &models.RecommendationProduct{}
+		product := &dto.DtoRecommendationProduct{}
 		err = rows.Scan(
 			&product.Id,
 			&product.Title,
@@ -124,7 +124,7 @@ func (r *PostgresqlRepository) SelectRecommendationsByReviews(productId uint64, 
 }
 
 // Get count of all pages for this category
-func (r *PostgresqlRepository) GetCountPages(category uint64, count int, filterString string) (int, error) {
+func (r *PostgresqlRepository) GetCountPages(cntPages *dto.DtoCountPages) (int, error) {
 	row := r.db.QueryRow(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node "+
@@ -142,23 +142,22 @@ func (r *PostgresqlRepository) GetCountPages(category uint64, count int, filterS
 			") AS R ON P.id = R.product_id "+
 			"WHERE (c.left_node >= current_node.left_node "+
 			"AND c.right_node <= current_node.right_node "+
-			filterString+
+			cntPages.FilterString+
 			" ) ",
-		category,
+		cntPages.Category,
 	)
 
 	var countPages int
 	if err := row.Scan(&countPages); err != nil {
 		return 0, errors.ErrDBInternalError
 	}
-	countPages = int(math.Ceil(float64(countPages) / float64(count)))
+	countPages = int(math.Ceil(float64(countPages) / float64(cntPages.Count)))
 
 	return countPages, nil
 }
 
 // Get count of all pages for this search
-func (r *PostgresqlRepository) GetCountSearchPages(category uint64, count int,
-	searchString, filterString string) (int, error) {
+func (r *PostgresqlRepository) GetCountSearchPages(srcPages *dto.DtoSearchPages) (int, error) {
 	row := r.db.QueryRow(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node "+
@@ -177,33 +176,33 @@ func (r *PostgresqlRepository) GetCountSearchPages(category uint64, count int,
 			"WHERE (c.left_node >= current_node.left_node "+
 			"AND c.right_node <= current_node.right_node "+
 			"AND p.fts @@ plainto_tsquery('ru', $2) "+
-			filterString+
+			srcPages.FilterString+
 			" ) ",
-		category,
-		searchString,
+		srcPages.Category,
+		srcPages.SearchString,
 	)
 
 	var countPages int
 	if err := row.Scan(&countPages); err != nil {
 		return 0, errors.ErrDBInternalError
 	}
-	countPages = int(math.Ceil(float64(countPages) / float64(count)))
+	countPages = int(math.Ceil(float64(countPages) / float64(srcPages.Count)))
 
 	return countPages, nil
 }
 
 // Create sort string from paginator options
-func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (string, error) {
+func (r *PostgresqlRepository) CreateSortString(sortStr *dto.DtoSortString) (string, error) {
 	// Select order target
 	var orderTarget string
-	switch sortKey {
-	case models.ProductsCostSort:
+	switch sortStr.SortKey {
+	case usecase.ProductsCostSort:
 		orderTarget = "total_cost"
-	case models.ProductsRatingSort:
+	case usecase.ProductsRatingSort:
 		orderTarget = "(CASE WHEN avg_rating IS NULL THEN 0 ELSE avg_rating END)"
-	case models.ProductsDateAddedSort:
+	case usecase.ProductsDateAddedSort:
 		orderTarget = "date_added"
-	case models.ProductsDiscountSort:
+	case usecase.ProductsDiscountSort:
 		orderTarget = "discount"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -211,10 +210,10 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 
 	// Select order direction
 	var orderDirection string
-	switch sortDirection {
-	case models.PaginatorASC:
+	switch sortStr.SortDirection {
+	case usecase.PaginatorASC:
 		orderDirection = "ASC"
-	case models.PaginatorDESC:
+	case usecase.PaginatorDESC:
 		orderDirection = "DESC"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -224,7 +223,7 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 }
 
 // Create filter string from filter options
-func (r *PostgresqlRepository) CreateFilterString(filter *models.ProductFilter) string {
+func (r *PostgresqlRepository) CreateFilterString(filter *dto.DtoProductFilter) string {
 	// Check price
 	filterString := fmt.Sprintf("AND p.total_cost > %d AND p.total_cost < %d ", filter.MinPrice, filter.MaxPrice)
 
@@ -244,8 +243,10 @@ func (r *PostgresqlRepository) CreateFilterString(filter *models.ProductFilter) 
 }
 
 // Select range of products by paginate settings
-func (r *PostgresqlRepository) SelectRangeProducts(paginator *models.PaginatorProducts,
-	sortString, filterString string) ([]*models.ViewProduct, error) {
+func (r *PostgresqlRepository) SelectRangeProducts(
+	paginator *dto.DtoPaginatorProducts,
+	rageProducts *dto.DtoRageProducts,
+) ([]*dto.DtoViewProduct, error) {
 	rows, err := r.db.Query(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node "+
@@ -266,9 +267,9 @@ func (r *PostgresqlRepository) SelectRangeProducts(paginator *models.PaginatorPr
 			") AS R ON P.id = R.product_id "+
 			"WHERE (c.left_node >= current_node.left_node "+
 			"AND c.right_node <= current_node.right_node "+
-			filterString+
+			rageProducts.FilterString+
 			" ) "+
-			sortString+
+			rageProducts.SortString+
 			"LIMIT $2 OFFSET $3",
 		paginator.Category,
 		paginator.Count,
@@ -279,11 +280,11 @@ func (r *PostgresqlRepository) SelectRangeProducts(paginator *models.PaginatorPr
 	}
 	defer rows.Close()
 
-	products := make([]*models.ViewProduct, 0)
+	products := make([]*dto.DtoViewProduct, 0)
 	rating := sql.NullFloat64{}
 	countReviews := sql.NullInt64{}
 	for rows.Next() {
-		product := &models.ViewProduct{}
+		product := &dto.DtoViewProduct{}
 		err = rows.Scan(
 			&product.Id,
 			&product.Title,
@@ -307,8 +308,10 @@ func (r *PostgresqlRepository) SelectRangeProducts(paginator *models.PaginatorPr
 }
 
 // Find list of products by query string
-func (r *PostgresqlRepository) SearchRangeProducts(searchQuery *models.SearchQuery,
-	sortString, filterString string) ([]*models.ViewProduct, error) {
+func (r *PostgresqlRepository) SearchRangeProducts(
+	searchQuery *dto.DtoSearchQuery,
+	rageProducts *dto.DtoRageProducts,
+) ([]*dto.DtoViewProduct, error) {
 	rows, err := r.db.Query(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node "+
@@ -330,9 +333,9 @@ func (r *PostgresqlRepository) SearchRangeProducts(searchQuery *models.SearchQue
 			"WHERE (c.left_node >= current_node.left_node "+
 			"AND c.right_node <= current_node.right_node "+
 			"AND p.fts @@ plainto_tsquery('ru', $2) "+
-			filterString+
+			rageProducts.FilterString+
 			" ) "+
-			sortString+
+			rageProducts.SortString+
 			"LIMIT $3 OFFSET $4",
 		searchQuery.Category,
 		searchQuery.QueryString,
@@ -344,11 +347,11 @@ func (r *PostgresqlRepository) SearchRangeProducts(searchQuery *models.SearchQue
 	}
 	defer rows.Close()
 
-	products := make([]*models.ViewProduct, 0)
+	products := make([]*dto.DtoViewProduct, 0)
 	rating := sql.NullFloat64{}
 	countReviews := sql.NullInt64{}
 	for rows.Next() {
-		product := &models.ViewProduct{}
+		product := &dto.DtoViewProduct{}
 		err = rows.Scan(
 			&product.Id,
 			&product.Title,

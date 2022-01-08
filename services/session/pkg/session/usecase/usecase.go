@@ -18,13 +18,21 @@ func NewUseCase(SessionRepo session.Repository) session.UseCase {
 
 // Get user id by session value
 func (u *SessionUseCase) GetUserIdBySession(sessionCookieValue string) (uint64, error) {
-	return u.SessionRepo.SelectUserIdBySession(sessionCookieValue)
+	userId, err := u.SessionRepo.SelectUserIdBySession(sessionCookieValue)
+	if err != nil {
+		return 0, err
+	}
+
+	return userId.Id, nil
 }
 
 // Create new user session and save in repository
-func (u *SessionUseCase) CreateNewSession(userId uint64) (*models.Session, error) {
-	sess := models.NewSession(userId)
-	err := u.SessionRepo.AddSession(sess)
+func (u *SessionUseCase) CreateNewSession(userId *models.UserId) (*models.Session, error) {
+	sess := models.NewSession(userId.Id)
+	err := u.SessionRepo.AddSession(&models.DtoSession{
+		Value:  sess.Value,
+		UserId: sess.UserId,
+	})
 	if err != nil {
 		return nil, errors.ErrInternalError
 	}

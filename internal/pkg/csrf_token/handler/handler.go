@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/csrf_token"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/jwt_token"
@@ -28,8 +28,8 @@ func (h *CsrfTokenHandler) GetCsrfToken(w http.ResponseWriter, r *http.Request) 
 		}
 	}()
 
-	csrfToken := models.NewCsrfToken()
-	jwtToken, err := jwt_token.CreateJwtToken([]byte(csrfToken.Value), time.Now().Add(models.ExpireCsrfToken*time.Second))
+	csrfToken := usecase.NewCsrfToken()
+	jwtToken, err := jwt_token.CreateJwtToken([]byte(csrfToken.Value), time.Now().Add(usecase.ExpireCsrfToken*time.Second))
 
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)

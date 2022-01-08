@@ -3,11 +3,11 @@ package repository
 import (
 	"database/sql"
 	"fmt"
-	"math"
-
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"math"
 )
 
 type PostgresqlRepository struct {
@@ -21,16 +21,18 @@ func NewSessionPostgresqlRepository(db *sql.DB) review.Repository {
 }
 
 // Select range of reviews
-func (r *PostgresqlRepository) SelectRangeReviews(productId uint64, sortString string,
-	paginator *models.PaginatorReviews) ([]*models.ViewReview, error) {
+func (r *PostgresqlRepository) SelectRangeReviews(
+	rangeReviews *dto.DtoRangeReviews,
+	paginator *dto.DtoPaginatorReviews,
+) ([]*dto.DtoViewReview, error) {
 	rows, err := r.db.Query(
 		"SELECT rating, advantages, disadvantages, comment, is_public, "+
 			"date_added, user_id "+
 			"FROM reviews "+
 			"WHERE product_id = $1 "+
-			sortString+
+			rangeReviews.SortString+
 			"LIMIT $2 OFFSET $3",
-		productId,
+		rangeReviews.ProductId,
 		paginator.Count,
 		paginator.Count*(paginator.PageNum-1),
 	)
@@ -39,9 +41,9 @@ func (r *PostgresqlRepository) SelectRangeReviews(productId uint64, sortString s
 	}
 	defer rows.Close()
 
-	reviews := make([]*models.ViewReview, 0)
+	reviews := make([]*dto.DtoViewReview, 0)
 	for rows.Next() {
-		userReview := &models.ViewReview{}
+		userReview := &dto.DtoViewReview{}
 		err = rows.Scan(
 			&userReview.Rating,
 			&userReview.Advantages,
@@ -61,29 +63,29 @@ func (r *PostgresqlRepository) SelectRangeReviews(productId uint64, sortString s
 }
 
 // Get count of all review pages for this product
-func (r *PostgresqlRepository) GetCountPages(productId uint64, countOrdersOnPage int) (int, error) {
+func (r *PostgresqlRepository) GetCountPages(countPages *dto.DtoCountPages) (*dto.DtoCounter, error) {
 	row := r.db.QueryRow(
 		"SELECT count(id) "+
 			"FROM reviews "+
 			"WHERE product_id = $1",
-		productId,
+		countPages.ProductId,
 	)
 
-	var countPages int
-	if err := row.Scan(&countPages); err != nil {
-		return 0, errors.ErrDBInternalError
+	var counter int
+	if err := row.Scan(&counter); err != nil {
+		return nil, errors.ErrDBInternalError
 	}
-	countPages = int(math.Ceil(float64(countPages) / float64(countOrdersOnPage)))
+	counter = int(math.Ceil(float64(counter) / float64(countPages.CountOrdersOnPage)))
 
-	return countPages, nil
+	return &dto.DtoCounter{Count: counter}, nil
 }
 
 // Create sort string for query
-func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (string, error) {
+func (r *PostgresqlRepository) CreateSortString(sortString *dto.DtoSortString) (string, error) {
 	// Select order target
 	var orderTarget string
-	switch sortKey {
-	case models.ReviewDateAddedSort:
+	switch sortString.SortKey {
+	case usecase.ReviewDateAddedSort:
 		orderTarget = "date_added"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -91,10 +93,10 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 
 	// Select order direction
 	var orderDirection string
-	switch sortDirection {
-	case models.ReviewPaginatorASC:
+	switch sortString.SortDirection {
+	case usecase.ReviewPaginatorASC:
 		orderDirection = "ASC"
-	case models.ReviewPaginatorDESC:
+	case usecase.ReviewPaginatorDESC:
 		orderDirection = "DESC"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -104,21 +106,21 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 }
 
 // Select all statistics about reviews by product id
-func (r *PostgresqlRepository) SelectStatisticsByProductId(productId uint64) (*models.ReviewStatistics, error) {
+func (r *PostgresqlRepository) SelectStatisticsByProductId(productId *dto.DtoProductId) (*dto.DtoReviewStatistics, error) {
 	rows, err := r.db.Query(
 		"SELECT count(id), rating "+
 			"FROM reviews "+
 			"WHERE product_id = $1 "+
 			"GROUP BY rating "+
 			"ORDER BY rating",
-		productId,
+		productId.Id,
 	)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
 	}
 	defer rows.Close()
 
-	statistics := &models.ReviewStatistics{}
+	statistics := &dto.DtoReviewStatistics{}
 	statistics.Stars = make([]int, 5)
 	var countStars int
 	var rating int
@@ -137,7 +139,7 @@ func (r *PostgresqlRepository) SelectStatisticsByProductId(productId uint64) (*m
 }
 
 // Check rights for review (the user has completed orders)
-func (r *PostgresqlRepository) CheckReview(userId uint64, productId uint64) bool {
+func (r *PostgresqlRepository) CheckReview(review *dto.DtoCheckReview) bool {
 	row := r.db.QueryRow(
 		"SELECT (SELECT count(us.id) "+
 			"FROM user_orders us "+
@@ -145,8 +147,8 @@ func (r *PostgresqlRepository) CheckReview(userId uint64, productId uint64) bool
 			"WHERE (us.user_id = $1 AND op.product_id = $2)) - "+
 			"(SELECT count(rv.id) FROM reviews rv "+
 			"WHERE (rv.user_id = $1 AND rv.product_id = $2))",
-		userId,
-		productId,
+		review.UserId,
+		review.ProductId,
 	)
 
 	var isExist int
@@ -158,13 +160,13 @@ func (r *PostgresqlRepository) CheckReview(userId uint64, productId uint64) bool
 }
 
 // Add new review for product
-func (r *PostgresqlRepository) AddReview(userId uint64, review *models.Review) (uint64, error) {
+func (r *PostgresqlRepository) AddReview(userId *dto.DtoUserId, review *dto.DtoReview) (*dto.DtoReviewId, error) {
 	row := r.db.QueryRow(
 		"INSERT INTO reviews(product_id, user_id, rating, advantages, "+
 			"disadvantages, comment, is_public) "+
 			"VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id",
 		review.ProductId,
-		userId,
+		userId.Id,
 		review.Rating,
 		review.Advantages,
 		review.Disadvantages,
@@ -174,8 +176,8 @@ func (r *PostgresqlRepository) AddReview(userId uint64, review *models.Review) (
 
 	var reviewId uint64
 	if err := row.Scan(&reviewId); err != nil {
-		return 0, errors.ErrDBInternalError
+		return nil, errors.ErrDBInternalError
 	}
 
-	return reviewId, nil
+	return &dto.DtoReviewId{Id: reviewId}, nil
 }

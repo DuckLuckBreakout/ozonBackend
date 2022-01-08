@@ -2,11 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/api"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
@@ -43,7 +44,7 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	productById, err := h.ProductUCase.GetProductById(uint64(id))
+	productById, err := h.ProductUCase.GetProductById(&usecase.ProductId{Id: uint64(id)})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
@@ -76,7 +77,7 @@ func (h *ProductHandler) GetProductRecommendations(w http.ResponseWriter, r *htt
 	}
 	defer r.Body.Close()
 
-	var paginator models.PaginatorRecommendations
+	var paginator api.ApiPaginatorRecommendations
 	err = json.Unmarshal(body, &paginator)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -89,7 +90,14 @@ func (h *ProductHandler) GetProductRecommendations(w http.ResponseWriter, r *htt
 		return
 	}
 
-	listProducts, err := h.ProductUCase.GetProductRecommendationsById(uint64(id), &paginator)
+	listProducts, err := h.ProductUCase.GetProductRecommendationsById(
+		&usecase.ProductId{
+			Id: uint64(id),
+		},
+		&usecase.PaginatorRecommendations{
+			Count: paginator.Count,
+		},
+	)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrProductNotFound, http.StatusInternalServerError)
 		return
@@ -115,7 +123,7 @@ func (h *ProductHandler) GetListPreviewProducts(w http.ResponseWriter, r *http.R
 	}
 	defer r.Body.Close()
 
-	var paginator models.PaginatorProducts
+	var paginator api.ApiPaginatorProducts
 	err = json.Unmarshal(body, &paginator)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -128,7 +136,22 @@ func (h *ProductHandler) GetListPreviewProducts(w http.ResponseWriter, r *http.R
 		return
 	}
 
-	listPreviewProducts, err := h.ProductUCase.GetRangeProducts(&paginator)
+	listPreviewProducts, err := h.ProductUCase.GetRangeProducts(&usecase.PaginatorProducts{
+		PageNum:  paginator.PageNum,
+		Count:    paginator.Count,
+		Category: paginator.Category,
+		Filter: &usecase.ProductFilter{
+			MinPrice:   paginator.Filter.MinPrice,
+			MaxPrice:   paginator.Filter.MaxPrice,
+			IsNew:      paginator.Filter.IsNew,
+			IsRating:   paginator.Filter.IsRating,
+			IsDiscount: paginator.Filter.IsDiscount,
+		},
+		SortOptions: usecase.SortOptions{
+			SortKey:       paginator.SortKey,
+			SortDirection: paginator.SortDirection,
+		},
+	})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
@@ -154,7 +177,7 @@ func (h *ProductHandler) SearchListPreviewProducts(w http.ResponseWriter, r *htt
 	}
 	defer r.Body.Close()
 
-	var searchQuery models.SearchQuery
+	var searchQuery api.ApiSearchQuery
 	err = json.Unmarshal(body, &searchQuery)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -167,7 +190,23 @@ func (h *ProductHandler) SearchListPreviewProducts(w http.ResponseWriter, r *htt
 		return
 	}
 
-	listPreviewProducts, err := h.ProductUCase.SearchRangeProducts(&searchQuery)
+	listPreviewProducts, err := h.ProductUCase.SearchRangeProducts(&usecase.SearchQuery{
+		QueryString: searchQuery.QueryString,
+		PageNum:     searchQuery.PageNum,
+		Count:       searchQuery.Count,
+		Category:    searchQuery.Category,
+		Filter: &usecase.ProductFilter{
+			MinPrice:   searchQuery.Filter.MaxPrice,
+			MaxPrice:   searchQuery.Filter.MinPrice,
+			IsNew:      searchQuery.Filter.IsNew,
+			IsRating:   searchQuery.Filter.IsRating,
+			IsDiscount: searchQuery.Filter.IsDiscount,
+		},
+		SortOptions: usecase.SortOptions{
+			SortKey:       searchQuery.SortKey,
+			SortDirection: searchQuery.SortDirection,
+		},
+	})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return

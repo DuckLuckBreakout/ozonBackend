@@ -1,4 +1,4 @@
-package models
+package usecase
 
 type UpdateOrder struct {
 	OrderId uint64 `json:"order_id"`

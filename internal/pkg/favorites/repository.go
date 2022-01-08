@@ -1,17 +1,17 @@
 package favorites
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites/repository"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 )
 
 //go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites Repository
 
 type Repository interface {
-	AddProductToFavorites(favorite *repository.DtoFavoriteProduct) error
-	DeleteProductFromFavorites(favorite *repository.DtoFavoriteProduct) error
-	GetCountPages(countPages *repository.DtoCountPages) (*repository.DtoCounter, error)
+	AddProductToFavorites(favorite *dto.DtoFavoriteProduct) error
+	DeleteProductFromFavorites(favorite *dto.DtoFavoriteProduct) error
+	GetCountPages(countPages *dto.DtoCountPages) (*dto.DtoCounter, error)
 	CreateSortString(sortKey, sortDirection string) (string, error)
-	SelectRangeFavorites(paginator *models.PaginatorFavorites, sortString string, userId uint64) ([]*models.ViewFavorite, error)
-	GetUserFavorites(userId *repository.DtoUserId) (*repository.DtoUserFavorites, error)
+	SelectRangeFavorites(paginator *usecase.PaginatorFavorites, sortString string, userId uint64) ([]*usecase.ViewFavorite, error)
+	GetUserFavorites(userId *dto.DtoUserId) (*dto.DtoUserFavorites, error)
 }

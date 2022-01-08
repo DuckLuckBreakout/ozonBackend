@@ -2,31 +2,15 @@ package repository
 
 import (
 	"database/sql"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
 type PostgresqlRepository struct {
 	db *sql.DB
-}
-
-type DtoCategoryId struct {
-	Id   uint64               `json:"id"`
-}
-
-type DtoCategoryLevel struct {
-	Level   uint64               `json:"level"`
-}
-
-type DtoCategoriesCatalog struct {
-	Catalog []*models.CategoriesCatalog
-}
-
-type DtoBranchBorders struct {
-	Left uint64 `json:"left"`
-	Right uint64 `json:"right"`
 }
 
 func NewSessionPostgresqlRepository(db *sql.DB) category.Repository {
@@ -36,7 +20,7 @@ func NewSessionPostgresqlRepository(db *sql.DB) category.Repository {
 }
 
 // Get lower level in categories tree
-func (r *PostgresqlRepository) GetNextLevelCategories(categoryId *DtoCategoryId) (*DtoCategoriesCatalog, error) {
+func (r *PostgresqlRepository) GetNextLevelCategories(categoryId *dto.DtoCategoryId) (*dto.DtoCategoriesCatalog, error) {
 	rows, err := r.db.Query(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node, c.level + 1  as level "+
@@ -55,9 +39,9 @@ func (r *PostgresqlRepository) GetNextLevelCategories(categoryId *DtoCategoryId)
 	}
 	defer rows.Close()
 
-	categories := make([]*models.CategoriesCatalog, 0)
+	categories := make([]*usecase.CategoriesCatalog, 0)
 	for rows.Next() {
-		nextLevelCategory := &models.CategoriesCatalog{}
+		nextLevelCategory := &usecase.CategoriesCatalog{}
 		err = rows.Scan(
 			&nextLevelCategory.Id,
 			&nextLevelCategory.Name,
@@ -68,11 +52,11 @@ func (r *PostgresqlRepository) GetNextLevelCategories(categoryId *DtoCategoryId)
 		categories = append(categories, nextLevelCategory)
 	}
 
-	return &DtoCategoriesCatalog{categories}, nil
+	return &dto.DtoCategoriesCatalog{categories}, nil
 }
 
 // Get categories in select level
-func (r *PostgresqlRepository) GetCategoriesByLevel(categoryLevel *DtoCategoryLevel) (*DtoCategoriesCatalog, error) {
+func (r *PostgresqlRepository) GetCategoriesByLevel(categoryLevel *dto.DtoCategoryLevel) (*dto.DtoCategoriesCatalog, error) {
 	rows, err := r.db.Query(
 		"SELECT c.id, c.name "+
 			"FROM categories c "+
@@ -84,9 +68,9 @@ func (r *PostgresqlRepository) GetCategoriesByLevel(categoryLevel *DtoCategoryLe
 	}
 	defer rows.Close()
 
-	categories := make([]*models.CategoriesCatalog, 0)
+	categories := make([]*usecase.CategoriesCatalog, 0)
 	for rows.Next() {
-		nextLevelCategory := &models.CategoriesCatalog{}
+		nextLevelCategory := &usecase.CategoriesCatalog{}
 		err = rows.Scan(
 			&nextLevelCategory.Id,
 			&nextLevelCategory.Name,
@@ -97,11 +81,11 @@ func (r *PostgresqlRepository) GetCategoriesByLevel(categoryLevel *DtoCategoryLe
 		categories = append(categories, nextLevelCategory)
 	}
 
-	return &DtoCategoriesCatalog{categories}, nil
+	return &dto.DtoCategoriesCatalog{categories}, nil
 }
 
 // Get left and right border of branch
-func (r *PostgresqlRepository) GetBordersOfBranch(categoryId *DtoCategoryId) (*DtoBranchBorders, error) {
+func (r *PostgresqlRepository) GetBordersOfBranch(categoryId *dto.DtoCategoryId) (*dto.DtoBranchBorders, error) {
 	row := r.db.QueryRow(
 		"SELECT c.left_node, c.right_node "+
 			"FROM categories c "+
@@ -119,14 +103,14 @@ func (r *PostgresqlRepository) GetBordersOfBranch(categoryId *DtoCategoryId) (*D
 		return nil, errors.ErrDBInternalError
 	}
 
-	return &DtoBranchBorders{
+	return &dto.DtoBranchBorders{
 		Left:  left,
 		Right: right,
 	}, nil
 }
 
 // Get path from root to category
-func (r *PostgresqlRepository) GetPathToCategory(categoryId *DtoCategoryId) (*DtoCategoriesCatalog, error) {
+func (r *PostgresqlRepository) GetPathToCategory(categoryId *dto.DtoCategoryId) (*dto.DtoCategoriesCatalog, error) {
 	rows, err := r.db.Query(
 		"WITH current_node AS ( "+
 			"SELECT c.left_node, c.right_node, c.level + 1  as level "+
@@ -145,9 +129,9 @@ func (r *PostgresqlRepository) GetPathToCategory(categoryId *DtoCategoryId) (*Dt
 	}
 	defer rows.Close()
 
-	categories := make([]*models.CategoriesCatalog, 0)
+	categories := make([]*usecase.CategoriesCatalog, 0)
 	for rows.Next() {
-		nextLevelCategory := &models.CategoriesCatalog{}
+		nextLevelCategory := &usecase.CategoriesCatalog{}
 		err = rows.Scan(
 			&nextLevelCategory.Id,
 			&nextLevelCategory.Name,
@@ -158,5 +142,5 @@ func (r *PostgresqlRepository) GetPathToCategory(categoryId *DtoCategoryId) (*Dt
 		categories = append(categories, nextLevelCategory)
 	}
 
-	return &DtoCategoriesCatalog{categories}, nil
+	return &dto.DtoCategoriesCatalog{categories}, nil
 }

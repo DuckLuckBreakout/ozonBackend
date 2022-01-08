@@ -2,11 +2,11 @@ package usecase
 
 import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/admin"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
+	notificationRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order"
 	orderRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order/repository"
-	notificationRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/server_push"
 )
@@ -23,7 +23,7 @@ func NewUseCase(notificationRepo notification.Repository, orderRepo order.Reposi
 	}
 }
 
-func (u *AdminUseCase) ChangeOrderStatus(updateOrder *models.UpdateOrder) error {
+func (u *AdminUseCase) ChangeOrderStatus(updateOrder *usecase.UpdateOrder) error {
 	changedOrder, err := u.OrderRepo.ChangeStatusOrder(&orderRepo.DtoUpdateOrder{
 		OrderId: updateOrder.OrderId,
 		Status:  updateOrder.Status,
@@ -39,8 +39,8 @@ func (u *AdminUseCase) ChangeOrderStatus(updateOrder *models.UpdateOrder) error 
 				Endpoint: endpoint,
 				Auth:     keys.Auth,
 				P256dh:   keys.P256dh,
-			}, models.OrderNotification{
-				Number: models.OrderNumber{
+			}, usecase.OrderNotification{
+				Number: usecase.OrderNumber{
 					Number: changedOrder.Number,
 				},
 				Status: updateOrder.Status,

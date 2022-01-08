@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites/repository"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
@@ -17,28 +17,28 @@ func NewUseCase(favoritesRepo favorites.Repository) favorites.UseCase {
 	}
 }
 
-func (u *FavoritesUseCase) AddProductToFavorites(favorite *models.FavoriteProduct) error {
-	return u.FavoritesRepo.AddProductToFavorites(&repository.DtoFavoriteProduct{
+func (u *FavoritesUseCase) AddProductToFavorites(favorite *usecase.FavoriteProduct) error {
+	return u.FavoritesRepo.AddProductToFavorites(&dto.DtoFavoriteProduct{
 		ProductId: favorite.ProductId,
 		UserId:    favorite.UserId,
 	})
 }
 
-func (u *FavoritesUseCase) DeleteProductFromFavorites(favorite *models.FavoriteProduct) error {
-	return u.FavoritesRepo.DeleteProductFromFavorites(&repository.DtoFavoriteProduct{
+func (u *FavoritesUseCase) DeleteProductFromFavorites(favorite *usecase.FavoriteProduct) error {
+	return u.FavoritesRepo.DeleteProductFromFavorites(&dto.DtoFavoriteProduct{
 		ProductId: favorite.ProductId,
 		UserId:    favorite.UserId,
 	})
 }
 
-func (u *FavoritesUseCase) GetRangeFavorites(pg *models.PaginatorFavorite) (*models.RangeFavorites, error) {
+func (u *FavoritesUseCase) GetRangeFavorites(pg *usecase.PaginatorFavorite) (*usecase.RangeFavorites, error) {
 	if pg.Paginator.PageNum < 1 || pg.Paginator.Count < 1 {
 		return nil, errors.ErrIncorrectPaginator
 	}
 
 	// Max count pages
-	countPages, err := u.FavoritesRepo.GetCountPages(&repository.DtoCountPages{
-		Count: pg.Paginator.Count,
+	countPages, err := u.FavoritesRepo.GetCountPages(&dto.DtoCountPages{
+		Count:  pg.Paginator.Count,
 		UserId: pg.UserId,
 	})
 	if err != nil {
@@ -57,17 +57,17 @@ func (u *FavoritesUseCase) GetRangeFavorites(pg *models.PaginatorFavorite) (*mod
 		return nil, errors.ErrIncorrectPaginator
 	}
 
-	return &models.RangeFavorites{
+	return &usecase.RangeFavorites{
 		ListPreviewProducts: products,
 		MaxCountPages:       countPages.Count,
 	}, nil
 }
 
-func (u *FavoritesUseCase) GetUserFavorites(userId *models.UserId) (*models.UserFavorites, error) {
-	favorite, err := u.FavoritesRepo.GetUserFavorites(&repository.DtoUserId{Id: userId.Id})
+func (u *FavoritesUseCase) GetUserFavorites(userId *usecase.UserId) (*usecase.UserFavorites, error) {
+	favorite, err := u.FavoritesRepo.GetUserFavorites(&dto.DtoUserId{Id: userId.Id})
 	if err != nil {
 		return nil, err
 	}
 
-	return &models.UserFavorites{Products: favorite.Products}, nil
+	return &usecase.UserFavorites{Products: favorite.Products}, nil
 }

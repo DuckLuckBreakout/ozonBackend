@@ -38,7 +38,7 @@ func (u *UserUseCase) Signup(signupUser *models.SignupUser) (uint64, error) {
 		return 0, errors.ErrHashFunctionFailed
 	}
 
-	userId, err := u.UserRepo.AddProfile(&models.AuthUser{
+	userId, err := u.UserRepo.AddProfile(&models.ApiAuthUser{
 		Email:    signupUser.Email,
 		Password: hashOfPassword,
 	})

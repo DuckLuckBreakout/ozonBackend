@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"context"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	proto "github.com/DuckLuckBreakout/ozonBackend/services/session/proto/session"
@@ -32,17 +32,17 @@ func (u *SessionUseCase) GetUserIdBySession(sessionCookieValue string) (uint64, 
 }
 
 // Create new user session and save in repository
-func (u *SessionUseCase) CreateNewSession(userId uint64) (*models.Session, error) {
+func (u *SessionUseCase) CreateNewSession(userId *usecase.UserId) (*usecase.Session, error) {
 	userSession, err := u.SessionClient.CreateNewSession(context.Background(), &proto.UserId{
-		Id: userId,
+		Id: userId.Id,
 	})
 	if err != nil {
 		return nil, errors.ErrInternalError
 	}
 
-	return &models.Session{
+	return &usecase.Session{
 		Value: userSession.Value.Value,
-		UserData: models.UserId{
+		UserData: usecase.UserId{
 			Id: userSession.Id.Id,
 		},
 	}, nil

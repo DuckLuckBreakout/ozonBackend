@@ -6,33 +6,16 @@ import (
 	"net/http"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/api"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/validator"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
 )
 
-type ApiPreviewCart struct {
-	Products []*models.PreviewCartArticle `json:"products" valid:"notnull"`
-	Price    models.TotalPrice            `json:"price" valid:"notnull"`
-}
-
 type CartHandler struct {
 	CartUCase cart.UseCase
-}
-
-type ApiProductPosition struct {
-	Count uint64 `json:"count"`
-}
-
-type ApiProductIdentifier struct {
-	ProductId uint64 `json:"product_id"`
-}
-
-type ApiCartArticle struct {
-	ApiProductPosition
-	ApiProductIdentifier
 }
 
 func NewHandler(cartUCase cart.UseCase) cart.Handler {
@@ -60,7 +43,7 @@ func (h *CartHandler) AddProductInCart(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	cartArticle := &ApiCartArticle{}
+	cartArticle := &api.ApiCartArticle{}
 	err = json.Unmarshal(body, cartArticle)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -74,14 +57,14 @@ func (h *CartHandler) AddProductInCart(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = h.CartUCase.AddProduct(
-		&models.UserId{
+		&usecase.UserId{
 			Id: currentSession.UserData.Id,
 		},
-		&models.CartArticle{
-			ProductPosition:   models.ProductPosition{
+		&usecase.CartArticle{
+			ProductPosition: usecase.ProductPosition{
 				Count: cartArticle.Count,
 			},
-			ProductIdentifier: models.ProductIdentifier{
+			ProductIdentifier: usecase.ProductIdentifier{
 				ProductId: cartArticle.ProductId,
 			},
 		},
@@ -113,7 +96,7 @@ func (h *CartHandler) DeleteProductInCart(w http.ResponseWriter, r *http.Request
 	}
 	defer r.Body.Close()
 
-	identifier := &ApiProductIdentifier{}
+	identifier := &api.ApiProductIdentifier{}
 	err = json.Unmarshal(body, identifier)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -127,10 +110,10 @@ func (h *CartHandler) DeleteProductInCart(w http.ResponseWriter, r *http.Request
 	}
 
 	err = h.CartUCase.DeleteProduct(
-		&models.UserId{
+		&usecase.UserId{
 			Id: currentSession.UserData.Id,
 		},
-		&models.ProductIdentifier{
+		&usecase.ProductIdentifier{
 			ProductId: identifier.ProductId,
 		},
 	)
@@ -161,7 +144,7 @@ func (h *CartHandler) ChangeProductInCart(w http.ResponseWriter, r *http.Request
 	}
 	defer r.Body.Close()
 
-	cartArticle := &ApiCartArticle{}
+	cartArticle := &api.ApiCartArticle{}
 	err = json.Unmarshal(body, cartArticle)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -175,14 +158,14 @@ func (h *CartHandler) ChangeProductInCart(w http.ResponseWriter, r *http.Request
 	}
 
 	err = h.CartUCase.ChangeProduct(
-		&models.UserId{
+		&usecase.UserId{
 			Id: currentSession.UserData.Id,
 		},
-		&models.CartArticle{
-			ProductPosition:   models.ProductPosition{
+		&usecase.CartArticle{
+			ProductPosition: usecase.ProductPosition{
 				Count: cartArticle.Count,
 			},
-			ProductIdentifier: models.ProductIdentifier{
+			ProductIdentifier: usecase.ProductIdentifier{
 				ProductId: cartArticle.ProductId,
 			},
 		},
@@ -207,13 +190,13 @@ func (h *CartHandler) GetProductsFromCart(w http.ResponseWriter, r *http.Request
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	previewUserCart, err := h.CartUCase.GetPreviewCart(&models.UserId{Id: currentSession.UserData.Id})
+	previewUserCart, err := h.CartUCase.GetPreviewCart(&usecase.UserId{Id: currentSession.UserData.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetJSONResponse(w, ApiPreviewCart{
+	http_utils.SetJSONResponse(w, api.ApiPreviewCart{
 		Products: previewUserCart.Products,
 		Price:    previewUserCart.Price,
 	}, http.StatusOK)
@@ -231,7 +214,7 @@ func (h *CartHandler) DeleteProductsFromCart(w http.ResponseWriter, r *http.Requ
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	err = h.CartUCase.DeleteCart(&models.UserId{Id: currentSession.UserData.Id})
+	err = h.CartUCase.DeleteCart(&usecase.UserId{Id: currentSession.UserData.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return

@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 
@@ -13,19 +14,6 @@ import (
 
 type RedisRepository struct {
 	conn *redis.Client
-}
-
-type DtoUserId struct {
-	Id uint64 `json:"id"`
-}
-
-type DtoNotificationKeys struct {
-	Auth   string `json:"auth"`
-	P256dh string `json:"p256dh"`
-}
-
-type DtoSubscribes struct {
-	Credentials map[string]*DtoNotificationKeys `json:"subscribes" valid:"notnull"`
 }
 
 func NewSessionRedisRepository(conn *redis.Client) notification.Repository {
@@ -38,7 +26,7 @@ func (r *RedisRepository) getNewKey(value uint64) string {
 	return fmt.Sprintf("notification:%d", value)
 }
 
-func (r *RedisRepository) AddSubscribeUser(userId *DtoUserId, subscribes *DtoSubscribes) error {
+func (r *RedisRepository) AddSubscribeUser(userId *dto.DtoUserId, subscribes *dto.DtoSubscribes) error {
 	key := r.getNewKey(userId.Id)
 
 	data, err := json.Marshal(subscribes)
@@ -54,8 +42,8 @@ func (r *RedisRepository) AddSubscribeUser(userId *DtoUserId, subscribes *DtoSub
 	return nil
 }
 
-func (r *RedisRepository) SelectCredentialsByUserId(userId *DtoUserId) (*DtoSubscribes, error) {
-	subscribes := &DtoSubscribes{}
+func (r *RedisRepository) SelectCredentialsByUserId(userId *dto.DtoUserId) (*dto.DtoSubscribes, error) {
+	subscribes := &dto.DtoSubscribes{}
 	key := r.getNewKey(userId.Id)
 
 	data, err := r.conn.Get(context.Background(), key).Bytes()
@@ -70,7 +58,7 @@ func (r *RedisRepository) SelectCredentialsByUserId(userId *DtoUserId) (*DtoSubs
 	return subscribes, nil
 }
 
-func (r *RedisRepository) DeleteSubscribeUser(userId *DtoUserId) error {
+func (r *RedisRepository) DeleteSubscribeUser(userId *dto.DtoUserId) error {
 	key := r.getNewKey(userId.Id)
 
 	err := r.conn.Del(context.Background(), key).Err()

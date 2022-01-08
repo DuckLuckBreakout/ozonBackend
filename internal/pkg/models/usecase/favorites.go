@@ -1,4 +1,4 @@
-package models
+package usecase
 
 var (
 	FavoritesCostSort      = "cost"

@@ -6,34 +6,13 @@ import (
 	"math"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
 type PostgresqlRepository struct {
 	db *sql.DB
-}
-
-type DtoFavoriteProduct struct {
-	ProductId uint64 `json:"product_id"`
-	UserId uint64 `json:"user_id"`
-}
-
-type DtoCountPages struct {
-	Count int `json:"count"`
-	UserId uint64 `json:"user_id"`
-}
-
-type DtoCounter struct {
-	Count int `json:"count"`
-}
-
-type DtoUserId struct {
-	Id uint64 `json:"id"`
-}
-
-type DtoUserFavorites struct {
-	Products []uint64 `json:"products"`
 }
 
 func NewSessionPostgresqlRepository(db *sql.DB) favorites.Repository {
@@ -42,7 +21,7 @@ func NewSessionPostgresqlRepository(db *sql.DB) favorites.Repository {
 	}
 }
 
-func (r *PostgresqlRepository) AddProductToFavorites(favorite *DtoFavoriteProduct) error {
+func (r *PostgresqlRepository) AddProductToFavorites(favorite *dto.DtoFavoriteProduct) error {
 	_, err := r.db.Exec(
 		"INSERT INTO favorites(product_id, user_id) "+
 			"VALUES ($1, $2)",
@@ -56,7 +35,7 @@ func (r *PostgresqlRepository) AddProductToFavorites(favorite *DtoFavoriteProduc
 	return nil
 }
 
-func (r *PostgresqlRepository) DeleteProductFromFavorites(favorite *DtoFavoriteProduct) error {
+func (r *PostgresqlRepository) DeleteProductFromFavorites(favorite *dto.DtoFavoriteProduct) error {
 	_, err := r.db.Exec(
 		"DELETE FROM favorites "+
 			"WHERE  (product_id = $1 AND user_id = $2)",
@@ -70,7 +49,7 @@ func (r *PostgresqlRepository) DeleteProductFromFavorites(favorite *DtoFavoriteP
 	return nil
 }
 
-func (r *PostgresqlRepository) GetCountPages(countPages *DtoCountPages) (*DtoCounter, error) {
+func (r *PostgresqlRepository) GetCountPages(countPages *dto.DtoCountPages) (*dto.DtoCounter, error) {
 	row := r.db.QueryRow(
 		"SELECT count(*) "+
 			"FROM favorites "+
@@ -84,20 +63,20 @@ func (r *PostgresqlRepository) GetCountPages(countPages *DtoCountPages) (*DtoCou
 	}
 	counter = int(math.Ceil(float64(counter) / float64(countPages.Count)))
 
-	return &DtoCounter{Count: counter}, nil
+	return &dto.DtoCounter{Count: counter}, nil
 }
 
 func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (string, error) {
 	// Select order target
 	var orderTarget string
 	switch sortKey {
-	case models.FavoritesCostSort:
+	case usecase.FavoritesCostSort:
 		orderTarget = "total_cost"
-	case models.FavoritesRatingSort:
+	case usecase.FavoritesRatingSort:
 		orderTarget = "(CASE WHEN avg_rating IS NULL THEN 0 ELSE avg_rating END)"
-	case models.FavoritesDateAddedSort:
+	case usecase.FavoritesDateAddedSort:
 		orderTarget = "date_added"
-	case models.FavoritesDiscountSort:
+	case usecase.FavoritesDiscountSort:
 		orderTarget = "discount"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -106,9 +85,9 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 	// Select order direction
 	var orderDirection string
 	switch sortDirection {
-	case models.FavoritesPaginatorASC:
+	case usecase.FavoritesPaginatorASC:
 		orderDirection = "ASC"
-	case models.FavoritesPaginatorDESC:
+	case usecase.FavoritesPaginatorDESC:
 		orderDirection = "DESC"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -118,10 +97,10 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 }
 
 func (r *PostgresqlRepository) SelectRangeFavorites(
-	paginator *models.PaginatorFavorites,
+	paginator *usecase.PaginatorFavorites,
 	sortString string,
 	userId uint64,
-) ([]*models.ViewFavorite, error) {
+) ([]*usecase.ViewFavorite, error) {
 	rows, err := r.db.Query(
 		"SELECT p.id, p.title, p.base_cost, p.total_cost, "+
 			"p.discount, p.images[1], "+
@@ -147,11 +126,11 @@ func (r *PostgresqlRepository) SelectRangeFavorites(
 	}
 	defer rows.Close()
 
-	products := make([]*models.ViewFavorite, 0)
+	products := make([]*usecase.ViewFavorite, 0)
 	rating := sql.NullFloat64{}
 	countReviews := sql.NullInt64{}
 	for rows.Next() {
-		product := &models.ViewFavorite{}
+		product := &usecase.ViewFavorite{}
 		err = rows.Scan(
 			&product.Id,
 			&product.Title,
@@ -174,7 +153,7 @@ func (r *PostgresqlRepository) SelectRangeFavorites(
 	return products, nil
 }
 
-func (r *PostgresqlRepository) GetUserFavorites(userId *DtoUserId) (*DtoUserFavorites, error) {
+func (r *PostgresqlRepository) GetUserFavorites(userId *dto.DtoUserId) (*dto.DtoUserFavorites, error) {
 	rows, err := r.db.Query(
 		"SELECT product_id "+
 			"FROM favorites "+
@@ -199,7 +178,7 @@ func (r *PostgresqlRepository) GetUserFavorites(userId *DtoUserId) (*DtoUserFavo
 		favoritesProducts = append(favoritesProducts, productId)
 	}
 
-	return &DtoUserFavorites{
+	return &dto.DtoUserFavorites{
 		Products: favoritesProducts,
 	}, nil
 }

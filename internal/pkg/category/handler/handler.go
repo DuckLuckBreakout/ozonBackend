@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
@@ -59,7 +59,7 @@ func (h *CategoryHandler) GetSubCategories(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	categories, err := h.CategoryUCase.GetSubCategoriesById(&models.CategoryId{Id: uint64(id)})
+	categories, err := h.CategoryUCase.GetSubCategoriesById(&usecase.CategoryId{Id: uint64(id)})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return

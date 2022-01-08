@@ -2,12 +2,12 @@ package middleware
 
 import (
 	"context"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"net/http"
 	"regexp"
 	"strconv"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/metrics"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
 
@@ -30,7 +30,7 @@ func AccessLog(metric *metrics.Metrics) func(http.Handler) http.Handler {
 			metric.ActualConnections.Inc()
 
 			requireId := shortuuid.New()
-			ctx := context.WithValue(r.Context(), models.RequireIdKey, requireId)
+			ctx := context.WithValue(r.Context(), usecase.RequireIdKey, requireId)
 			r = r.WithContext(ctx)
 			res := statusResponse{w, http.StatusOK}
 

@@ -1,4 +1,4 @@
-package models
+package usecase
 
 import "github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
 
@@ -111,10 +111,14 @@ type PaginatorRecommendations struct {
 
 type FavoriteProduct struct {
 	ProductId uint64 `json:"product_id"`
-	UserId uint64 `json:"user_id"`
+	UserId    uint64 `json:"user_id"`
 }
 
 type PaginatorFavorite struct {
 	Paginator PaginatorFavorites `json:"paginator"`
-	UserId uint64 `json:"user_id"`
+	UserId    uint64             `json:"user_id"`
+}
+
+type ProductId struct {
+	Id uint64 `json:"id"`
 }

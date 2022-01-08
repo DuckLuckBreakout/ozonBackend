@@ -2,11 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/api"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"io/ioutil"
 	"net/http"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
@@ -44,7 +45,7 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	var authUser models.LoginUser
+	var authUser api.ApiLoginUser
 	err = json.Unmarshal(body, &authUser)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -58,19 +59,22 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	userId, err := h.UserUCase.Authorize(&authUser)
+	userId, err := h.UserUCase.Authorize(&usecase.LoginUser{
+		Email:    authUser.Email,
+		Password: authUser.Password,
+	})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusUnauthorized)
 		return
 	}
 
-	currentSession, err := h.SessionUCase.CreateNewSession(userId)
+	currentSession, err := h.SessionUCase.CreateNewSession(&usecase.UserId{Id: userId.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetCookie(w, models.SessionCookieName, currentSession.Value, models.ExpireSessionCookie*time.Second)
+	http_utils.SetCookie(w, usecase.SessionCookieName, currentSession.Value, usecase.ExpireSessionCookie*time.Second)
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
@@ -93,7 +97,7 @@ func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	var updateUser models.UpdateUser
+	var updateUser api.ApiUpdateUser
 	err = json.Unmarshal(body, &updateUser)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -107,7 +111,13 @@ func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = h.UserUCase.UpdateProfile(currentSession.UserData.Id, &updateUser)
+	err = h.UserUCase.UpdateProfile(
+		&usecase.UserId{Id: currentSession.UserData.Id},
+		&usecase.UpdateUser{
+			FirstName: updateUser.FirstName,
+			LastName:  updateUser.LastName,
+		},
+	)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
@@ -142,13 +152,13 @@ func (h *UserHandler) UpdateProfileAvatar(w http.ResponseWriter, r *http.Request
 	}
 	defer file.Close()
 
-	fileUrl, err := h.UserUCase.SetAvatar(currentSession.UserData.Id, &file, header)
+	fileUrl, err := h.UserUCase.SetAvatar(&usecase.UserId{Id: currentSession.UserData.Id}, &file, header)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetJSONResponse(w, models.Avatar{Url: fileUrl}, http.StatusOK)
+	http_utils.SetJSONResponse(w, api.ApiAvatar{Url: fileUrl}, http.StatusOK)
 }
 
 // Handle get user avatar
@@ -163,13 +173,13 @@ func (h *UserHandler) GetProfileAvatar(w http.ResponseWriter, r *http.Request) {
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	fileUrl, err := h.UserUCase.GetAvatar(currentSession.UserData.Id)
+	fileUrl, err := h.UserUCase.GetAvatar(&usecase.UserId{Id: currentSession.UserData.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrUserNotFound, http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetJSONResponse(w, models.Avatar{Url: fileUrl}, http.StatusOK)
+	http_utils.SetJSONResponse(w, api.ApiAvatar{Url: fileUrl}, http.StatusOK)
 }
 
 // Handle get profile of current user
@@ -184,13 +194,22 @@ func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 
 	currentSession := http_utils.MustGetSessionFromContext(r.Context())
 
-	profileUser, err := h.UserUCase.GetUserById(currentSession.UserData.Id)
+	profileUser, err := h.UserUCase.GetUserById(&usecase.UserId{Id: currentSession.UserData.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetJSONResponse(w, profileUser, http.StatusOK)
+	http_utils.SetJSONResponse(w, api.ApiProfileUser{
+		Id:        profileUser.Id,
+		FirstName: profileUser.FirstName,
+		LastName:  profileUser.LastName,
+		Avatar: api.ApiAvatar{
+			Url: profileUser.Avatar.Url,
+		},
+		AuthId: profileUser.AuthId,
+		Email:  profileUser.Email,
+	}, http.StatusOK)
 }
 
 // Handle signup user
@@ -210,7 +229,7 @@ func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	var newUser models.SignupUser
+	var newUser api.ApiSignupUser
 	err = json.Unmarshal(body, &newUser)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -224,19 +243,22 @@ func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	addedUserId, err := h.UserUCase.AddUser(&newUser)
+	addedUserId, err := h.UserUCase.AddUser(&usecase.SignupUser{
+		Email:    newUser.Email,
+		Password: newUser.Password,
+	})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusConflict)
 		return
 	}
 
-	currentSession, err := h.SessionUCase.CreateNewSession(addedUserId)
+	currentSession, err := h.SessionUCase.CreateNewSession(&usecase.UserId{Id: addedUserId.Id})
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusInternalServerError)
 		return
 	}
 
-	http_utils.SetCookie(w, models.SessionCookieName, currentSession.Value, models.ExpireSessionCookie*time.Second)
+	http_utils.SetCookie(w, usecase.SessionCookieName, currentSession.Value, usecase.ExpireSessionCookie*time.Second)
 	http_utils.SetJSONResponseSuccess(w, http.StatusCreated)
 }
 
@@ -260,7 +282,7 @@ func (h *UserHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Auth middleware control existence of session cookie
-	sessionCookie, _ := r.Cookie(models.SessionCookieName)
+	sessionCookie, _ := r.Cookie(usecase.SessionCookieName)
 	http_utils.DestroyCookie(w, sessionCookie)
 
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)

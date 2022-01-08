@@ -2,30 +2,20 @@ package handler
 
 import (
 	"encoding/json"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"io/ioutil"
 	"net/http"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/admin"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/api"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/validator"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
 )
 
 type AdminHandler struct {
 	AdminUCase admin.UseCase
-}
-
-type ApiUpdateOrder struct {
-	OrderId uint64 `json:"order_id"`
-	Status  string `json:"status" valid:"in(в пути|оформлен|получен)"`
-}
-
-func (u *ApiUpdateOrder) Sanitize() {
-	sanitize := sanitizer.NewSanitizer()
-	u.Status = sanitize.Sanitize(u.Status)
 }
 
 func NewHandler(adminUCase admin.UseCase) admin.Handler {
@@ -50,7 +40,7 @@ func (h *AdminHandler) ChangeOrderStatus(w http.ResponseWriter, r *http.Request)
 	}
 	defer r.Body.Close()
 
-	var updateOrder ApiUpdateOrder
+	var updateOrder api.ApiUpdateOrder
 	err = json.Unmarshal(body, &updateOrder)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -64,7 +54,7 @@ func (h *AdminHandler) ChangeOrderStatus(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	err = h.AdminUCase.ChangeOrderStatus(&models.UpdateOrder{
+	err = h.AdminUCase.ChangeOrderStatus(&usecase.UpdateOrder{
 		OrderId: updateOrder.OrderId,
 		Status:  updateOrder.Status,
 	})

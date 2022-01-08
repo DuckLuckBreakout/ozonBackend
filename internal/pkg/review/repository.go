@@ -1,15 +1,19 @@
 package review
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import (
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+)
 
 //go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review Repository
 
 type Repository interface {
-	SelectStatisticsByProductId(productId uint64) (*models.ReviewStatistics, error)
-	CheckReview(userId uint64, productId uint64) bool
-	AddReview(userId uint64, review *models.Review) (uint64, error)
-	GetCountPages(productId uint64, countOrdersOnPage int) (int, error)
-	CreateSortString(sortKey, sortDirection string) (string, error)
-	SelectRangeReviews(productId uint64, sortString string,
-		paginator *models.PaginatorReviews) ([]*models.ViewReview, error)
+	SelectRangeReviews(
+		rangeReviews *dto.DtoRangeReviews,
+		paginator *dto.DtoPaginatorReviews,
+	) ([]*dto.DtoViewReview, error)
+	GetCountPages(countPages *dto.DtoCountPages) (*dto.DtoCounter, error)
+	CreateSortString(sortString *dto.DtoSortString) (string, error)
+	SelectStatisticsByProductId(productId *dto.DtoProductId) (*dto.DtoReviewStatistics, error)
+	CheckReview(review *dto.DtoCheckReview) bool
+	AddReview(userId *dto.DtoUserId, review *dto.DtoReview) (*dto.DtoReviewId, error)
 }

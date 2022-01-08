@@ -3,7 +3,7 @@ package repository
 import (
 	"database/sql"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
@@ -19,7 +19,7 @@ func NewSessionPostgresqlRepository(db *sql.DB) user.Repository {
 }
 
 // Add new user profile
-func (r *PostgresqlRepository) AddProfile(user *models.ProfileUser) (uint64, error) {
+func (r *PostgresqlRepository) AddProfile(user *dto.DtoProfileUser) (*dto.DtoUserId, error) {
 	row := r.db.QueryRow(
 		"INSERT INTO data_users(id, email) "+
 			"VALUES ($1, $2) RETURNING id",
@@ -29,21 +29,21 @@ func (r *PostgresqlRepository) AddProfile(user *models.ProfileUser) (uint64, err
 
 	var userId uint64
 	if err := row.Scan(&userId); err != nil {
-		return 0, errors.ErrDBInternalError
+		return nil, errors.ErrDBInternalError
 	}
 
-	return userId, nil
+	return &dto.DtoUserId{Id: userId}, nil
 }
 
 // Select one profile by id
-func (r *PostgresqlRepository) SelectProfileById(userId uint64) (*models.ProfileUser, error) {
+func (r *PostgresqlRepository) SelectProfileById(userId *dto.DtoUserId) (*dto.DtoProfileUser, error) {
 	row := r.db.QueryRow(
 		"SELECT id, first_name, last_name, avatar, email "+
 			"FROM data_users WHERE id = $1",
-		userId,
+		userId.Id,
 	)
 
-	userById := models.ProfileUser{}
+	userById := dto.DtoProfileUser{}
 
 	firstName := sql.NullString{}
 	lastName := sql.NullString{}
@@ -70,7 +70,7 @@ func (r *PostgresqlRepository) SelectProfileById(userId uint64) (*models.Profile
 }
 
 // Update info in user profile
-func (r *PostgresqlRepository) UpdateProfile(userId uint64, user *models.UpdateUser) error {
+func (r *PostgresqlRepository) UpdateProfile(userId *dto.DtoUserId, user *dto.DtoUpdateUser) error {
 	_, err := r.db.Exec(
 		"UPDATE data_users SET "+
 			"first_name = $1, "+
@@ -78,7 +78,7 @@ func (r *PostgresqlRepository) UpdateProfile(userId uint64, user *models.UpdateU
 			"WHERE id = $3",
 		user.FirstName,
 		user.LastName,
-		userId,
+		userId.Id,
 	)
 	if err != nil {
 		return errors.ErrDBInternalError
@@ -88,13 +88,13 @@ func (r *PostgresqlRepository) UpdateProfile(userId uint64, user *models.UpdateU
 }
 
 // Update user avatar
-func (r *PostgresqlRepository) UpdateAvatar(userId uint64, avatarUrl string) error {
+func (r *PostgresqlRepository) UpdateAvatar(userId *dto.DtoUserId, avatarUrl string) error {
 	_, err := r.db.Exec(
 		"UPDATE data_users SET "+
 			"avatar = $1 "+
 			"WHERE id = $2",
 		avatarUrl,
-		userId,
+		userId.Id,
 	)
 	if err != nil {
 		return errors.ErrDBInternalError

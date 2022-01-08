@@ -2,10 +2,11 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/api"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"io/ioutil"
 	"net/http"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/promo_code"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
@@ -39,7 +40,7 @@ func (h *PromoCodeHandler) ApplyPromoCodeToOrder(w http.ResponseWriter, r *http.
 	}
 	defer r.Body.Close()
 
-	promoCodeGroup := &models.PromoCodeGroup{}
+	promoCodeGroup := &api.ApiPromoCodeGroup{}
 	err = json.Unmarshal(body, promoCodeGroup)
 	if err != nil {
 		http_utils.SetJSONResponse(w, errors.ErrCanNotUnmarshal, http.StatusBadRequest)
@@ -52,7 +53,10 @@ func (h *PromoCodeHandler) ApplyPromoCodeToOrder(w http.ResponseWriter, r *http.
 		return
 	}
 
-	discountedPrice, err := h.PromoCodeUCase.ApplyPromoCodeToOrder(promoCodeGroup)
+	discountedPrice, err := h.PromoCodeUCase.ApplyPromoCodeToOrder(&usecase.PromoCodeGroup{
+		Products:  promoCodeGroup.Products,
+		PromoCode: promoCodeGroup.PromoCode,
+	})
 	if err == errors.ErrProductNotInPromo {
 		http_utils.SetJSONResponse(w, errors.CreateError(err), http.StatusConflict)
 		return
@@ -61,5 +65,9 @@ func (h *PromoCodeHandler) ApplyPromoCodeToOrder(w http.ResponseWriter, r *http.
 		return
 	}
 
-	http_utils.SetJSONResponse(w, discountedPrice, http.StatusOK)
+	http_utils.SetJSONResponse(w, api.ApiDiscountedPrice{
+		TotalDiscount: discountedPrice.TotalDiscount,
+		TotalCost:     discountedPrice.TotalCost,
+		TotalBaseCost: discountedPrice.TotalBaseCost,
+	}, http.StatusOK)
 }

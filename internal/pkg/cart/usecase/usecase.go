@@ -2,9 +2,9 @@ package usecase
 
 import (
 	"context"
-
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	proto "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
@@ -23,7 +23,7 @@ func NewUseCase(cartClient proto.CartServiceClient, productRepo product.Reposito
 }
 
 // Add product in user cart
-func (u *CartUseCase) AddProduct(userId *models.UserId, cartArticle *models.CartArticle) error {
+func (u *CartUseCase) AddProduct(userId *usecase.UserId, cartArticle *usecase.CartArticle) error {
 	_, err := u.CartClient.AddProduct(
 		context.Background(),
 		&proto.ReqCartArticle{
@@ -41,7 +41,7 @@ func (u *CartUseCase) AddProduct(userId *models.UserId, cartArticle *models.Cart
 }
 
 // Delete product from cart
-func (u *CartUseCase) DeleteProduct(userId *models.UserId, identifier *models.ProductIdentifier) error {
+func (u *CartUseCase) DeleteProduct(userId *usecase.UserId, identifier *usecase.ProductIdentifier) error {
 	_, err := u.CartClient.DeleteProduct(
 		context.Background(),
 		&proto.ReqProductIdentifier{
@@ -58,7 +58,7 @@ func (u *CartUseCase) DeleteProduct(userId *models.UserId, identifier *models.Pr
 }
 
 // Change product in user cart
-func (u *CartUseCase) ChangeProduct(userId *models.UserId, cartArticle *models.CartArticle) error {
+func (u *CartUseCase) ChangeProduct(userId *usecase.UserId, cartArticle *usecase.CartArticle) error {
 	_, err := u.CartClient.ChangeProduct(
 		context.Background(),
 		&proto.ReqCartArticle{
@@ -76,7 +76,7 @@ func (u *CartUseCase) ChangeProduct(userId *models.UserId, cartArticle *models.C
 }
 
 // Get preview cart
-func (u *CartUseCase) GetPreviewCart(userId *models.UserId) (*models.PreviewCart, error) {
+func (u *CartUseCase) GetPreviewCart(userId *usecase.UserId) (*usecase.PreviewCart, error) {
 	userCart, err := u.CartClient.GetPreviewCart(
 		context.Background(),
 		&proto.ReqUserId{UserId: userId.Id},
@@ -86,18 +86,18 @@ func (u *CartUseCase) GetPreviewCart(userId *models.UserId) (*models.PreviewCart
 		return nil, errors.ErrInternalError
 	}
 
-	previewUserCart := &models.PreviewCart{}
+	previewUserCart := &usecase.PreviewCart{}
 	for id, productPosition := range userCart.Products {
-		productById, err := u.ProductRepo.SelectProductById(id)
+		productById, err := u.ProductRepo.SelectProductById(&dto.DtoProductId{ProductId: id})
 		if err != nil {
 			return nil, err
 		}
 
 		previewUserCart.Products = append(previewUserCart.Products,
-			&models.PreviewCartArticle{
+			&usecase.PreviewCartArticle{
 				Id:    productById.Id,
 				Title: productById.Title,
-				Price: models.CartProductPrice{
+				Price: usecase.CartProductPrice{
 					Discount:  productById.Price.Discount,
 					BaseCost:  productById.Price.BaseCost,
 					TotalCost: productById.Price.TotalCost,
@@ -115,7 +115,7 @@ func (u *CartUseCase) GetPreviewCart(userId *models.UserId) (*models.PreviewCart
 }
 
 // Delete user cart
-func (u *CartUseCase) DeleteCart(userId *models.UserId) error {
+func (u *CartUseCase) DeleteCart(userId *usecase.UserId) error {
 	_, err := u.CartClient.DeleteCart(
 		context.Background(),
 		&proto.ReqUserId{UserId: userId.Id},

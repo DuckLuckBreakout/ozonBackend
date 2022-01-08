@@ -1,4 +1,4 @@
-package models
+package usecase
 
 import uuid "github.com/satori/go.uuid"
 

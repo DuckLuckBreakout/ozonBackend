@@ -1,10 +1,10 @@
 package middleware
 
 import (
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"net/http"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/jwt_token"
@@ -23,7 +23,7 @@ func CsrfCheck(next http.Handler) http.Handler {
 
 		if r.Method == http.MethodPost || r.Method == http.MethodDelete ||
 			r.Method == http.MethodPut || r.Method == http.MethodPatch {
-			csrfTokenFromHeader := r.Header.Get(models.CsrfTokenHeaderName)
+			csrfTokenFromHeader := r.Header.Get(usecase.CsrfTokenHeaderName)
 			if csrfTokenFromHeader == "" {
 				http_utils.SetJSONResponse(w, errors.ErrNotFoundCsrfToken, http.StatusBadRequest)
 				return

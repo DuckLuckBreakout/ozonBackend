@@ -1,7 +1,8 @@
 package usecase
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/promo_code"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
@@ -16,16 +17,21 @@ func NewUseCase(promoCodeRepo promo_code.Repository) promo_code.UseCase {
 	}
 }
 
-func (u *PromoCodeUseCase) ApplyPromoCodeToOrder(promoCodeGroup *models.PromoCodeGroup) (*models.DiscountedPrice, error) {
-	err := u.PromoCodeRepo.CheckPromo(promoCodeGroup.PromoCode)
+func (u *PromoCodeUseCase) ApplyPromoCodeToOrder(promoCodeGroup *usecase.PromoCodeGroup) (*usecase.DiscountedPrice, error) {
+	err := u.PromoCodeRepo.CheckPromo(&dto.DtoPromoCode{
+		Code: promoCodeGroup.PromoCode,
+	})
 	if err != nil {
 		return nil, errors.ErrPromoCodeNotFound
 	}
 
 	productsInAction := 0
-	discountedPrice := &models.DiscountedPrice{}
+	discountedPrice := &usecase.DiscountedPrice{}
 	for _, productId := range promoCodeGroup.Products {
-		price, err := u.PromoCodeRepo.GetDiscountPriceByPromo(productId, promoCodeGroup.PromoCode)
+		price, err := u.PromoCodeRepo.GetDiscountPriceByPromo(&dto.DtoPromoProduct{
+			ProductId: productId,
+			PromoCode: promoCodeGroup.PromoCode,
+		})
 
 		if err == nil {
 			productsInAction += 1

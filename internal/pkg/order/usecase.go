@@ -1,11 +1,13 @@
 package order
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import (
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
+)
 
 //go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order UseCase
 
 type UseCase interface {
-	GetPreviewOrder(userId uint64, previewCart *models.PreviewCart) (*models.PreviewOrder, error)
-	AddCompletedOrder(order *models.Order, userId uint64, previewCart *models.PreviewCart) (*models.OrderNumber, error)
-	GetRangeOrders(userId uint64, paginator *models.PaginatorOrders) (*models.RangeOrders, error)
+	GetPreviewOrder(userId *usecase.UserId, previewCart *usecase.PreviewCart) (*usecase.PreviewOrder, error)
+	AddCompletedOrder(order *usecase.Order, userId *usecase.UserId, previewCart *usecase.PreviewCart) (*usecase.OrderNumber, error)
+	GetRangeOrders(userId *usecase.UserId, paginator *usecase.PaginatorOrders) (*usecase.RangeOrders, error)
 }

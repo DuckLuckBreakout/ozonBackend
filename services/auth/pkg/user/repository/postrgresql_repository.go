@@ -2,8 +2,8 @@ package repository
 
 import (
 	"database/sql"
-
 	"github.com/DuckLuckBreakout/ozonBackend/services/auth/pkg/models"
+
 	"github.com/DuckLuckBreakout/ozonBackend/services/auth/pkg/user"
 	"github.com/DuckLuckBreakout/ozonBackend/services/auth/server/errors"
 )
@@ -18,7 +18,7 @@ func NewSessionPostgresqlRepository(db *sql.DB) user.Repository {
 	}
 }
 
-func (r *PostgresqlRepository) AddProfile(newUser *models.AuthUser) (uint64, error) {
+func (r *PostgresqlRepository) AddProfile(newUser *models.ApiAuthUser) (uint64, error) {
 	row := r.db.QueryRow(
 		"INSERT INTO auth_users(email, password) "+
 			"SELECT $1, $2 "+
@@ -40,14 +40,14 @@ func (r *PostgresqlRepository) AddProfile(newUser *models.AuthUser) (uint64, err
 	return userId, nil
 }
 
-func (r *PostgresqlRepository) SelectUserByEmail(email string) (*models.AuthUser, error) {
+func (r *PostgresqlRepository) SelectUserByEmail(email string) (*models.ApiAuthUser, error) {
 	row := r.db.QueryRow(
 		"SELECT id, email, password "+
 			"FROM auth_users WHERE email = $1",
 		email,
 	)
 
-	userByEmail := models.AuthUser{}
+	userByEmail := models.ApiAuthUser{}
 	err := row.Scan(
 		&userByEmail.Id,
 		&userByEmail.Email,

@@ -1,18 +1,24 @@
 package order
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order/repository"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
 )
 
 //go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order Repository
 
 type Repository interface {
-	AddOrder(order *models.Order, userId uint64, products []*models.PreviewCartArticle,
-		price *models.TotalPrice) (*models.OrderNumber, error)
-	SelectRangeOrders(orderId uint64, sortString string, paginator *models.PaginatorOrders) ([]*models.PlacedOrder, error)
-	CreateSortString(sortKey, sortDirection string) (string, error)
-	GetCountPages(userId uint64, countOrdersOnPage int) (int, error)
-	GetProductsInOrder(orderId uint64) ([]*models.PreviewOrderedProducts, error)
-	ChangeStatusOrder(order *repository.DtoUpdateOrder) (*repository.DtoChangedOrder, error)
+	AddOrder(
+		order *dto.DtoOrder,
+		userId *dto.DtoUserId,
+		products []*dto.DtoPreviewCartArticle,
+		price *dto.DtoTotalPrice,
+	) (*dto.DtoOrderNumber, error)
+	SelectRangeOrders(
+		rangeOrders *dto.DtoRangeOrders,
+		paginator *dto.DtoPaginatorOrders,
+	) ([]*dto.DtoPlacedOrder, error)
+	CreateSortString(sortStr *dto.DtoSortString) (string, error)
+	GetCountPages(cnt *dto.DtoOrderCountPages) (int, error)
+	GetProductsInOrder(orderId *dto.DtoOrderId) ([]*dto.DtoPreviewOrderedProducts, error)
+	ChangeStatusOrder(order *dto.DtoUpdateOrder) (*dto.DtoChangedOrder, error)
 }

@@ -2,8 +2,8 @@ package usecase
 
 import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category/repository"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
@@ -18,21 +18,21 @@ func NewUseCase(repo category.Repository) category.UseCase {
 }
 
 // Get first three levels of categories tree
-func (u *CategoryUseCase) GetCatalogCategories() ([]*models.CategoriesCatalog, error) {
-	categories, err := u.CategoryRepo.GetCategoriesByLevel(&repository.DtoCategoryLevel{Level:uint64(1)})
+func (u *CategoryUseCase) GetCatalogCategories() ([]*usecase.CategoriesCatalog, error) {
+	categories, err := u.CategoryRepo.GetCategoriesByLevel(&dto.DtoCategoryLevel{Level: uint64(1)})
 	if err != nil {
 		return nil, errors.ErrDBInternalError
 	}
 
 	for _, category := range categories.Catalog {
-		nextLevel, err := u.CategoryRepo.GetNextLevelCategories(&repository.DtoCategoryId{Id: category.Id})
+		nextLevel, err := u.CategoryRepo.GetNextLevelCategories(&dto.DtoCategoryId{Id: category.Id})
 		if err != nil {
 			return nil, errors.ErrDBInternalError
 		}
 		category.Next = nextLevel.Catalog
 
 		for _, subCategory := range category.Next {
-			nextLevel, err = u.CategoryRepo.GetNextLevelCategories(&repository.DtoCategoryId{Id: subCategory.Id})
+			nextLevel, err = u.CategoryRepo.GetNextLevelCategories(&dto.DtoCategoryId{Id: subCategory.Id})
 			if err != nil {
 				return nil, errors.ErrDBInternalError
 			}
@@ -44,8 +44,8 @@ func (u *CategoryUseCase) GetCatalogCategories() ([]*models.CategoriesCatalog, e
 }
 
 // Get subcategories by category id
-func (u *CategoryUseCase) GetSubCategoriesById(categoryId *models.CategoryId) ([]*models.CategoriesCatalog, error) {
-	categories, err := u.CategoryRepo.GetNextLevelCategories(&repository.DtoCategoryId{Id: categoryId.Id})
+func (u *CategoryUseCase) GetSubCategoriesById(categoryId *usecase.CategoryId) ([]*usecase.CategoriesCatalog, error) {
+	categories, err := u.CategoryRepo.GetNextLevelCategories(&dto.DtoCategoryId{Id: categoryId.Id})
 	if err != nil {
 		return nil, err
 	}

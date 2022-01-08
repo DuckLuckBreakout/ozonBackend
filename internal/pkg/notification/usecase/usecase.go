@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification/repository"
 )
 
 type NotificationUseCase struct {
@@ -16,24 +16,24 @@ func NewUseCase(notificationRepo notification.Repository) notification.UseCase {
 	}
 }
 
-func (u *NotificationUseCase) SubscribeUser(userId *models.UserId, credentials *models.NotificationCredentials) error {
-	var subscribes *repository.DtoSubscribes
-	subscribes, err := u.NotificationRepo.SelectCredentialsByUserId(&repository.DtoUserId{Id: userId.Id})
+func (u *NotificationUseCase) SubscribeUser(userId *usecase.UserId, credentials *usecase.NotificationCredentials) error {
+	var subscribes *dto.DtoSubscribes
+	subscribes, err := u.NotificationRepo.SelectCredentialsByUserId(&dto.DtoUserId{Id: userId.Id})
 	if err != nil || subscribes.Credentials == nil || subscribes == nil {
-		subscribes = &repository.DtoSubscribes{}
-		subscribes.Credentials = make(map[string]*repository.DtoNotificationKeys)
+		subscribes = &dto.DtoSubscribes{}
+		subscribes.Credentials = make(map[string]*dto.DtoNotificationKeys)
 	}
 
-	subscribes.Credentials[credentials.Endpoint] = &repository.DtoNotificationKeys{
+	subscribes.Credentials[credentials.Endpoint] = &dto.DtoNotificationKeys{
 		Auth:   credentials.Keys.Auth,
 		P256dh: credentials.Keys.P256dh,
 	}
 
-	return u.NotificationRepo.AddSubscribeUser(&repository.DtoUserId{Id: userId.Id}, subscribes)
+	return u.NotificationRepo.AddSubscribeUser(&dto.DtoUserId{Id: userId.Id}, subscribes)
 }
 
-func (u *NotificationUseCase) UnsubscribeUser(userId *models.UserId, endpoint string) error {
-	id := &repository.DtoUserId{Id: userId.Id}
+func (u *NotificationUseCase) UnsubscribeUser(userId *usecase.UserId, endpoint string) error {
+	id := &dto.DtoUserId{Id: userId.Id}
 	userSubscribes, err := u.NotificationRepo.SelectCredentialsByUserId(id)
 	if err != nil {
 		return err

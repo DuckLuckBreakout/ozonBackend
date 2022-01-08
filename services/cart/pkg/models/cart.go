@@ -31,3 +31,15 @@ type TotalPrice struct {
 type UserId struct {
 	Id uint64
 }
+
+type DtoUserId struct {
+	Id uint64 `json:"id"`
+}
+
+type DtoProductPosition struct {
+	Count uint64 `json:"count"`
+}
+
+type DtoCart struct {
+	Products map[uint64]*DtoProductPosition `json:"products" valid:"notnull"`
+}

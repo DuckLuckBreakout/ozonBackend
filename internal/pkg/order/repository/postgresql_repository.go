@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
@@ -14,32 +15,24 @@ type PostgresqlRepository struct {
 	db *sql.DB
 }
 
-type DtoUpdateOrder struct {
-	OrderId uint64 `json:"order_id"`
-	Status  string `json:"status"`
-}
-
-type DtoChangedOrder struct {
-	Number string `json:"number"`
-	UserId uint64 `json:"user_id"`
-}
-
 func NewSessionPostgresqlRepository(db *sql.DB) order.Repository {
 	return &PostgresqlRepository{
 		db: db,
 	}
 }
 
-func (r *PostgresqlRepository) SelectRangeOrders(userId uint64, sortString string,
-	paginator *models.PaginatorOrders) ([]*models.PlacedOrder, error) {
+func (r *PostgresqlRepository) SelectRangeOrders(
+	rangeOrders *dto.DtoRangeOrders,
+	paginator *dto.DtoPaginatorOrders,
+) ([]*dto.DtoPlacedOrder, error) {
 	rows, err := r.db.Query(
 		"SELECT id, address, total_cost, date_added, date_delivery, "+
 			"order_num, status "+
 			"FROM user_orders "+
 			"WHERE user_id = $1 "+
-			sortString+
+			rangeOrders.SortString+
 			"LIMIT $2 OFFSET $3",
-		userId,
+		rangeOrders.UserId,
 		paginator.Count,
 		paginator.Count*(paginator.PageNum-1),
 	)
@@ -48,9 +41,9 @@ func (r *PostgresqlRepository) SelectRangeOrders(userId uint64, sortString strin
 	}
 	defer rows.Close()
 
-	orders := make([]*models.PlacedOrder, 0)
+	orders := make([]*dto.DtoPlacedOrder, 0)
 	for rows.Next() {
-		placedOrder := &models.PlacedOrder{}
+		placedOrder := &dto.DtoPlacedOrder{}
 		err = rows.Scan(
 			&placedOrder.Id,
 			&placedOrder.Address.Address,
@@ -70,28 +63,28 @@ func (r *PostgresqlRepository) SelectRangeOrders(userId uint64, sortString strin
 }
 
 // Get count of all pages for this category
-func (r *PostgresqlRepository) GetCountPages(userId uint64, countOrdersOnPage int) (int, error) {
+func (r *PostgresqlRepository) GetCountPages(cnt *dto.DtoOrderCountPages) (int, error) {
 	row := r.db.QueryRow(
 		"SELECT count(id) "+
 			"FROM user_orders "+
 			"WHERE user_id = $1",
-		userId,
+		cnt.UserId,
 	)
 
 	var countPages int
 	if err := row.Scan(&countPages); err != nil {
 		return 0, errors.ErrDBInternalError
 	}
-	countPages = int(math.Ceil(float64(countPages) / float64(countOrdersOnPage)))
+	countPages = int(math.Ceil(float64(countPages) / float64(cnt.CountOrdersOnPage)))
 
 	return countPages, nil
 }
 
-func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (string, error) {
+func (r *PostgresqlRepository) CreateSortString(sortStr *dto.DtoSortString) (string, error) {
 	// Select order target
 	var orderTarget string
-	switch sortKey {
-	case models.OrdersDateAddedSort:
+	switch sortStr.SortKey {
+	case usecase.OrdersDateAddedSort:
 		orderTarget = "date_added"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -99,10 +92,10 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 
 	// Select order direction
 	var orderDirection string
-	switch sortDirection {
-	case models.OrdersPaginatorASC:
+	switch sortStr.SortDirection {
+	case usecase.OrdersPaginatorASC:
 		orderDirection = "ASC"
-	case models.OrdersPaginatorDESC:
+	case usecase.OrdersPaginatorDESC:
 		orderDirection = "DESC"
 	default:
 		return "", errors.ErrIncorrectPaginator
@@ -111,7 +104,7 @@ func (r *PostgresqlRepository) CreateSortString(sortKey, sortDirection string) (
 	return fmt.Sprintf("ORDER BY %s %s ", orderTarget, orderDirection), nil
 }
 
-func (r *PostgresqlRepository) GetProductsInOrder(orderId uint64) ([]*models.PreviewOrderedProducts, error) {
+func (r *PostgresqlRepository) GetProductsInOrder(orderId *dto.DtoOrderId) ([]*dto.DtoPreviewOrderedProducts, error) {
 	rows, err := r.db.Query(
 		"SELECT p.id, p.images[1] "+
 			"FROM ordered_products rp "+
@@ -124,9 +117,9 @@ func (r *PostgresqlRepository) GetProductsInOrder(orderId uint64) ([]*models.Pre
 	}
 	defer rows.Close()
 
-	products := make([]*models.PreviewOrderedProducts, 0)
+	products := make([]*dto.DtoPreviewOrderedProducts, 0)
 	for rows.Next() {
-		orderedProduct := &models.PreviewOrderedProducts{}
+		orderedProduct := &dto.DtoPreviewOrderedProducts{}
 		err = rows.Scan(
 			&orderedProduct.Id,
 			&orderedProduct.PreviewImage,
@@ -141,8 +134,12 @@ func (r *PostgresqlRepository) GetProductsInOrder(orderId uint64) ([]*models.Pre
 }
 
 // Add order in db
-func (r *PostgresqlRepository) AddOrder(order *models.Order, userId uint64,
-	products []*models.PreviewCartArticle, price *models.TotalPrice) (*models.OrderNumber, error) {
+func (r *PostgresqlRepository) AddOrder(
+	order *dto.DtoOrder,
+	userId *dto.DtoUserId,
+	products []*dto.DtoPreviewCartArticle,
+	price *dto.DtoTotalPrice,
+) (*dto.DtoOrderNumber, error) {
 	row := r.db.QueryRow(
 		"INSERT INTO user_orders(user_id, first_name, last_name, email, "+
 			"address, base_cost, total_cost, discount) "+
@@ -156,7 +153,7 @@ func (r *PostgresqlRepository) AddOrder(order *models.Order, userId uint64,
 		price.TotalCost,
 		price.TotalDiscount,
 	)
-	var orderNumber models.OrderNumber
+	var orderNumber dto.DtoOrderNumber
 	var orderId int
 	if err := row.Scan(&orderId, &orderNumber.Number); err != nil {
 		return nil, errors.ErrDBInternalError
@@ -180,7 +177,7 @@ func (r *PostgresqlRepository) AddOrder(order *models.Order, userId uint64,
 	return &orderNumber, nil
 }
 
-func (r *PostgresqlRepository) ChangeStatusOrder(order *DtoUpdateOrder) (*DtoChangedOrder, error) {
+func (r *PostgresqlRepository) ChangeStatusOrder(order *dto.DtoUpdateOrder) (*dto.DtoChangedOrder, error) {
 	row := r.db.QueryRow(
 		"UPDATE user_orders "+
 			"SET status = $1 "+
@@ -190,7 +187,7 @@ func (r *PostgresqlRepository) ChangeStatusOrder(order *DtoUpdateOrder) (*DtoCha
 		order.OrderId,
 	)
 
-	var changedOrder DtoChangedOrder
+	var changedOrder dto.DtoChangedOrder
 	if err := row.Scan(&changedOrder.UserId, &changedOrder.Number); err != nil {
 		return nil, errors.ErrDBInternalError
 	}
