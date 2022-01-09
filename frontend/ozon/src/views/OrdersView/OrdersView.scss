@@ -1,0 +1,144 @@
+@import '../../constants';
+
+.ordersWrapper {
+  width: 100%;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.body {
+  max-width: $max-width;
+  padding: 4px 28px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: $font-family;
+  display: flex;
+  flex-direction: column;
+  gap: $gap-s;
+}
+
+.emptyCartText {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.orders {
+  display: flex;
+  flex-direction: column;
+  gap: $gap-s;
+}
+
+.order {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $order-head-color;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 2px rgba(34, 60, 80, 0.2);
+}
+
+.images {
+  max-width: 70%;
+  margin-top: $margin-s;
+  margin-bottom: $margin-s;
+  margin-right: 20px;
+}
+
+.image {
+  display: block;
+  cursor: pointer;
+}
+
+.select {
+  display: block;
+  width: $width-s;
+}
+
+.orderHead {
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  background-color: $order-head-color;
+  min-height: $height-s;
+  gap: $gap-xxs;
+}
+
+.headTop {
+  display: flex;
+  justify-content: space-between;
+  margin-top: $margin-s;
+  margin-left: $margin-s;
+  margin-right: $margin-s;
+}
+
+.orderIdWrapper {
+  margin-left: $margin-s;
+  margin-bottom: $margin-s;
+}
+
+.orderBody {
+  display: flex;
+  flex-direction: row;
+  min-height: $height-l;
+  gap: 20px;
+}
+
+.address {
+  margin-top: $margin-s;
+  min-width: 30%;
+  max-width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: $gap-xxs;
+}
+
+.text {
+  margin-left: $margin-s;
+}
+
+.addressText {
+  margin-left: $margin-s;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.statusBadge {
+  background-color: $order-status-color;
+
+  border-radius: 12px;
+  padding: 3px 8px;
+  line-height: 1.29;
+  display: inline-flex;
+  align-items: center;
+}
+
+.status {
+  margin: auto;
+  color: white;
+}
+
+.bodyWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: $gap-s;
+}
+
+.select {
+  width: 226px;
+  height: $height-xxxs;
+  border-radius: 6px;
+  border: 2px solid $select-color;
+  font-family: $font-family;
+  cursor: pointer;
+}
+
+.select:hover {
+  border-color: $select-active-color;
+}
+
+.select:focus {
+  outline: 0;
+}

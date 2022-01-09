@@ -1,0 +1,11 @@
+{
+  "source": {
+    "include": ["./ozon/src/"],
+    "exclude": [],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "opts": {
+    "recurse": true
+  }
+}

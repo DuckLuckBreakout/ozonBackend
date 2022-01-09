@@ -1,0 +1,306 @@
+@import '../../constants';
+
+.cartWrapper {
+    background: $neutral-background-color;
+    width: 100%;
+    height: 100%;
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.body {
+    max-width: $max-width;
+    padding: $padding-xs $padding-l;
+    margin: $margin-l auto 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainWrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: $margin-l;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    max-width: $max-width;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: $font-family;
+    justify-content: space-between;
+}
+
+.cartInfo {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 100%;
+    border-radius: $standard-border-radius;
+}
+
+.addressBlock {
+    min-height: 250px;
+}
+
+.deliveryBlock {
+    height: $height-m;
+    background: $neutral-background-color;
+    margin: $margin-s auto;
+    display: flex;
+    border-radius: $standard-border-radius;
+    width: 96.57%;
+}
+
+.deliveryText {
+    margin: $margin-s;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: $gap-xs;
+}
+
+.image {
+    width: $height-l;
+    height: $height-l;
+    cursor: pointer;
+}
+
+.productImage {
+    height: 100%;
+}
+
+.productsListElem {
+    display: flex;
+    flex-direction: row;
+    max-width: $max-width;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: $font-family;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    margin-left: 28px;
+    margin-right: 18px;
+    border-bottom: solid 1px;
+    border-color: $dark-neutral-background-color;
+}
+
+.promoTitle {
+    //margin-bottom: 15px;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.orderMenu {
+    width: 32%;
+    background: white;
+    border-radius: $standard-border-radius;
+    display: flex;
+    flex-direction: column;
+}
+
+.orderButtonWrapper {
+    width: 89.84%;
+    height: $height-s;
+    margin: $margin-m auto auto;
+}
+
+.orderButtonBlock {
+    display: flex;
+    width: 100%;
+    height: $height-xl;
+    border-bottom: solid 1px;
+    border-color: $dark-neutral-background-color;
+    flex-direction: column;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%
+}
+
+.orderInfoTitle {
+    margin-left: $margin-m;
+}
+
+.orderInfoText {
+    margin-left: $margin-m;
+}
+
+.orderInfoWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: $gap-s;
+    margin-top: $margin-m;
+}
+
+.orderInfoBody {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-s;
+    width: 100%;
+}
+
+.totalPriceBlock {
+    border-top: 1px solid;
+    border-color: $dark-neutral-background-color;
+    padding-left: $padding-m;
+    padding-top: $padding-s;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: $font-family;
+    justify-content: space-between;
+    padding-right: $padding-l;
+}
+
+.orderInfoRow {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    padding-right: $padding-l;
+}
+
+.input {
+    font-family: $font-family;
+    font-size: $font-size-s;
+}
+
+.inputWrapper {
+    max-height: 28px;
+    min-height: 28px;
+
+}
+
+.rules {
+    margin-left: $margin-l;
+    margin-right: $margin-l;
+    margin-bottom: $margin-l;
+}
+
+.promoStatusFailure {
+    font-family: $font-family;
+    color: $discount-color;
+}
+
+.promoButtonWrapper {
+    width: 100%;
+    height: $height-xxxs;
+}
+
+.promoStatusSuccess {
+    font-family: $font-family;
+    color: $dark-order-color;
+}
+
+.space {
+    min-height: $margin-l;
+    background-color: $neutral-background-color;
+}
+
+.promo {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-xs;
+    margin-left: $margin-m;
+    margin-right: $margin-m;
+    max-height: 180px;
+    min-height: 180px;
+}
+
+.promoTitleBlock {
+    display: flex;
+    gap: $gap-xs;
+    margin-bottom: 15px;
+}
+
+.promoStatusWrapper {
+    padding-bottom: $padding-l;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-s;
+    width: 66%;
+}
+
+.images {
+    margin-top: $margin-s;
+    margin-bottom: $margin-s;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.background {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: $neutral-background-color;
+    z-index: -1;
+    margin-top: -24px;
+}
+
+.deliveryTitle {
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+@media screen and (max-width: $max-width-xl){
+    .wrapper {
+        flex-direction: column;
+        gap: $gap-s;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    .orderMenu {
+        width: 100%;
+    }
+
+    .orderButtonWrapper {
+        margin-left: $margin-m;
+        margin-top: auto;
+        margin-bottom: auto;
+        order: 2;
+    }
+
+    .cartWrapper {
+        padding-bottom: $padding-xxl;
+    }
+
+    .productsListBlock {
+        min-height: $height-xxl;
+    }
+
+    .rules {
+        margin-bottom: 0;
+        margin-top: $margin-l;
+    }
+}
+
+@media screen and (max-width: $max-width-l){
+    .productsListElem {
+        flex-direction: column;
+        gap: $gap-xs;
+        align-items: flex-start;
+    }
+
+    .input {
+        width: 100%;
+    }
+}

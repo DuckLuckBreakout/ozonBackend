@@ -1,0 +1,145 @@
+@import "../../../constants";
+
+%text-shared {
+  font-family: $font-family;
+  font-size: $font-size-s;
+  color: $dark-color;
+}
+
+.text {
+  @extend %text-shared;
+}
+
+.title {
+  @extend %text-shared;
+  font-size: $font-size-xxl;
+  font-weight: $bold;
+}
+
+.bigButton {
+  @extend %text-shared;
+  font-size: $font-size-m;
+  color: $light-color;
+}
+
+.smallTitle {
+  @extend %text-shared;
+  font-size: $font-size-l;
+  font-weight: $bold;
+}
+
+.orderDiscount {
+  @extend %text-shared;
+  font-size: $font-size-m;
+  color: $discount-color;
+}
+
+.bold, .orderPrice {
+  @extend %text-shared;
+  font-size: $font-size-m;
+  font-weight: $bold;
+}
+
+.oldPrice {
+  @extend %text-shared;
+  font-size: $font-size-m;
+  color: $old-price-color;
+  text-decoration: line-through;
+}
+
+.input, .big, .profileInput {
+  @extend %text-shared;
+  font-size: $font-size-m;
+}
+
+.rules, .profile, .ratingBlockTitle  {
+  @extend %text-shared;
+  color: $neutral-color;
+}
+
+.light, .menuCounter {
+  @extend %text-shared;
+  color: $light-color;
+}
+
+.productDiscount {
+  @extend %text-shared;
+  font-size: $font-size-xxl;
+  font-weight: $bold;
+  color: $discount-color;
+}
+
+.increment, .decrement, .profileChange {
+  @extend %text-shared;
+  font-size: $font-size-m;
+  color: $colored-object-color;
+}
+
+.rating {
+  @extend %text-shared;
+  color: $neutral-color;
+}
+
+.priceWithoutDiscount {
+  @extend %text-shared;
+  font-size: $font-size-m;
+}
+
+.ratingBig {
+  @extend %text-shared;
+  font-size: $font-size-xl;
+  font-weight: $bold;
+}
+
+.orderId {
+  @extend %text-shared;
+  color: $colored-object-color;
+}
+
+.ordersPrice {
+  @extend %text-shared;
+  font-weight: $bold;
+  font-size: $font-size-m;
+}
+
+.ordersAddress {
+  @extend %text-shared;
+  font-size: $font-size-m;
+}
+
+.propertiesName {
+  @extend %text-shared;
+  color: $properties-name-color;
+  font-size: $font-size-s;
+  width: 100%;
+  overflow: hidden;
+}
+
+.propertiesTitle {
+  @extend %text-shared;
+  font-size: $font-size-s;
+  font-weight: $bold;
+}
+
+.propertiesValue {
+  @extend %text-shared;
+  font-size: $font-size-s;
+  white-space: nowrap;
+  border-bottom: 1px solid white;
+}
+
+.propertiesName:after {
+  content:"";
+  display: inline-block;
+  height: 0.5em;
+  vertical-align: bottom;
+  width: 100%;
+  margin-right: -100%;
+  border-bottom: 1px dotted $properties-name-color;
+  overflow: hidden;
+}
+
+.delete {
+  @extend %text-shared;
+  color: $colored-object-color;
+}

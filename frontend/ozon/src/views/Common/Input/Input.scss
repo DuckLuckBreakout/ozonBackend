@@ -1,0 +1,29 @@
+@import "../../../constants";
+
+.search {
+    flex: 1;
+    height: 100%;
+    border: none;
+    padding: 0 0 0 8px;
+    outline: none;
+    background: transparent;
+    width: 100%;
+}
+
+.promo {
+    height: 28px;
+    width: 100%;
+    border-radius: $standard-border-radius;
+    border: 1px solid $input-color;
+    box-sizing: border-box;
+    padding-left: $padding-s;
+}
+
+.order {
+    height: 100%;
+    width: 50%;
+    border-radius: $standard-border-radius;
+    border: 1px solid $input-color;
+    box-sizing: border-box;
+    padding-left: $padding-s;
+}

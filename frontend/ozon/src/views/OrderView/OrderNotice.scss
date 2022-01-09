@@ -1,0 +1,18 @@
+@import '../../constants';
+
+.body {
+    display: flex;
+    height: 100%;
+}
+
+.text {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.img {
+    width: 35%;
+    margin: auto;
+}

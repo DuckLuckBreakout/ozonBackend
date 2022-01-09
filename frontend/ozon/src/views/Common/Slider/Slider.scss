@@ -1,0 +1,29 @@
+@import '../../../constants';
+
+.block {
+  display: flex;
+  flex-direction: row;
+  gap: $gap-s;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  transition-duration: 500ms;
+  transform: translateX(0);
+  gap: $gap-s;
+}
+
+.contentWrapper {
+  display: block;
+  overflow: hidden;
+}
+
+.buttonWrapper {
+  margin-top: auto;
+  margin-bottom: auto;
+  height: $height-xs;
+  width: $width-xxxs;
+  min-width: $width-xxxs;
+}
+

@@ -1,0 +1,45 @@
+<div class="{{styles.block}}" id="review-block">
+    <div class="{{styles.body}}">
+        <div class="{{styles.description}}">
+            <span class="{{textStyles.title}}">Ваш отзыв о товаре</span>
+            <a class="{{linkStyles.link}}" href="{{product.href}}">Страница товара</a>
+            <div class="{{styles.productWrapper}}">
+                <div class="{{styles.imageWrapper}}">
+                    <img src="{{product.image}}" class="{{imgStyles.review}}">
+                </div>
+                <span class="{{styles.name}} {{textStyles.smallTitle}}">{{product.title}}</span>
+            </div>
+        </div>
+        <div class="{{styles.rating}}">
+            <span class="{{textStyles.smallTitle}}">Оцените покупку</span>
+            <div class="{{styles.stars}}">
+                {{#for 0 5 1}}
+                    <img src="{{../ratingStar.src}}" value="{{this}}" class="{{../styles.star}}">
+                {{/for}}
+            </div>
+        </div>
+        <div class="{{styles.impressions}}">
+            <span class="{{textStyles.smallTitle}}">Поделитесь впечатлениями о товаре</span>
+            {{#each inputFields}}
+                <input class="{{../styles.input}}" type="{{this.type}}" name="{{this.name}}" value="{{this.value}}" placeholder="{{this.placeholder}}">
+            {{/each}}
+        </div>
+        <div class="{{styles.signature}}">
+            <div class="{{styles.signatureTitle}}">
+                <span class="{{textStyles.smallTitle}}">Вы оставляете отзыв как</span>
+                <span class="{{textStyles.smallTitle}} {{styles.nameText}}">{{userName}}</span>
+            </div>
+            <div class="{{styles.private}}">
+                <span class="{{textStyles.smallTitle}}">Скрыть мои данные в отзыве</span>
+                <input class="" type="{{isPublic.type}}" name="{{isPublic.name}}">
+            </div>
+        </div>
+        <div class="{{styles.submit}}">
+            <div class="{{styles.buttonWrapper}}">
+                <button class="{{buttonStyles.review}}">
+                    <span class="{{textStyles.bigButton}}">Отправить отзыв</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+@font-face {
+    font-family: "GTEestiPro";
+    font-weight: 700;
+    src: url("https://cdn1.ozone.ru/graphics/test/fonts/GT-Eesti-Pro-Display-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "GTEestiPro";
+    src: url("https://cdn1.ozone.ru/graphics/test/fonts/GT-Eesti-Pro-Text-Book.woff2") format("woff2");
+}
+
+$font-family: GTEestiPro, arial, sans-serif;
+
+$bold: 700;
+
+$font-size-s: 14px;
+$font-size-m: 16px;
+$font-size-l: 20px;
+$font-size-xl: 24px;
+$font-size-xxl: 30px;
+
+$standart-line-height: 25px;
+
+$max-width: 1472px;
+
+$colored-object-color: #005bff;
+$dark-colored-object-color: #2534cc;
+$neutral-color: #4d5f71;
+$neutral-light-color: #d0d6db;
+$neutral-background-color: #f5f6f7;
+$dark-neutral-background-color: #e4e8ea;
+$light-color: #f2f3f5;
+$dark-color: #001a34;
+$discount-color: #f91155;
+$exit-color: #f91155;
+$old-price-color: #808080;
+$input-color: #cdd2d8;
+$order-color: #3ac267;
+$dark-order-color: #2da54f;
+$order-status-color: #a1abb4;
+$order-head-color: #ebf0f3;
+$catalog-color: #f6f6f6;
+$subcategory-color: #3d5165;
+$select-color: #b3bcc5;
+$select-active-color: #99bdff;
+$properties-name-color: #5a6c7d;;
+
+$button-content-gap: 5px;
+
+$standard-border-radius: 3px;
+$big-border-radius: 9px;
+$standard-border: 2px solid $colored-object-color;
+
+$margin-xxxs: 2px;
+$margin-xxs: 5px;
+$margin-xs: 12px;
+$margin-s: 16px;
+$margin-m: 20px;
+$margin-l: 24px;
+$margin-xl: 40px;
+$margin-xxl: 64px;
+$margin-xxxl: 92px;
+
+$padding-xs: 4px;
+$padding-s: 10px;
+$padding-m: 20px;
+$padding-l: 28px;
+$padding-xxl: 100px;
+
+$gap-xxs: 5px;
+$gap-xs: 10px;
+$gap-s: 20px;
+$gap-xl: 50px;
+
+$columns-gap: 24px;
+
+$img-size-xs: 16px;
+$img-size-s: 24px;
+$img-size-m: 48px;
+$img-size-m1: 92px;
+$img-size-l: 250px;
+$img-size-xl: 500px;
+
+$height-xxxxs: 24px;
+$height-xxxs: 32px;
+$height-xxs: 40px;
+$height-xs: 48px;
+$height-s: 56px;
+$height-m: 61px;
+$height-l: 92px;
+$height-xl: 152px;
+$height-xxl: 285px;
+$height-xxxl: 372px;
+$height-xxxxl: 450px;
+
+$width-xxxxs: 20px;
+$width-xxxs: 48px;
+$width-xxs: 76px;
+$width-xs: 96px;
+$width-s: 128px;
+$width-m: 294px;
+$width-l: 328px;
+$width-xl: 350px;
+$width-xxl: 407px;
+$width-xxxl: 455px;
+$width-xxxxl: 903px;
+
+$max-width-xs: 400px;
+$max-width-s: 600px;
+$max-width-m: 720px;
+$max-width-l: 800px;
+$max-width-xl: 1100px;
+$max-width-xxl: 1500px;
+
+$blind-z-index: 2002;
+$popup-z-index: 2002;
+$catalog-background-left-z-index: 1003;
+$catalog-background-right-z-index: 1004;
+$catalog-z-index: 1005;
+
+$logo-width: 120px;
+$logo-height: 40px;

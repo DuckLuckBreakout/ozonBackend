@@ -1,0 +1,26 @@
+@import '../../../constants';
+
+.block {
+    z-index: $popup-z-index;
+    left: 50%;
+    top: 50%;
+    position: fixed;
+}
+
+%body-shared {
+    margin-left: -208px;
+    margin-top: -168px;
+    width: 416px;
+    height: 363px;
+    border-radius: var(--lower-border-radius);
+    background: white;
+}
+
+.login, .order, .offline {
+    @extend %body-shared;
+}
+
+.signup {
+    @extend %body-shared;
+    height: 405px;
+}

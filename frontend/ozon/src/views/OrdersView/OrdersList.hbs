@@ -1,0 +1,32 @@
+<div class="{{ordersStyles.orders}}" id="new-orders-list">
+    {{#each this.orderList}}
+        <div class="{{../ordersStyles.order}}">
+            <div class="{{../ordersStyles.orderHead}}">
+                <div class="{{../ordersStyles.headTop}}">
+                    <div>
+                        <span class="{{../textStyles.bold}}">Заказ от {{this.date_added}}</span>
+                    </div>
+                    <div>
+                        <span class="{{../textStyles.ordersPrice}}">{{this.total_cost}} ₽,</span>
+                        <span class="{{../textStyles.text}}">оплачено</span>
+                    </div>
+                </div>
+                <div class="{{../ordersStyles.orderIdWrapper}}">
+                    <span class="{{../textStyles.orderId}}">{{this.order_number.number}}</span>
+                </div>
+            </div>
+            <div class="{{../ordersStyles.orderBody}}">
+                <div class="{{../ordersStyles.address}}">
+                    <div class="{{../ordersStyles.bodyWrapper}}">
+                        <span class="{{../textStyles.bold}} {{../ordersStyles.addressText}}">Адрес доставки </span>
+                        <div class="{{../ordersStyles.statusBadge}}">
+                            <span class="{{../textStyles.text}} {{../ordersStyles.status}}">{{this.status}}</span>
+                        </div>
+                    </div>
+                    <span class="{{../textStyles.ordersAddress}} {{../ordersStyles.text}}">{{this.address.address}}</span>
+                </div>
+                <div class="{{../ordersStyles.images}}"></div>
+            </div>
+        </div>
+    {{/each}}
+</div>

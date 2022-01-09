@@ -1,0 +1,46 @@
+<div class="{{itemStyles.block}}" item-id="{{itemId}}">
+    <div class="{{itemStyles.infoWrapper}}">
+        <div class="{{itemStyles.images}}">
+            <img src="{{itemImage.src}}" class="{{imgStyles.productPreview}}">
+        </div>
+        <div class="{{itemStyles.discountBlock}}">
+            <div class="{{itemStyles.discountBadge}}" {{#ifEquals itemPrice.discount 0}} style="visibility: hidden;"{{/ifEquals}}>
+                <span class="{{itemStyles.discountText}}">
+                    -{{itemPrice.discount}}%
+                </span>
+            </div>
+        </div>
+        <div class="{{itemStyles.priceBlock}}">
+            <span class="{{itemStyles.discountPrice}}  {{#ifEquals itemPrice.discount 0}} {{decorators.hidden}}{{/ifEquals}}">
+                {{itemPrice.discountPrice}}₽
+            </span>
+            <span class="{{#ifNotEquals itemPrice.discount 0}}{{itemStyles.price}}  {{itemStyles.strikethrough}}{{/ifNotEquals}} {{#ifEquals itemPrice.discount 0}} {{textStyles.priceWithoutDiscount}} {{/ifEquals}}" >
+                {{itemPrice.base}}₽
+            </span>
+        </div>
+        <div class="{{itemStyles.descriptionBlock}}">
+            <div class="{{itemStyles.name}}">
+                {{itemName}}
+            </div>
+            {{#ifEquals type "products"}}
+                <div class="{{itemStyles.rating}}">
+                    <div class="{{itemStyles.starsWrapper}}">
+                        <div class="{{itemStyles.stars}}">
+                            <div class="{{itemStyles.colorStars}}" style="width: {{width}}%;"></div>
+                        </div>
+                    </div>
+                    <span class="{{textStyles.rating}}">{{itemReviewsCount}} {{itemReviewsCountTitle}}</span>
+                </div>
+            {{/ifEquals}}
+        </div>
+    </div>
+    <div class="{{itemStyles.buttonsBlock}}">
+        <div class="{{itemStyles.cartButtonWrapper}}">
+            <button class="{{buttonStyles.notInCartProducts}}">
+                <span class="{{itemStyles.buttonText}}">
+                    В корзину
+                </span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+@import '../../../constants';
+
+%link-shared {
+  text-decoration: none;
+  cursor: pointer;
+  font-family: $font-family;
+  font-size: $font-size-s;
+  color: $colored-object-color;
+}
+
+.link {
+  @extend %link-shared;
+}
+
+.catalogCategory {
+  @extend %link-shared;
+  color: $dark-color;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: $margin-s;
+}
+
+.catalogSubCategory {
+  @extend %link-shared;
+  font-weight: $bold;
+  color: $dark-color;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.catalogSubCategory:hover {
+  color: $dark-colored-object-color;
+}
+
+.headerMenu  {
+  @extend %link-shared;
+  color: $dark-color;
+}
+
+.catalogSubSubCategory {
+  @extend %link-shared;
+  color: $subcategory-color;
+}
+
+.catalogSubSubCategory:hover {
+  color: $colored-object-color;
+}

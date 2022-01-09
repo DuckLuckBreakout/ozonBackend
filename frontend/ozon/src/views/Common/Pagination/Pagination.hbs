@@ -1,0 +1,24 @@
+<div class="{{styles.block}}">
+    {{#ifNotEquals buttons.0.value 1}}
+        <div class="{{styles.buttonBigWrapper}}">
+            <button class="{{buttonStyles.paginator}} {{buttonStyles.paginatorBig}}" page="{{firstButton.value}}">
+                <span class="{{../textStyles.text}}">В начало</span>
+            </button>
+        </div>
+    {{/ifNotEquals}}
+    {{#each buttons}}
+        <div class="{{../styles.buttonWrapper}} {{../textStyles.text}}">
+            <button class="{{../buttonStyles.paginator}} {{this.name}}" page="{{this.value}}">
+                <span class="">{{this.value}}</span>
+            </button>
+        </div>
+    {{/each}}
+    {{#ifNotEquals nextButton.value -1}}
+        <div class="{{styles.buttonBigWrapper}}">
+        <button class="{{buttonStyles.paginator}} {{buttonStyles.paginatorBig}}" page="{{nextButton.value}}">
+            <span class="{{../textStyles.text}}">Дальше</span>
+        </button>
+    </div>
+    {{/ifNotEquals}}
+</div>
+

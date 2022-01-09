@@ -1,0 +1,112 @@
+<div class="{{productStyles.block}}">
+    <div class="{{productStyles.categoriesBlock}}">
+        {{#each category_path}}
+            <div class="{{../productStyles.linkWrapper}}">
+                <a class="{{../linkStyles.link}}" category_id="{{this.id}}" href="/items/{{this.id}}">{{this.name}}</a>
+            </div>
+            <img src="/svg/slider.svg" class="{{../productStyles.next}}" alt="">
+        {{/each}}
+    </div>
+    <div class="{{productStyles.badges}}">
+        <div class="{{productStyles.discountBadge}}" {{#ifEquals price.discount 0}} style="visibility: hidden;"{{/ifEquals}}>
+            <span class="{{productStyles.discountText}} {{textStyles.light}}">-{{price.discount}}%</span>
+        </div>
+    </div>
+    <div class="{{textStyles.title}}">{{name}}</div>
+    <div class="{{productStyles.rating}}">
+        <div class="{{productStyles.starsWrapper}}">
+            <div class="{{productStyles.stars}}">
+                <div class="{{productStyles.colorStars}}" style="width: {{width}}%;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="{{productStyles.wrapperWrapper}}">
+        <div class="{{productStyles.wrapper}}">
+            <div class="{{productStyles.mainInformation}}">
+                <div class="{{productStyles.imagesBlock}}">
+                    <div class="{{productStyles.images}}">
+                        {{#each images}}
+                            <div class="{{../productStyles.imageWrapper}}">
+                                <img src="{{this.src}}" class="{{../imgStyles.productCommon}}">
+                            </div>
+                        {{/each}}
+                    </div>
+                    <div class="{{productStyles.mainImage}}">
+                        <img src="{{images.0.src}}" alt="" class="{{imgStyles.productMain}} {{productStyles.preview}}">
+                    </div>
+                </div>
+            </div>
+            <div class="{{productStyles.description}}">
+                <div class="{{productStyles.descriptionWrapper}}">
+                    <span class="{{textStyles.title}}">Описание</span>
+                </div>
+                <span class="{{textStyles.big}}">{{description}}</span>
+            </div>
+            <div class="{{productStyles.properties}}">
+                <div class="{{productStyles.titleWrapper}}">
+                    <span class="{{textStyles.title}}">Характеристики</span>
+                </div>
+                {{#each properties}}
+                    <div class="{{../productStyles.property}}">
+                        <span class="{{../textStyles.propertiesTitle}}">{{@key}}</span>
+                        <div class="{{../productStyles.propertiesBlock}}">
+                            {{#with this}}
+                                {{#each this}}
+                                    <div class="{{../../productStyles.propertiesBlockRow}}">
+                                        <span class="{{../../textStyles.propertiesName}}">{{@key}}</span>
+                                        <div class="{{../../productStyles.propertiesBlockValueWrapper}}">
+                                            <span class="{{../../textStyles.propertiesValue}}">{{this}}</span>
+                                        </div>
+                                    </div>
+                                {{/each}}
+                            {{/with}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="{{productStyles.recommendationsWrapper}}">
+                <span class="{{textStyles.title}}">С этим товаром покупают</span>
+                <div id="recommendations"></div>
+            </div>
+        </div>
+        <div class="{{productStyles.menu}}">
+            <div class="{{productStyles.aboutProduct}}"></div>
+            <div class="{{productStyles.buyMenu}}">
+                <div class="{{productStyles.priceBlock}}">
+                    <div class="{{productStyles.priceWrapper}}">
+                        <span class="{{productStyles.discountPrice}} {{textStyles.productDiscount}} {{#ifEquals price.discount 0}}{{decorators.hidden}}{{/ifEquals}}">{{price.discountPrice}}₽</span>
+                        <span class="{{productStyles.price}} {{textStyles.smallTitle}} {{#ifNotEquals price.discount 0}}{{decorators.strikethrough}}{{/ifNotEquals}} {{#ifEquals price.discount 0}} {{productStyles.priceWithoutDiscount}}{{/ifEquals}}">{{price.base}}₽</span>
+                    </div>
+                </div>
+                <div class="{{productStyles.buttons}}">
+                    <div class="{{productStyles.cartButtonWrapper}}">
+                        <button class="{{buttonStyles.notInCartProduct}}">
+                            <span class="{{textStyles.bigButton}}">В корзину</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="{{productStyles.reviewsBlock}}">
+        <div class="{{productStyles.reviewsBody}}">
+            <div class="{{textStyles.title}}">Отзывы </div>
+            <div class="{{productStyles.reviewsWrapper}}">
+                <select class="{{productStyles.select}}">
+                    {{#each select}}
+                        <option key="{{this.key}}" direction="{{this.direction}}" {{#ifEquals this.key ../sort.key}}{{#ifEquals this.direction ../sort.direction}}selected{{/ifEquals}}{{/ifEquals}}>
+                            {{this.name}}
+                        </option>
+                    {{/each}}
+                </select>
+                <div class="{{productStyles.reviewList}} {{textStyles.text}}"></div>
+                <div id="review-pagination" class="{{productStyles.reviewPagination}}"></div>
+            </div>
+        </div>
+
+        <div class="{{productStyles.reviewMenu}}">
+            <div id="rating-stars"></div>
+            <div class="{{productStyles.reviewButtonWrapper}}"></div>
+        </div>
+    </div>
+</div>

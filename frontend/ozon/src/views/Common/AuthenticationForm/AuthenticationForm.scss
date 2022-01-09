@@ -1,0 +1,56 @@
+@import '../../../constants';
+
+.body {
+    display: flex;
+    flex-direction: column;
+    margin: $margin-xl;
+    gap: $gap-s;
+    width: 80%;
+}
+
+.inputBlock {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.buttonText {
+    margin: auto;
+}
+
+.inputWrapper {
+    height: $height-xxs;
+    width: 100%;
+}
+
+.input {
+    height: $height-xs;
+    width: 100%;
+    border-radius: $standard-border-radius;
+    border: solid 1px;
+    border-color: $input-color;
+    box-sizing: border-box;
+    padding-left: $padding-s;
+}
+
+.fieldName {
+    font-family: $font-family;
+    font-size: $font-size-m;
+}
+
+.signup {
+    margin: auto;
+    font-family: $font-family;
+    font-size: $font-size-m;
+    color: $colored-object-color;
+    cursor: pointer;
+}
+
+.buttonWrapper {
+    display: flex;
+    height: $height-xs;
+}

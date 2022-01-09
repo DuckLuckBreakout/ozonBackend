@@ -1,0 +1,97 @@
+@import "../../../constants";
+
+%img-shared {
+  object-fit: contain;
+}
+
+.img {
+  @extend %img-shared;
+}
+
+.review {
+  @extend %img-shared;
+  height: $width-xs;
+  width: $width-xs;
+}
+
+.profileAvatar {
+  @extend %img-shared;
+  width: $width-s;
+  height: $width-s;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.star {
+  @extend %img-shared;
+  height: $img-size-s;
+  width: $img-size-s;
+}
+
+.productMain {
+  @extend %img-shared;
+  width: $img-size-xl;
+  height: $img-size-xl;
+}
+
+.productCommon {
+  @extend %img-shared;
+  width: $img-size-m;
+  height: $img-size-m;
+}
+
+.smallStar {
+  @extend %img-shared;
+  height: $img-size-xs;
+  width: $img-size-xs;
+}
+
+.reviewAvatar {
+  @extend %img-shared;
+  width: $img-size-m;
+  height: $img-size-m;
+  border-radius: 50%;
+}
+
+.logo {
+  @extend %img-shared;
+  height: $logo-height;
+  width: $logo-width;
+}
+
+.headerMenu {
+  @extend %img-shared;
+  height: $img-size-s;
+  width: $img-size-s;
+}
+
+.searchArea {
+  @extend %img-shared;
+  height: $img-size-xs;
+  width: $img-size-xs;
+}
+
+.productPreview {
+  @extend %img-shared;
+  width: $img-size-l;
+  height: $img-size-l;
+}
+
+.cartProduct {
+  @extend %img-shared;
+  width: $img-size-m1;
+  height: $img-size-m1;
+}
+
+
+.offlineGif {
+  @extend %img-shared;
+  width: $img-size-s;
+  height: $img-size-s;
+}
+
+.orderPreview {
+  @extend %img-shared;
+  width: $img-size-m1;
+  height: $img-size-m1;
+}
