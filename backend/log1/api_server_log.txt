@@ -1,0 +1,154 @@
+Jan  8 16:24:47.419 [INFO] [requireId:oiTsSChYv6pHjnEmkxxuNL] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40866] Start of request processing
+Jan  8 16:24:47.419 [INFO] [requireId:oiTsSChYv6pHjnEmkxxuNL] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40866] [reqDuration:608.806µs] End of request processing
+Jan  8 16:24:47.458 [INFO] [requireId:NWM8QhAroqhwEm8oyGbAL] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:40872] Start of request processing
+Jan  8 16:24:47.559 [INFO] [requireId:NWM8QhAroqhwEm8oyGbAL] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:40872] [reqDuration:101.080168ms] End of request processing
+Jan  8 16:24:47.650 [INFO] [requireId:iBS2mzfRkGwkAohxtGgi5R] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40890] Start of request processing
+Jan  8 16:24:47.650 [ERRO] [requireId:iBS2mzfRkGwkAohxtGgi5R] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:47.650 [INFO] [requireId:iBS2mzfRkGwkAohxtGgi5R] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40890] [reqDuration:131.531µs] End of request processing
+Jan  8 16:24:48.123 [INFO] [requireId:ARMR4L2bFF55a9py9MT3kE] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40898] Start of request processing
+Jan  8 16:24:48.124 [INFO] [requireId:ARMR4L2bFF55a9py9MT3kE] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40898] [reqDuration:299.26µs] End of request processing
+Jan  8 16:24:48.148 [INFO] [requireId:kgr2Jhwd5NkP6kCpqptLmg] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:40904] Start of request processing
+Jan  8 16:24:48.268 [INFO] [requireId:kgr2Jhwd5NkP6kCpqptLmg] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:40904] [reqDuration:119.755105ms] End of request processing
+Jan  8 16:24:48.289 [INFO] [requireId:oqNV9tSZJ8YdubAVqGM9WR] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40908] Start of request processing
+Jan  8 16:24:48.289 [ERRO] [requireId:oqNV9tSZJ8YdubAVqGM9WR] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:48.289 [INFO] [requireId:oqNV9tSZJ8YdubAVqGM9WR] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40908] [reqDuration:76.496µs] End of request processing
+Jan  8 16:24:48.304 [INFO] [requireId:LpAuu6DcKZT4cmvjsHaVtP] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:40926] Start of request processing
+Jan  8 16:24:48.304 [ERRO] [requireId:LpAuu6DcKZT4cmvjsHaVtP] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:48.304 [INFO] [requireId:LpAuu6DcKZT4cmvjsHaVtP] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:40926] [reqDuration:92.004µs] End of request processing
+Jan  8 16:24:48.893 [INFO] [requireId:bF3gJAWLLDmJ3A5gypemEP] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40934] Start of request processing
+Jan  8 16:24:48.893 [INFO] [requireId:bF3gJAWLLDmJ3A5gypemEP] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40934] [reqDuration:170.304µs] End of request processing
+Jan  8 16:24:48.913 [INFO] [requireId:U3pJApLWzHEB3shSDcWFQb] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:40940] Start of request processing
+Jan  8 16:24:48.944 [INFO] [requireId:U3pJApLWzHEB3shSDcWFQb] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:40940] [reqDuration:30.954739ms] End of request processing
+Jan  8 16:24:49.074 [INFO] [requireId:SntkUb3j3dnbGn3MbQDht7] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40958] Start of request processing
+Jan  8 16:24:49.075 [ERRO] [requireId:SntkUb3j3dnbGn3MbQDht7] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:49.075 [INFO] [requireId:SntkUb3j3dnbGn3MbQDht7] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40958] [reqDuration:99.268µs] End of request processing
+Jan  8 16:24:49.525 [INFO] [requireId:MRwAayankF4REKN3UWzNB6] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40966] Start of request processing
+Jan  8 16:24:49.525 [INFO] [requireId:MRwAayankF4REKN3UWzNB6] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:40966] [reqDuration:93.309µs] End of request processing
+Jan  8 16:24:49.554 [INFO] [requireId:rsLUcuym8S88CmUtoEcvJ8] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:40972] Start of request processing
+Jan  8 16:24:49.662 [INFO] [requireId:rsLUcuym8S88CmUtoEcvJ8] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:40972] [reqDuration:107.303053ms] End of request processing
+Jan  8 16:24:49.678 [INFO] [requireId:yZhMZbajz9NtrXtjd8JCTf] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40976] Start of request processing
+Jan  8 16:24:49.678 [ERRO] [requireId:yZhMZbajz9NtrXtjd8JCTf] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:49.678 [INFO] [requireId:yZhMZbajz9NtrXtjd8JCTf] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:40976] [reqDuration:98.771µs] End of request processing
+Jan  8 16:24:49.703 [INFO] [requireId:bGmGrqxfcid45wWxHnzeoX] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:40982] Start of request processing
+Jan  8 16:24:49.703 [ERRO] [requireId:bGmGrqxfcid45wWxHnzeoX] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:49.703 [INFO] [requireId:bGmGrqxfcid45wWxHnzeoX] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:40982] [reqDuration:163.937µs] End of request processing
+Jan  8 16:24:50.081 [INFO] [requireId:DaH8w8yRGc5yqLs6VAgt9o] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41002] Start of request processing
+Jan  8 16:24:50.081 [INFO] [requireId:DaH8w8yRGc5yqLs6VAgt9o] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41002] [reqDuration:114.634µs] End of request processing
+Jan  8 16:24:50.129 [INFO] [requireId:CoRBoLeAQJQKsYWMqd78Bn] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41008] Start of request processing
+Jan  8 16:24:50.162 [INFO] [requireId:CoRBoLeAQJQKsYWMqd78Bn] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41008] [reqDuration:33.497352ms] End of request processing
+Jan  8 16:24:50.283 [INFO] [requireId:jfthA3ZhaAQhudAahriNxY] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41026] Start of request processing
+Jan  8 16:24:50.283 [ERRO] [requireId:jfthA3ZhaAQhudAahriNxY] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:50.283 [INFO] [requireId:jfthA3ZhaAQhudAahriNxY] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41026] [reqDuration:117.641µs] End of request processing
+Jan  8 16:24:50.742 [INFO] [requireId:i3YjBUaTcgMdSLNZWZUPKU] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41034] Start of request processing
+Jan  8 16:24:50.743 [INFO] [requireId:i3YjBUaTcgMdSLNZWZUPKU] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41034] [reqDuration:139.806µs] End of request processing
+Jan  8 16:24:50.770 [INFO] [requireId:Y5cKabdiMG6rmmYycomKd9] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:41040] Start of request processing
+Jan  8 16:24:50.889 [INFO] [requireId:Y5cKabdiMG6rmmYycomKd9] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:41040] [reqDuration:118.807256ms] End of request processing
+Jan  8 16:24:50.902 [INFO] [requireId:qxeFZkXaJzQ4XmygxuEn8g] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41044] Start of request processing
+Jan  8 16:24:50.902 [ERRO] [requireId:qxeFZkXaJzQ4XmygxuEn8g] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:50.902 [INFO] [requireId:qxeFZkXaJzQ4XmygxuEn8g] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41044] [reqDuration:93.083µs] End of request processing
+Jan  8 16:24:50.914 [INFO] [requireId:DUEFjjWMA7AdM5joGLjfxH] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41062] Start of request processing
+Jan  8 16:24:50.914 [ERRO] [requireId:DUEFjjWMA7AdM5joGLjfxH] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:50.914 [INFO] [requireId:DUEFjjWMA7AdM5joGLjfxH] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41062] [reqDuration:73.626µs] End of request processing
+Jan  8 16:24:51.458 [INFO] [requireId:6d2guiPUV3TV3qxyxJKrxC] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41070] Start of request processing
+Jan  8 16:24:51.459 [INFO] [requireId:6d2guiPUV3TV3qxyxJKrxC] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41070] [reqDuration:172.303µs] End of request processing
+Jan  8 16:24:51.556 [INFO] [requireId:CcS8Aufj2xE9na7HpiheTa] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41076] Start of request processing
+Jan  8 16:24:51.613 [INFO] [requireId:CcS8Aufj2xE9na7HpiheTa] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41076] [reqDuration:56.110399ms] End of request processing
+Jan  8 16:24:51.695 [INFO] [requireId:qAmbNX7eNJwG2Lq3Ty3qW9] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41094] Start of request processing
+Jan  8 16:24:51.695 [ERRO] [requireId:qAmbNX7eNJwG2Lq3Ty3qW9] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:51.695 [INFO] [requireId:qAmbNX7eNJwG2Lq3Ty3qW9] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41094] [reqDuration:67.017µs] End of request processing
+Jan  8 16:24:52.221 [INFO] [requireId:xfzYFGprGZTuZjSvHY5vQ3] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41102] Start of request processing
+Jan  8 16:24:52.221 [INFO] [requireId:xfzYFGprGZTuZjSvHY5vQ3] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41102] [reqDuration:110.073µs] End of request processing
+Jan  8 16:24:52.243 [INFO] [requireId:dLKRUTFD9voxSHTp94g6Qj] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:41108] Start of request processing
+Jan  8 16:24:52.334 [INFO] [requireId:QsdohbHZtSTezxNmXyJo5D] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41112] Start of request processing
+Jan  8 16:24:52.334 [ERRO] [requireId:QsdohbHZtSTezxNmXyJo5D] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:52.334 [INFO] [requireId:QsdohbHZtSTezxNmXyJo5D] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41112] [reqDuration:69.702µs] End of request processing
+Jan  8 16:24:52.377 [INFO] [requireId:dLKRUTFD9voxSHTp94g6Qj] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:41108] [reqDuration:133.080484ms] End of request processing
+Jan  8 16:24:52.421 [INFO] [requireId:C3wDkJwfx7TAcsnKxCpZhd] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41130] Start of request processing
+Jan  8 16:24:52.421 [ERRO] [requireId:C3wDkJwfx7TAcsnKxCpZhd] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:52.421 [INFO] [requireId:C3wDkJwfx7TAcsnKxCpZhd] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41130] [reqDuration:57.282µs] End of request processing
+Jan  8 16:24:52.862 [INFO] [requireId:aJYqnfEr3cBVBhUNeAs7N3] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41138] Start of request processing
+Jan  8 16:24:52.863 [INFO] [requireId:aJYqnfEr3cBVBhUNeAs7N3] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41138] [reqDuration:179.2µs] End of request processing
+Jan  8 16:24:52.912 [INFO] [requireId:n8eBBvhHwLYmEo3itxYGjR] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41142] Start of request processing
+Jan  8 16:24:52.970 [INFO] [requireId:n8eBBvhHwLYmEo3itxYGjR] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41142] [reqDuration:58.026742ms] End of request processing
+Jan  8 16:24:53.132 [INFO] [requireId:yCkLyotcksoZYyohniicFg] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41162] Start of request processing
+Jan  8 16:24:53.132 [ERRO] [requireId:yCkLyotcksoZYyohniicFg] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:53.132 [INFO] [requireId:yCkLyotcksoZYyohniicFg] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41162] [reqDuration:92.088µs] End of request processing
+Jan  8 16:24:53.343 [INFO] [requireId:BamHbRjSQLP2cGCEYf9N93] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41170] Start of request processing
+Jan  8 16:24:53.343 [INFO] [requireId:BamHbRjSQLP2cGCEYf9N93] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41170] [reqDuration:104.157µs] End of request processing
+Jan  8 16:24:53.370 [INFO] [requireId:W9rQLhbqnrvLEzZBmdiwqa] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:41176] Start of request processing
+Jan  8 16:24:53.483 [INFO] [requireId:W9rQLhbqnrvLEzZBmdiwqa] [urlPath:/api/v1/category] [method:GET] [remoteAddr:172.28.0.3:41176] [reqDuration:112.614935ms] End of request processing
+Jan  8 16:24:53.501 [INFO] [requireId:L8SbthkaxaitgznVgYwVzP] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41180] Start of request processing
+Jan  8 16:24:53.501 [ERRO] [requireId:L8SbthkaxaitgznVgYwVzP] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:53.501 [INFO] [requireId:L8SbthkaxaitgznVgYwVzP] [urlPath:/api/v1/session] [method:GET] [remoteAddr:172.28.0.3:41180] [reqDuration:94.745µs] End of request processing
+Jan  8 16:24:53.521 [INFO] [requireId:n3h2hJKnzULStWZLeiCWEU] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41198] Start of request processing
+Jan  8 16:24:53.521 [ERRO] [requireId:n3h2hJKnzULStWZLeiCWEU] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:24:53.521 [INFO] [requireId:n3h2hJKnzULStWZLeiCWEU] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41198] [reqDuration:126.473µs] End of request processing
+Jan  8 16:39:53.600 [INFO] [requireId:xFEvRforJkZFFni5XFZCeL] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41206] Start of request processing
+Jan  8 16:39:53.600 [INFO] [requireId:xFEvRforJkZFFni5XFZCeL] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:172.28.0.3:41206] [reqDuration:271.522µs] End of request processing
+Jan  8 16:42:07.993 [INFO] [requireId:eBpeB3L85cyEtyhDQwUVa3] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41212] Start of request processing
+Jan  8 16:42:08.030 [INFO] [requireId:eBpeB3L85cyEtyhDQwUVa3] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41212] [reqDuration:37.231356ms] End of request processing
+Jan  8 16:42:08.048 [INFO] [requireId:otuYnWHdqmxqtyTbW8ZzK7] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41234] Start of request processing
+Jan  8 16:42:08.048 [ERRO] [requireId:otuYnWHdqmxqtyTbW8ZzK7] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:42:08.048 [INFO] [requireId:otuYnWHdqmxqtyTbW8ZzK7] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41234] [reqDuration:124.386µs] End of request processing
+Jan  8 16:42:09.874 [INFO] [requireId:XhFijFvJrcsbEzgXR9MKeK] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41258] Start of request processing
+Jan  8 16:42:09.874 [ERRO] [requireId:XhFijFvJrcsbEzgXR9MKeK] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:42:09.874 [INFO] [requireId:XhFijFvJrcsbEzgXR9MKeK] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41258] [reqDuration:106.729µs] End of request processing
+Jan  8 16:42:14.423 [INFO] [requireId:xLPqRG7oPYRPjWQD5EqqoP] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41282] Start of request processing
+Jan  8 16:42:14.423 [ERRO] [requireId:xLPqRG7oPYRPjWQD5EqqoP] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:42:14.423 [INFO] [requireId:xLPqRG7oPYRPjWQD5EqqoP] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41282] [reqDuration:138.132µs] End of request processing
+Jan  8 16:42:16.129 [INFO] [requireId:etZXXfzXsNwrsh84q9uRdj] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41306] Start of request processing
+Jan  8 16:42:16.129 [ERRO] [requireId:etZXXfzXsNwrsh84q9uRdj] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:42:16.129 [INFO] [requireId:etZXXfzXsNwrsh84q9uRdj] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41306] [reqDuration:80.519µs] End of request processing
+Jan  8 16:42:20.799 [INFO] [requireId:dUiEaHWHuNctwPMhhj42PM] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41330] Start of request processing
+Jan  8 16:42:20.800 [ERRO] [requireId:dUiEaHWHuNctwPMhhj42PM] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:42:20.800 [INFO] [requireId:dUiEaHWHuNctwPMhhj42PM] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41330] [reqDuration:280.08µs] End of request processing
+Jan  8 16:42:48.136 [INFO] [requireId:m9nG6puYVuQXUBD77JokwJ] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41356] Start of request processing
+Jan  8 16:42:48.136 [ERRO] [requireId:m9nG6puYVuQXUBD77JokwJ] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:42:48.136 [INFO] [requireId:m9nG6puYVuQXUBD77JokwJ] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41356] [reqDuration:143.657µs] End of request processing
+Jan  8 16:45:07.301 [INFO] [requireId:utJsRQmhqgNQcTYh8XW5YB] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41382] Start of request processing
+Jan  8 16:45:07.301 [ERRO] [requireId:utJsRQmhqgNQcTYh8XW5YB] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:45:07.301 [INFO] [requireId:utJsRQmhqgNQcTYh8XW5YB] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:172.28.0.3:41382] [reqDuration:151.906µs] End of request processing
+Jan  8 16:45:08.451 [INFO] [requireId:CuCvsBkZa6KM2StwfVCCP5] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41408] Start of request processing
+Jan  8 16:45:08.476 [INFO] [requireId:CuCvsBkZa6KM2StwfVCCP5] [urlPath:/api/v1/product] [method:POST] [remoteAddr:172.28.0.3:41408] [reqDuration:25.37595ms] End of request processing
+Jan  8 16:57:00.067 [INFO] [requireId:o7oLS4P93jZtG5ZpZqdNKH] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49500] Start of request processing
+Jan  8 16:57:00.068 [INFO] [requireId:o7oLS4P93jZtG5ZpZqdNKH] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49500] [reqDuration:690.668µs] End of request processing
+Jan  8 16:57:00.113 [INFO] [requireId:sAJcSfMNSJqoYzu5YUsbB5] [urlPath:/api/v1/product] [method:POST] [remoteAddr:192.168.96.4:49506] Start of request processing
+Jan  8 16:57:00.280 [INFO] [requireId:sAJcSfMNSJqoYzu5YUsbB5] [urlPath:/api/v1/product] [method:POST] [remoteAddr:192.168.96.4:49506] [reqDuration:166.800032ms] End of request processing
+Jan  8 16:57:00.300 [INFO] [requireId:UcEntMfbupxDbVjG49kDgJ] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49510] Start of request processing
+Jan  8 16:57:00.301 [ERRO] [requireId:UcEntMfbupxDbVjG49kDgJ] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:57:00.301 [INFO] [requireId:UcEntMfbupxDbVjG49kDgJ] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49510] [reqDuration:166.09µs] End of request processing
+Jan  8 16:57:01.937 [INFO] [requireId:ZyuStVcGbaY2aXEsswQgB4] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49534] Start of request processing
+Jan  8 16:57:01.937 [INFO] [requireId:ZyuStVcGbaY2aXEsswQgB4] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49534] [reqDuration:99.586µs] End of request processing
+Jan  8 16:57:01.946 [INFO] [requireId:GMmJ3mmaPaPeSPyYbnNHF8] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49538] Start of request processing
+Jan  8 16:57:01.946 [INFO] [requireId:GMmJ3mmaPaPeSPyYbnNHF8] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49538] [reqDuration:102.419µs] End of request processing
+Jan  8 16:57:02.055 [INFO] [requireId:p5hWxULMEwiYGUBxZJgYYc] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49546] Start of request processing
+Jan  8 16:57:02.055 [ERRO] [requireId:p5hWxULMEwiYGUBxZJgYYc] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:57:02.055 [INFO] [requireId:p5hWxULMEwiYGUBxZJgYYc] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49546] [reqDuration:65.409µs] End of request processing
+Jan  8 16:57:02.113 [INFO] [requireId:3dE9uRRMRjfqbto8aLYKUH] [urlPath:/api/v1/session] [method:GET] [remoteAddr:192.168.96.4:49562] Start of request processing
+Jan  8 16:57:02.113 [ERRO] [requireId:3dE9uRRMRjfqbto8aLYKUH] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:57:02.113 [INFO] [requireId:3dE9uRRMRjfqbto8aLYKUH] [urlPath:/api/v1/session] [method:GET] [remoteAddr:192.168.96.4:49562] [reqDuration:61.798µs] End of request processing
+Jan  8 16:57:02.613 [INFO] [requireId:5sTT4wF6tLrSEpbQzbRdoD] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49574] Start of request processing
+Jan  8 16:57:02.613 [INFO] [requireId:5sTT4wF6tLrSEpbQzbRdoD] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49574] [reqDuration:196.304µs] End of request processing
+Jan  8 16:57:02.617 [INFO] [requireId:w5DfYj3qdDobevpgfJMYVH] [urlPath:/api/v1/category] [method:GET] [remoteAddr:192.168.96.4:49576] Start of request processing
+Jan  8 16:57:02.823 [INFO] [requireId:w5DfYj3qdDobevpgfJMYVH] [urlPath:/api/v1/category] [method:GET] [remoteAddr:192.168.96.4:49576] [reqDuration:205.887862ms] End of request processing
+Jan  8 16:57:02.842 [INFO] [requireId:u4FbncSLJy2RrqB48uJGq6] [urlPath:/api/v1/session] [method:GET] [remoteAddr:192.168.96.4:49596] Start of request processing
+Jan  8 16:57:02.842 [ERRO] [requireId:u4FbncSLJy2RrqB48uJGq6] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:57:02.842 [INFO] [requireId:u4FbncSLJy2RrqB48uJGq6] [urlPath:/api/v1/session] [method:GET] [remoteAddr:192.168.96.4:49596] [reqDuration:70.747µs] End of request processing
+Jan  8 16:57:02.848 [INFO] [requireId:a3R7AwZciPo57avZn45B5Z] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49598] Start of request processing
+Jan  8 16:57:02.848 [ERRO] [requireId:a3R7AwZciPo57avZn45B5Z] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:57:02.848 [INFO] [requireId:a3R7AwZciPo57avZn45B5Z] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49598] [reqDuration:105.033µs] End of request processing
+Jan  8 16:57:03.253 [INFO] [requireId:bpu3jqzPhPtvtJUmTqpxqg] [urlPath:/api/v1/category] [method:GET] [remoteAddr:192.168.96.4:49610] Start of request processing
+Jan  8 16:57:03.263 [INFO] [requireId:JEvQAPYR5JPZVFxehrcRCX] [urlPath:/api/v1/product] [method:POST] [remoteAddr:192.168.96.4:49612] Start of request processing
+Jan  8 16:57:03.341 [INFO] [requireId:JEvQAPYR5JPZVFxehrcRCX] [urlPath:/api/v1/product] [method:POST] [remoteAddr:192.168.96.4:49612] [reqDuration:78.65071ms] End of request processing
+Jan  8 16:57:03.502 [INFO] [requireId:bpu3jqzPhPtvtJUmTqpxqg] [urlPath:/api/v1/category] [method:GET] [remoteAddr:192.168.96.4:49610] [reqDuration:249.675722ms] End of request processing
+Jan  8 16:57:03.535 [INFO] [requireId:fpRT8zQehNn87Kt2QG5PKi] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49634] Start of request processing
+Jan  8 16:57:03.535 [ERRO] [requireId:fpRT8zQehNn87Kt2QG5PKi] [function:Auth] [package:middleware] http: named cookie not present
+Jan  8 16:57:03.535 [INFO] [requireId:fpRT8zQehNn87Kt2QG5PKi] [urlPath:/api/v1/cart] [method:GET] [remoteAddr:192.168.96.4:49634] [reqDuration:81.425µs] End of request processing
+Jan  8 17:12:05.400 [INFO] [requireId:n62fKhHocrwtsh5xkMLqb4] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49660] Start of request processing
+Jan  8 17:12:05.401 [INFO] [requireId:n62fKhHocrwtsh5xkMLqb4] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49660] [reqDuration:893.752µs] End of request processing
+Jan  8 17:27:05.140 [INFO] [requireId:YRrj4NeeJo9gvoK9wGM9eX] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49666] Start of request processing
+Jan  8 17:27:05.140 [INFO] [requireId:YRrj4NeeJo9gvoK9wGM9eX] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49666] [reqDuration:301.199µs] End of request processing
+Jan  8 17:42:06.088 [INFO] [requireId:xQfdrcxwoRLdr3wmFd8eiB] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49668] Start of request processing
+Jan  8 17:42:06.088 [INFO] [requireId:xQfdrcxwoRLdr3wmFd8eiB] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49668] [reqDuration:445.166µs] End of request processing
+Jan  8 17:57:07.034 [INFO] [requireId:rzmY7Kiid3Q7HSFPvPkCeE] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49674] Start of request processing
+Jan  8 17:57:07.034 [INFO] [requireId:rzmY7Kiid3Q7HSFPvPkCeE] [urlPath:/api/v1/csrf] [method:GET] [remoteAddr:192.168.96.4:49674] [reqDuration:199.984µs] End of request processing
