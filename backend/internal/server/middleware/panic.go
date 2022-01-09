@@ -3,9 +3,9 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/http_utils"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
 )
 
 func Panic(next http.Handler) http.Handler {

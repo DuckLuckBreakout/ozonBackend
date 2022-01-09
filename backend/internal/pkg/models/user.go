@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/sanitizer"
 )
 
 // All user information

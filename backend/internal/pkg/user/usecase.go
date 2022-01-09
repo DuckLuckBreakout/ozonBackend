@@ -3,10 +3,10 @@ package user
 import (
 	"mime/multipart"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 )
 
-//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user UseCase
+//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/user UseCase
 
 type UseCase interface {
 	Authorize(authUser *models.LoginUser) (uint64, error)

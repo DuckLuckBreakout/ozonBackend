@@ -5,9 +5,9 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/server/tools/password_hasher"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/server/tools/password_hasher"
 
 	"github.com/DATA-DOG/go-sqlmock"
 )

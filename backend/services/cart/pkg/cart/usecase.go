@@ -1,8 +1,8 @@
 package cart
 
-import "github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/services/cart/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart UseCase
+//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/web/backend/services/cart/pkg/cart UseCase
 
 type UseCase interface {
 	AddProduct(userId uint64, cartArticle *models.CartArticle) error

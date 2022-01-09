@@ -1,4 +1,4 @@
-module github.com/DuckLuckBreakout/ozonBackend
+module github.com/DuckLuckBreakout/web/backend
 
 go 1.15
 

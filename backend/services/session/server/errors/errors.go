@@ -1,7 +1,7 @@
 package errors
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/errors"
+	"github.com/DuckLuckBreakout/web/backend/pkg/errors"
 )
 
 func CreateError(err error) error {

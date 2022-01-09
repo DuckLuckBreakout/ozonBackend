@@ -9,9 +9,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	favorites_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	favorites_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/favorites/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"

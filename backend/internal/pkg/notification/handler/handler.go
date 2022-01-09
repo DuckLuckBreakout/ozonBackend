@@ -5,13 +5,13 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/validator"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/server_push"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/notification"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/http_utils"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/validator"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/server_push"
 )
 
 type NotificationHandler struct {

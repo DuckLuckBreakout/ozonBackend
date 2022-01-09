@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/dgrijalva/jwt-go"
 )

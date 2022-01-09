@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/promo_code"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/promo_code"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 )
 
 type PromoCodeUseCase struct {

@@ -8,10 +8,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	session_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session/mock"
-	user_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	session_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/session/mock"
+	user_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/user/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/golang/mock/gomock"
 	"github.com/lithammer/shortuuid"

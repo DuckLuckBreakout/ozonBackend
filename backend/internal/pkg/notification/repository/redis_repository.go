@@ -5,9 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/notification"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/go-redis/redis/v8"
 )

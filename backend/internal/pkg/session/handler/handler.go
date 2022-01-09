@@ -3,8 +3,8 @@ package handler
 import (
 	"net/http"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/session"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/http_utils"
 )
 
 type SessionHandler struct {

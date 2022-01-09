@@ -1,8 +1,8 @@
 package cart
 
-import "github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/services/cart/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart Repository
+//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/web/backend/services/cart/pkg/cart Repository
 
 type Repository interface {
 	SelectCartById(userId uint64) (*models.Cart, error)

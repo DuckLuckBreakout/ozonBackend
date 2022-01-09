@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 )
 
 func SetJSONResponse(w http.ResponseWriter, body interface{}, statusCode int) {

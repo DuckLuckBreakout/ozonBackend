@@ -3,7 +3,7 @@ package models
 import (
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/sanitizer"
 )
 
 var (

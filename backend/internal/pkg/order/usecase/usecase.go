@@ -3,13 +3,13 @@ package usecase
 import (
 	"context"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/promo_code"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/order"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/product"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/promo_code"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/user"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	proto "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 )
 
 type OrderUseCase struct {

@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
 	"github.com/golang/mock/gomock"
 	"github.com/lithammer/shortuuid"

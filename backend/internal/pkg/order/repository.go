@@ -1,8 +1,8 @@
 package order
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order Repository
+//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/order Repository
 
 type Repository interface {
 	AddOrder(order *models.Order, userId uint64, products []*models.PreviewCartArticle,

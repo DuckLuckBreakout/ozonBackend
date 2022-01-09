@@ -3,7 +3,7 @@ package usecase
 import (
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/services/session/pkg/session/mock"
+	"github.com/DuckLuckBreakout/web/backend/services/session/pkg/session/mock"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

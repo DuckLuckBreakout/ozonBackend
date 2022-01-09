@@ -3,12 +3,12 @@ package server
 import (
 	"context"
 
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/grpc_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/models"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/grpc_utils"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/services/cart/pkg/cart"
+	"github.com/DuckLuckBreakout/web/backend/services/cart/pkg/models"
+	proto "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
+	"github.com/DuckLuckBreakout/web/backend/services/cart/server/errors"
 
 	"github.com/golang/protobuf/ptypes/empty"
 )

@@ -1,6 +1,6 @@
 package models
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/sanitizer"
+import "github.com/DuckLuckBreakout/web/backend/internal/server/tools/sanitizer"
 
 type UpdateOrder struct {
 	OrderId uint64 `json:"order_id"`

@@ -3,9 +3,9 @@ package repository
 import (
 	"database/sql"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/category"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 )
 
 type PostgresqlRepository struct {

@@ -3,12 +3,12 @@ package product
 import (
 	"testing"
 
-	category_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category/mock"
-	category_repo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	product_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product/mock"
-	product_repo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	category_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/category/mock"
+	category_repo "github.com/DuckLuckBreakout/web/backend/internal/pkg/category/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	product_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/product/mock"
+	product_repo "github.com/DuckLuckBreakout/web/backend/internal/pkg/product/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

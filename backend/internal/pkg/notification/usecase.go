@@ -1,8 +1,8 @@
 package notification
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/notification UseCase
+//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/notification UseCase
 
 type UseCase interface {
 	SubscribeUser(userId uint64, credentials *models.NotificationCredentials) error

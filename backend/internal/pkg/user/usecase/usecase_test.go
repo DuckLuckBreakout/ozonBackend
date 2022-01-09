@@ -4,10 +4,10 @@ import (
 	"context"
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	user_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	auth_service "github.com/DuckLuckBreakout/ozonBackend/services/auth/proto/user"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	user_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/user/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	auth_service "github.com/DuckLuckBreakout/web/backend/services/auth/proto/user"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

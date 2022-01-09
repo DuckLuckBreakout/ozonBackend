@@ -1,10 +1,10 @@
 package usecase
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/pkg/user"
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/services/auth/server/tools/password_hasher"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/pkg/user"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/services/auth/server/tools/password_hasher"
 )
 
 type UserUseCase struct {

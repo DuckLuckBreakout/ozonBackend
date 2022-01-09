@@ -1,9 +1,9 @@
 package usecase
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/services/cart/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/services/cart/pkg/cart"
+	"github.com/DuckLuckBreakout/web/backend/services/cart/pkg/models"
 )
 
 type CartUseCase struct {

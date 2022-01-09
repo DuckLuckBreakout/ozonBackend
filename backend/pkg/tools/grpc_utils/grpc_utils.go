@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/metrics"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/pkg/metrics"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
 
 	"github.com/lithammer/shortuuid"
 	"google.golang.org/grpc"

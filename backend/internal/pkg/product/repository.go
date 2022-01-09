@@ -1,10 +1,10 @@
 package product
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 )
 
-//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product Repository
+//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/product Repository
 
 type Repository interface {
 	SelectProductById(productId uint64) (*models.Product, error)

@@ -3,10 +3,10 @@ package usecase
 import (
 	"context"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/session/proto/session"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/session"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	proto "github.com/DuckLuckBreakout/web/backend/services/session/proto/session"
 )
 
 type SessionUseCase struct {

@@ -4,11 +4,11 @@ import (
 	"context"
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	product_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	cart_service "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	product_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/product/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	cart_service "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
+	proto "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 
 	"github.com/golang/mock/gomock"
 	"github.com/golang/protobuf/ptypes/empty"

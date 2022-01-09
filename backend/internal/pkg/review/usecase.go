@@ -1,8 +1,8 @@
 package review
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review UseCase
+//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/review UseCase
 
 type UseCase interface {
 	GetStatisticsByProductId(productId uint64) (*models.ReviewStatistics, error)

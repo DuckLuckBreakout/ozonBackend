@@ -1,6 +1,6 @@
 package password_hasher
 
-import "github.com/DuckLuckBreakout/ozonBackend/pkg/tools/hasher"
+import "github.com/DuckLuckBreakout/web/backend/pkg/tools/hasher"
 
 var (
 	passwordSettings = &hasher.Settings{

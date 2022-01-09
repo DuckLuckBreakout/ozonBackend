@@ -2,7 +2,7 @@ package user
 
 import "net/http"
 
-//go:generate mockgen -destination=./mock/mock_handler.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user Handler
+//go:generate mockgen -destination=./mock/mock_handler.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/user Handler
 
 type Handler interface {
 	Login(w http.ResponseWriter, r *http.Request)

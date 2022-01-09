@@ -1,8 +1,8 @@
 package session
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/session UseCase
+//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/session UseCase
 
 type UseCase interface {
 	GetUserIdBySession(sessionCookieValue string) (uint64, error)

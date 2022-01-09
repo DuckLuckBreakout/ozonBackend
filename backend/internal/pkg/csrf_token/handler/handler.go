@@ -4,12 +4,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/csrf_token"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/jwt_token"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/csrf_token"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/http_utils"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/jwt_token"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
 )
 
 type CsrfTokenHandler struct{}

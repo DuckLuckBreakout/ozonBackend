@@ -3,13 +3,13 @@ package usecase
 import (
 	"testing"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	order_repo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order/mock"
-	product_repo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product/mock"
-	promo_code_repo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/promo_code/mock"
-	user_repo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	cart_service "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	order_repo "github.com/DuckLuckBreakout/web/backend/internal/pkg/order/mock"
+	product_repo "github.com/DuckLuckBreakout/web/backend/internal/pkg/product/mock"
+	promo_code_repo "github.com/DuckLuckBreakout/web/backend/internal/pkg/promo_code/mock"
+	user_repo "github.com/DuckLuckBreakout/web/backend/internal/pkg/user/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	cart_service "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"

@@ -3,11 +3,11 @@ package server
 import (
 	"context"
 
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/grpc_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
-	"github.com/DuckLuckBreakout/ozonBackend/services/session/pkg/session"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/session/proto/session"
-	"github.com/DuckLuckBreakout/ozonBackend/services/session/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/grpc_utils"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/services/session/pkg/session"
+	proto "github.com/DuckLuckBreakout/web/backend/services/session/proto/session"
+	"github.com/DuckLuckBreakout/web/backend/services/session/server/errors"
 
 	"github.com/golang/protobuf/ptypes/empty"
 )

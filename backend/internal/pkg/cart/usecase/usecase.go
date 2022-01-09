@@ -3,11 +3,11 @@ package usecase
 import (
 	"context"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/cart"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/cart"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/product"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	proto "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 )
 
 type CartUseCase struct {

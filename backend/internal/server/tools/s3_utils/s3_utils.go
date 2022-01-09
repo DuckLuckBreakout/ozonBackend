@@ -6,9 +6,9 @@ import (
 	"mime/multipart"
 	"os"
 
-	"github.com/DuckLuckBreakout/ozonBackend/configs"
-	_ "github.com/DuckLuckBreakout/ozonBackend/configs"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/configs"
+	_ "github.com/DuckLuckBreakout/web/backend/configs"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"

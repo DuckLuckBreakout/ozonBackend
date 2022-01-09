@@ -6,12 +6,12 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/favorites"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/http_utils"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/validator"
-	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/favorites"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/http_utils"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/validator"
+	"github.com/DuckLuckBreakout/web/backend/pkg/tools/logger"
 
 	"github.com/gorilla/mux"
 )

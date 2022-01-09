@@ -3,10 +3,10 @@ package usecase
 import (
 	"fmt"
 
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/review"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/user"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 )
 
 type ReviewUseCase struct {

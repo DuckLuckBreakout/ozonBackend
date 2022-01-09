@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/DuckLuckBreakout/ozonBackend/services/session/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/services/session/pkg/session"
-	"github.com/DuckLuckBreakout/ozonBackend/services/session/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/services/session/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/services/session/pkg/session"
+	"github.com/DuckLuckBreakout/web/backend/services/session/server/errors"
 
 	"github.com/go-redis/redis/v8"
 )

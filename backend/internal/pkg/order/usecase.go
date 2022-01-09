@@ -1,8 +1,8 @@
 package order
 
-import "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+import "github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
-//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/order UseCase
+//go:generate mockgen -destination=./mock/mock_usecase.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/order UseCase
 
 type UseCase interface {
 	GetPreviewOrder(userId uint64, previewCart *models.PreviewCart) (*models.PreviewOrder, error)

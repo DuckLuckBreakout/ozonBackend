@@ -1,10 +1,10 @@
 package user
 
 import (
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 )
 
-//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user Repository
+//go:generate mockgen -destination=./mock/mock_repository.go -package=mock github.com/DuckLuckBreakout/web/backend/internal/pkg/user Repository
 
 type Repository interface {
 	AddProfile(user *models.ProfileUser) (uint64, error)

@@ -8,9 +8,9 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	category_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	category_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/category/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 
 	"github.com/golang/mock/gomock"
 	"github.com/gorilla/mux"

@@ -2,11 +2,11 @@ package usecase
 
 import (
 	"context"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/tools/s3_utils"
-	proto "github.com/DuckLuckBreakout/ozonBackend/services/auth/proto/user"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/user"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/s3_utils"
+	proto "github.com/DuckLuckBreakout/web/backend/services/auth/proto/user"
 	"mime/multipart"
 )
 

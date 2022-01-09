@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/DuckLuckBreakout/ozonBackend/configs"
+	"github.com/DuckLuckBreakout/web/backend/configs"
 )
 
 func Cors(next http.Handler) http.Handler {

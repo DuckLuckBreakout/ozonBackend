@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/errors"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	admin_mock "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/admin/mock"
-	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models"
+	admin_mock "github.com/DuckLuckBreakout/web/backend/internal/pkg/admin/mock"
+	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 
 	"github.com/golang/mock/gomock"
 	"github.com/lithammer/shortuuid"
