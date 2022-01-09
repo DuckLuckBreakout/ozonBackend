@@ -21,23 +21,23 @@ jobs:
       - name: Login to DockerHub Registry
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Build Docker api-server image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api-server:${{ env.API_SERVER_TAG }} --target api-server .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api-server:${{ env.API_SERVER_TAG }} --target api-server ./backend
       - name: Push the api_server image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/api-server:${{ env.API_SERVER_TAG }}
       - name: Build Docker api-db image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api-db:${{ env.API_DB_TAG }} --target api-db .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api-db:${{ env.API_DB_TAG }} --target api-db ./backend
       - name: Push the api-db image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/api-db:${{ env.API_DB_TAG }}
       - name: Build Docker session-service image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/session-service:${{ env.SESSION_SERVICE_TAG }} --target session-service .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/session-service:${{ env.SESSION_SERVICE_TAG }} --target session-service ./backend
       - name: Push the session-service image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/session-service:${{ env.SESSION_SERVICE_TAG }}
       - name: Build Docker cart-service image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ env.CART_SERVICE_TAG }} --target cart-service .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ env.CART_SERVICE_TAG }} --target cart-service ./backend
       - name: Push the cart-service image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ env.CART_SERVICE_TAG }}
       - name: Build Docker auth-service image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ env.AUTH_SERVICE_TAG }} --target auth-service .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ env.AUTH_SERVICE_TAG }} --target auth-service ./backend
       - name: Push the auth-service image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ env.AUTH_SERVICE_TAG }}
       - name: Upload dependencies
