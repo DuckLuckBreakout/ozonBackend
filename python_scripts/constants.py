@@ -7,11 +7,11 @@ ALL_LOCAL_BUILD_TARGETS = [
 ]
 
 LOCAL_UP_TARGETS_WITH_BUILD = [
-    'duckluckmarket/api-db',
-    'duckluckmarket/api-server',
-    'duckluckmarket/session-service',
-    'duckluckmarket/cart-service',
-    'duckluckmarket/auth-service',
+    'duckluckbreakout/api-db',
+    'duckluckbreakout/api-server',
+    'duckluckbreakout/session-service',
+    'duckluckbreakout/cart-service',
+    'duckluckbreakout/auth-service',
 ]
 
 
@@ -19,20 +19,20 @@ LOCAL_UP_TARGETS_FROM_DOCKERHUB = [
     'auth-db',
     'session-db',
     'cart-db',
-    'node-exporter',
-    'prometheus',
-    'alertmanager-bot',
-    'alertmanager',
-    'grafana',
+#    'node-exporter',
+#    'prometheus',
+#    'alertmanager-bot',
+#    'alertmanager',
+#    'grafana',
 ]
 
 
 IMAGES_FROM_DOCKERHUB = [
     'postgres',
     'redis',
-    'prom/node-exporter',
-    'prom/prometheus',
-    'prom/alertmanager',
-    'grafana/grafana:latest',
-    'metalmatze/alertmanager-bot',
+#    'prom/node-exporter',
+#    'prom/prometheus',
+#    'prom/alertmanager',
+#    'grafana/grafana:latest',
+#    'metalmatze/alertmanager-bot',
 ]

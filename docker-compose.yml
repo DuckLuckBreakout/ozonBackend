@@ -42,12 +42,38 @@ services:
     image: duckluckmarket/api-server:${API_SERVER_TAG}
     container_name: api_server
     restart: unless-stopped
-    ports:
-      - "8080:8080"
+    #    ports:
+    #  - "8080:8080"
     volumes:
       - ./log:/log
       - ./configs/envs/api_server:/configs/envs/api_server
       - ./configs/envs/network.env:/configs/envs/network.env
+    networks:
+      - api-network
+      - app-network
+  api-server-1:
+    depends_on:
+      - api-db
+    image: duckluckmarket/api-server:${API_SERVER_TAG}
+    container_name: api_server_1
+    restart: unless-stopped
+    volumes:
+      - ./log1:/log
+      - ./configs1/envs/api_server:/configs/envs/api_server
+      - ./configs1/envs/network.env:/configs/envs/network.env
+    networks:
+      - api-network
+      - app-network
+  api-server-2:
+    depends_on:
+      - api-db
+    image: duckluckmarket/api-server:${API_SERVER_TAG}
+    container_name: api_server_2
+    restart: unless-stopped
+    volumes:
+      - ./log2:/log
+      - ./configs2/envs/api_server:/configs/envs/api_server
+      - ./configs2/envs/network.env:/configs/envs/network.env
     networks:
       - api-network
       - app-network
@@ -90,76 +116,22 @@ services:
     networks:
       - cart-network
       - app-network
-  node-exporter:
-    image: prom/node-exporter
-    restart: always
+  nginx:
+    image: ranadeeppolavarapu/nginx-http3:latest
+    container_name: nginx
+    restart: unless-stopped
     volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
-    networks:
-      - app-network
-  prometheus:
-    depends_on:
-      - api-server
-      - node-exporter
-    image: prom/prometheus
-    privileged: true
-    restart: always
-    volumes:
-      - ./configs/prometheus/prometheus.yml:/configs/prometheus/prometheus.yml
-      - ./configs/prometheus/alerts.yml:/configs/prometheus/alerts.yml
-    command:
-      - '--config.file=/configs/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention=20d'
-      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-      - '--web.console.templates=/usr/share/prometheus/consoles'
-    networks:
-      - api-network
-      - app-network
-  grafana:
-    image: grafana/grafana:latest
-    depends_on:
-      - prometheus
-      - node-exporter
-    env_file:
-      - configs/envs/grafana/main.env
-    volumes:
-      - ./services_data/grafana/data:/var/lib/grafana
-      - ./services_data/grafana/datasources:/etc/grafana/datasources
-      - ./services_data/grafana/dashboards:/etc/grafana/dashboards
+      - ./privkey.pem:/etc/ssl/private/privkey.pem
+      - ./fullchain.pem:/etc/ssl/fullchain.pem
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./h3.nginx.conf:/etc/nginx/conf.d/h3.nginx.conf
     ports:
-      - "3030:3000"
+      - "80:80"
+      - "443:443/tcp"
+      - "443:443/udp"
     networks:
       - app-network
-  alertmanager:
-    image: prom/alertmanager
-    volumes:
-      - ./configs/alertmanager:/configs/alertmanager
-    command:
-      - '--config.file=/configs/alertmanager/alertmanager.yml'
-      - '--storage.path=/configs/alertmanager'
-    restart: always
-    networks:
-      - app-network
-  alertmanager-bot:
-    image: metalmatze/alertmanager-bot
-    depends_on:
-      - alertmanager
-    command:
-      - "--listen.addr=0.0.0.0:8080"
-    env_file:
-      - configs/envs/alertmanager_bot/main.env
-    volumes:
-      - ./configs/alertbot/default.tmpl:/configs/alertbot/default.tmpl
-    restart: always
-    networks:
-      - app-network
+      - api-network
 networks:
   api-network:
     driver: bridge
@@ -171,6 +143,3 @@ networks:
     driver: bridge
   app-network:
     driver: bridge
-volumes:
-  grafana-storage:
-    external: true
