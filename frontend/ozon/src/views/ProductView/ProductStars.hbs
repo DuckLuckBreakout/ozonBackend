@@ -1,0 +1,25 @@
+<div class="{{starsStyles.block}}">
+    <div class="{{starsStyles.header}}">
+        <div class="{{starsStyles.starsWrapper}}">
+            <div class="{{starsStyles.stars}}">
+                <div class="{{starsStyles.colorStars}}" style="width: {{width}}%;"></div>
+            </div>
+        </div>
+        <div class="{{textStyles.ratingBig}}">
+            <span>{{rating}} / 5</span>
+        </div>
+    </div>
+    <div class="{{starsStyles.starsInfo}}">
+        {{#each stars}}
+            <div class="{{../starsStyles.infoRow}}">
+                <div class="{{../textStyles.ratingBlockTitle}} {{../starsStyles.starTitle}}">{{this.title}}</div>
+                <div class="{{../starsStyles.countLine}}">
+                    <div class="{{../starsStyles.countColor}}">
+                        <div class="{{../starsStyles.colorLine}}" style="width: {{this.width}}%;"></div>
+                    </div>
+                </div>
+                <div class="{{../textStyles.ratingBlockTitle}} {{../starsStyles.starCount}}">{{this.count}}</div>
+            </div>
+        {{/each}}
+    </div>
+</div>

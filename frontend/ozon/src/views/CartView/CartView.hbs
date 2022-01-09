@@ -1,0 +1,120 @@
+<div class="{{cartStyles.cartWrapper}}" id="products-list-block">
+    <div class="{{cartStyles.background}}"></div>
+    <div class="{{cartStyles.body}}">
+        <div class="{{cartStyles.title}}">
+            <span class="{{textStyles.title}}">Корзина</span>
+        </div>
+        <div class="{{cartStyles.mainWrapper}}">
+            <div class="{{cartStyles.wrapper}}">
+                <div class="{{cartStyles.cartInfo}}">
+                    <div class="{{cartStyles.selectMenu}}">
+                        <div class="{{cartStyles.selectAll}}" style="visibility: hidden;">
+                            <input type="checkbox" name="a" value="Выбрать все" class="{{cartStyles.checkbox}}" >
+                            <div class="{{cartStyles.selectAllText}}">
+                                <span class="{{textStyles.text}}">Выбрать все</span>
+                            </div>
+                        </div>
+                        <div class="{{cartStyles.deleteSelectedText}}" style="visibility: hidden;">
+                            <span class="{{textStyles.discount}}">Удалить выбранные</span>
+                        </div>
+                    </div>
+                    <div class="{{cartStyles.deliveryBlock}}">
+                        <div class="{{cartStyles.deliveryText}}">
+                            <span class="{{textStyles.text}} {{cartStyles.deliveryItemText}}">Доставка Ozon</span>
+                            <div class="{{cartStyles.deliveryItems}}">
+                                <div class="{{cartStyles.deliveryItem}}">
+                                    <img src="/svg/delivery.svg" alt="">
+                                    <span class="{{textStyles.text}} {{cartStyles.deliveryItemText}}">Курьером</span>
+                                </div>
+                                <div class="{{cartStyles.deliveryItem}}">
+                                    <img src="/svg/geo.svg" alt="">
+                                    <span class="{{textStyles.text}} {{cartStyles.deliveryItemText}}">Самовывоз</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="{{cartStyles.productsListBlock}}">
+                        <div class="products-list">
+                            {{#each this.productsList}}
+                                <div class="{{../cartStyles.productsListElem}}" product_id="{{this.id}}">
+                                    <input type="" name="a" value="" class="{{../decorators.hidden}}">
+                                    <div class="{{../cartStyles.imageWrapper}}">
+                                        <img src={{this.preview_image}} alt="" class="{{../imgStyles.cartProduct}}">
+                                    </div>
+                                    <div class="{{../cartStyles.description}}">
+                                        <span class="{{../cartStyles.name}}">{{this.title}}</span>
+                                        <div class="{{../cartStyles.productMenu}}">
+<!--                                            <div class="{{../cartStyles.productMenuText}} {{../decorators.lock}}">-->
+<!--                                                <span class="{{../textStyles.text}}">В избранное</span>-->
+<!--                                            </div>-->
+                                            <div class="{{../cartStyles.productMenuText}}" title={{this.id}}>
+                                                <span class="{{../textStyles.delete}}">Удалить</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="{{../cartStyles.priceBlock}}">
+                                        <div class="{{../cartStyles.priceInfo}}">
+                                            <div class="{{../textStyles.bold}}" id="totalCost{{this.id}}">{{multiply this.price.total_cost this.count}} ₽</div>
+                                            {{#ifNotEquals this.price.total_discount 0}}
+                                                <span class="{{../textStyles.oldPrice}}" id="baseCost{{this.id}}">{{multiply this.price.base_cost this.count}} ₽</span>
+                                                <span class="{{../textStyles.bold}} {{../textStyles.orderDiscount}}" id="discount{{this.id}}">Скидка {{substract (multiply this.price.base_cost this.count) (multiply this.price.total_cost this.count)}} ₽</span>
+                                            {{/ifNotEquals}}
+                                        </div>
+                                    </div>
+                                    <div class="{{../cartStyles.countMenu}}">
+                                        <div class="{{../cartStyles.countButtonWrapper}}">
+                                            <button class="{{../buttonStyles.increment}} {{../textStyles.increment}}" title={{this.id}}>-</button>
+                                        </div>
+                                        <div class="{{../cartStyles.countField}}" title={{this.id}}>
+                                            <span class="{{../cartStyles.count}}" title={{this.id}}>{{this.count}}</span>
+                                        </div>
+                                        <div class="{{../cartStyles.countButtonWrapper}}">
+                                            <button class="{{../buttonStyles.decrement}} {{../textStyles.decrement}}" title={{this.id}}>+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <div class="{{cartStyles.orderMenu}}">
+                    <div class="{{cartStyles.orderButtonBlock}}">
+                        <div class="{{cartStyles.orderButtonWrapper}}">
+                            <button class="{{buttonStyles.order}}">
+                                <span class="{{textStyles.bigButton}}">Перейти к оформлению</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="{{cartStyles.orderInfo}}">
+                        <div class="{{cartStyles.orderInfoWrapper}}">
+                            <div class="{{cartStyles.orderInfoTitle}}">
+                                <span class="{{textStyles.smallTitle}}">Ваша корзина</span>
+                            </div>
+                            <div class="{{cartStyles.orderInfoBody}}">
+                                <div class="{{cartStyles.orderInfoRow}}">
+                                    <div class="{{cartStyles.orderInfoText}}">
+                                        <span class="{{textStyles.text}}">Товары ({{this.cartSize}})</span>
+                                    </div>
+                                    <span class="{{textStyles.orderPrice}}" id="baseCost">{{this.baseCost}}₽</span>
+                                </div>
+                                <div class="{{cartStyles.orderInfoRow}}">
+                                    <div class="{{cartStyles.orderInfoText}}">
+                                        <span class="{{textStyles.text}}">Скидка</span>
+                                    </div>
+                                    <div class="{{cartStyles.orderInfoText}}">
+                                        <span class="{{textStyles.orderDiscount}}" id="discount">- {{this.discount}}₽</span>
+                                    </div>
+                                </div>
+                                <div class="{{cartStyles.totalPriceBlock}}">
+                                    <span class="{{textStyles.smallTitle}}">Общая стоимость</span>
+                                    <span class="{{textStyles.smallTitle}}" id="totalCost">{{this.totalCost}} ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

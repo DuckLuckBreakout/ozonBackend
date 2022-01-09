@@ -1,0 +1,87 @@
+@import "../../constants";
+
+.block {
+    padding: $padding-xs $padding-l;
+    width: 76.66%;
+    box-sizing: border-box;
+    font-family: $font-family;
+    display: flex;
+    gap: $margin-xxxl;
+    margin: $margin-l auto 0;
+}
+
+.exitButtonWrapper {
+    max-height: 28px;
+    min-height: 28px;
+}
+
+.avatarBlock {
+    display: flex;
+    flex-direction: column;
+    gap: $margin-s;
+}
+
+.nameWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.informationBlock {
+    display: flex;
+    flex-direction: row;
+    width: 57%;
+    height: 310px;
+    gap: $margin-s
+}
+
+.infoElem {
+    display: flex;
+    flex-direction: column;
+    gap: $gap-xxs;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: $margin-xl;
+}
+
+.infoText {
+    background: $neutral-background-color;
+    border: none;
+}
+
+.infoText::placeholder {
+    color: grey;
+}
+
+.incorrectAvatar {
+    color: firebrick;
+}
+
+.fioWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $margin-xl;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: $max-width-s) {
+    .block {
+        flex-direction: column;
+        padding-bottom: 120px;
+    }
+
+    .avatarWrapper {
+        margin: auto;
+    }
+
+    .exit {
+        margin: auto;
+    }
+}

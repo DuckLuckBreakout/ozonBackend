@@ -1,0 +1,25 @@
+<form id="filtration_form" class="{{filterStyles.menu}}">
+    <div class="{{textStyles.bold}}">Цена</div>
+    <div class="{{filterStyles.row}}">
+        <label for="min_price" class="{{textStyles.big}} {{inputStyles.promo}}"> От </label> <input type="number" min="1" id="min_price" class="{{filterStyles.input}}">
+    </div>
+    <div class="{{filterStyles.row}}">
+        <label for="max_price" class="{{textStyles.big}} {{inputStyles.promo}}"> До </label> <input type="number" min="0" id="max_price" class="{{filterStyles.input}}">
+    </div>
+    <div class="{{filterStyles.incorrectFilterLabel}}" id="incorrect_filter_label"></div>
+    <div class="{{filterStyles.row}}">
+        <label for="is_new" class="{{textStyles.bold}}"> Новые товары </label> <input type="checkbox" id="is_new">
+    </div>
+    <div class="{{filterStyles.row}}">
+        <label for="is_rating" class="{{textStyles.bold}}"> Высокий рейтинг </label> <input type="checkbox" id="is_rating">
+    </div>
+    <div class="{{filterStyles.row}}">
+        <label for="is_discount" class="{{textStyles.bold}}"> Товары со скидкой </label> <input type="checkbox" id="is_discount">
+    </div>
+    <button class="{{filterStyles.button}} {{buttonStyles.filterSubmit}}">
+        <span class="{{filterStyles.buttonText}} {{textStyles.bigButton}}">Применить</span>
+    </button>
+    <button id="drop-filters" class="{{filterStyles.drop}} {{buttonStyles.filterDrop}}">
+        <span class="{{filterStyles.dropText}} {{textStyles.big}}">Сбросить фильтры</span>
+    </button>
+</form>

@@ -1,0 +1,4 @@
+node_modules/*
+ozon/src/dist/*
+webpack.config.js
+out/*

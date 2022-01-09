@@ -1,0 +1,87 @@
+@import '../../constants';
+
+.block {
+    width: 76.66%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 24px;
+}
+
+.contentWrapper {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    gap: $gap-s;
+    margin-top: $margin-l;
+}
+
+.body {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+}
+
+.listWrapper {
+    margin-top: $margin-s;
+}
+
+.footer {
+    display: flex;
+    margin: auto;
+    width: 100%;
+    border-top: solid 3px;
+    border-color: $neutral-background-color;
+    padding-top: $padding-m;
+}
+
+.emptyText, .onMainPage {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.toMainLink {
+    text-decoration: none;
+
+    color: $colored-object-color;
+    margin: auto;
+}
+
+.select {
+    width: 226px;
+    height: $height-xxxs;
+    border-radius: 6px;
+    border: 2px solid $select-color;
+    font-family: $font-family;
+    cursor: pointer;
+}
+
+.select:hover {
+    border-color: $select-active-color;
+}
+
+.select:focus {
+    outline: 0;
+}
+
+@media screen and (max-width: $max-width-xl) {
+    .block {
+        width: 100%;
+    }
+
+    .body {
+        margin: $margin-l auto auto;
+        width: 100%;
+        max-width: 70%;
+    }
+
+    .contentWrapper {
+        flex-direction: column;
+    }
+
+    .block {
+        padding-bottom: 65px;
+    }
+}
+

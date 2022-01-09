@@ -1,0 +1,20 @@
+<div class="{{styles.wrapper}}" id="authentication-block-wrapper">
+    <form class="{{styles.body}}">
+        <span class="{{textStyles.smallTitle}}">Войдите или зарегистрируйтесь, чтобы продолжить</span>
+        {{#each formData.inputFields}}
+            <div class="{{../styles.inputBlock}}">
+                <span class="{{../styles.fieldName}}"></span>
+                <div class="{{../styles.inputWrapper}}">
+                    <input id="{{this.name}}" name="{{this.name}}" type="{{this.type}}" class="{{../textStyles.input}} {{../styles.input}}" placeholder="{{this.placeholder}}">
+                </div>
+            </div>
+        {{/each}}
+
+        <div class="{{styles.buttonWrapper}}">
+            <button class="{{buttonStyles.auth}}" type="{{formData.submitButton.type}}">
+                <span class="{{textStyles.bigButton}}">{{formData.submitButton.text}}</span>
+            </button>
+        </div>
+        <a class="{{linkStyles.link}}" href="{{formData.link.href}}">{{formData.link.name}}</a>
+    </form>
+</div>

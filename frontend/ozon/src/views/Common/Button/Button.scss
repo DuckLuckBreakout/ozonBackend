@@ -1,0 +1,210 @@
+@import "../../../constants";
+
+$colors: (
+    main-color: (
+        common: (
+            background: $colored-object-color,
+            text: $light-color,
+        ),
+        hover: (
+            background: $dark-colored-object-color,
+            text: $light-color,
+        ),
+    ),
+    order-color: (
+        common: (
+            background: $order-color,
+            text: $light-color,
+        ),
+        hover: (
+            background: $dark-order-color,
+            text: $light-color,
+        ),
+    ),
+    inherit-color: (
+        common: (
+            background: inherit,
+            text: $colored-object-color,
+        ),
+        hover: (
+            background: $neutral-background-color,
+            text: $colored-object-color,
+        ),
+    ),
+    exit-color: (
+        common: (
+            background: inherit,
+            text: $exit-color,
+        ),
+        hover: (
+            background: $neutral-background-color,
+            text: $exit-color,
+        ),
+    ),
+    in-cart-color: (
+        common: (
+            background: $order-color,
+            text: $light-color,
+        ),
+        hover: (
+            background: $dark-order-color,
+            text: $light-color,
+        ),
+    ),
+    not-in-cart-color: (
+        common: (
+            background: $colored-object-color,
+            text: $light-color,
+        ),
+        hover: (
+            background: $dark-colored-object-color,
+            text: $light-color,
+        ),
+    ),
+    paginator-current-color: (
+        common: (
+                background: $colored-object-color,
+                text: $light-color,
+        ),
+        hover: (
+                background: $dark-colored-object-color,
+                text: $light-color,
+        ),
+    ),
+    paginator-common-color: (
+        common: (
+                background: white,
+                text: $colored-object-color,
+        ),
+        hover: (
+                background: $neutral-background-color,
+                text: $colored-object-color,
+        ),
+    ),
+    paginator-big-color: (
+        common: (
+            background: $neutral-background-color,
+            text: $colored-object-color,
+        ),
+        hover: (
+            background: $dark-neutral-background-color,
+            text: $colored-object-color,
+        ),
+    ),
+    slider-color: (
+        common: (
+            background: white,
+            text: black,
+        ),
+        hover: (
+            background: $colored-object-color,
+            text: $neutral-background-color,
+        ),
+    ),
+);
+
+@each $key, $data in $colors {
+    %#{$key} {
+        background-color: map-get(map-get($data, common), background);
+        color: map-get(map-get($data, common), text);
+    }
+    %#{$key}:hover {
+        background-color: map-get(map-get($data, hover), background);
+        color: map-get(map-get($data, hover), text);
+    }
+}
+
+%button-shared {
+    cursor: pointer;
+    border: none;
+    border-radius: $standard-border-radius;
+    outline: none;
+    width: 100%;
+    height: 100%;
+}
+
+%button-shared:hover {
+    transition: .2s cubic-bezier(.4,0,.2,1);
+}
+
+.button {
+    @extend %button-shared;
+}
+
+.catalog, .auth, .review, .filterSubmit {
+    @extend %button-shared;
+    @extend %main-color;
+}
+
+.order {
+    @extend %button-shared;
+    @extend %order-color;
+}
+
+.increment, .decrement, .filterDrop, .profileChange {
+    @extend %button-shared;
+    @extend %inherit-color;
+}
+
+.inCartProduct, .inCartProducts {
+    @extend %button-shared;
+    @extend %in-cart-color;
+}
+
+.notInCartProduct, .notInCartProducts {
+    @extend %button-shared;
+    @extend %not-in-cart-color;
+}
+
+
+%paginator-shared {
+    @extend %button-shared;
+}
+
+.paginator {
+    @extend %paginator-shared;
+}
+
+.paginatorCurrent {
+    @extend %paginator-shared;
+    @extend %paginator-current-color;
+}
+
+.paginatorCommon {
+    @extend %paginator-shared;
+    @extend %paginator-common-color;
+}
+
+.paginatorBig {
+    @extend %paginator-shared;
+    @extend %paginator-big-color;
+}
+
+.profileExit {
+    @extend %button-shared;
+    @extend %exit-color;
+}
+
+.slider {
+    @extend %button-shared;
+    @extend %slider-color;
+    border-radius: 50%;
+    box-shadow: 0px -1px 36px -2px rgb(34 60 80 / 20%);
+}
+
+.slider:hover {
+    img {
+        filter: invert(100%);
+    }
+}
+
+.search {
+    @extend %button-shared;
+    @extend %main-color;
+    border-radius: 1px;
+}
+
+.promo {
+    @extend %button-shared;
+    @extend %main-color;
+}

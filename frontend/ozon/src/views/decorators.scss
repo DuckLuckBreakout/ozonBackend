@@ -1,0 +1,36 @@
+@import '../constants';
+
+.hidden {
+    display: none;
+}
+
+.noVisibility {
+    visibility: hidden;
+}
+
+.invertColor {
+    filter: invert(100%);
+}
+
+.mirrorY {
+    transform: rotate(180deg);
+}
+
+.strikethrough:before {
+    border-bottom: 2px solid $discount-color;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 50%;
+    transform: rotate(-5deg);
+}
+
+.noScroll {
+    overflow: hidden;
+}
+
+.lock {
+    pointer-events: none;
+    cursor: not-allowed;
+}
+

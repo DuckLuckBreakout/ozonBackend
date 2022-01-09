@@ -1,0 +1,95 @@
+<div class="{{orderStyles.cartWrapper}}" id="products-list-block">
+    <div class="{{orderStyles.background}}"></div>
+    <div class="{{orderStyles.body}}">
+        <div class="{{orderStyles.title}}">
+            <span class="{{textStyles.title}}">Оформление заказа</span>
+        </div>
+        <div class="{{orderStyles.mainWrapper}}">
+            <div class="{{orderStyles.wrapper}}">
+                <div class="{{orderStyles.left}}">
+                    <div class="{{orderStyles.cartInfo}} {{orderStyles.addressBlock}}">
+                        <div class="{{orderStyles.deliveryBlock}}">
+                            <div class="{{orderStyles.deliveryText}}">
+                                <img src="https://duckluckmarket.hb.bizmrg.com/svg/header/smile.svg" alt="">
+                                <span class="{{textStyles.text}} {{textStyles.bold}} {{orderStyles.deliveryTitle}}">Данные получателя</span>
+                            </div>
+                        </div>
+                        <div class="{{orderStyles.productsListBlock}}">
+                            {{#each this.inputFields}}
+                                <div class="{{../orderStyles.productsListElem}}">
+                                    <div class="">{{this.placeholder}}</div>
+                                    <input class="{{../orderStyles.input}} {{../inputStyles.order}}" type="{{this.type}}" name="{{this.name}}" value="{{this.value}}">
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <div class="{{orderStyles.cartInfo}} {{orderStyles.addressBlock}}">
+                        <div class="{{orderStyles.deliveryBlock}}">
+                            <div class="{{orderStyles.deliveryText}}">
+                                <img src="/svg/storage.svg" alt="">
+                                <span class="{{textStyles.text}} {{textStyles.bold}} {{orderStyles.deliveryTitle}}">Будут доставлены</span>
+                            </div>
+                        </div>
+                        <div class="{{orderStyles.productsListBlock}}">
+                            <div class="{{orderStyles.cartInfo}}">
+                                <div class="{{orderStyles.images}}"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="{{orderStyles.orderMenu}}">
+                    <div class="{{orderStyles.orderButtonBlock}}">
+                        <div class="{{orderStyles.orderButtonWrapper}}">
+                            <button class="{{buttonStyles.order}}">
+                                <span class="{{textStyles.bigButton}}">Отправить заказ</span>
+                            </button>
+                        </div>
+                        <div class="{{orderStyles.rules}} {{textStyles.rules}}">Нажимая на кнопку, вы соглашаетесь с
+                            <a class="{{linkStyles.link}} {{decorators.lock}}">Условиями обработки перс. данных</a>, а также с
+                            <a class="{{linkStyles.link}} {{decorators.lock}}">Условиями продажи</a>
+                        </div>
+                    </div>
+                    <div class="{{orderStyles.orderInfo}}">
+                        <div class="{{orderStyles.orderInfoWrapper}} {{textStyles.text}}">
+                            <span class="{{orderStyles.orderInfoTitle}} {{textStyles.smallTitle}}">Ваш заказ</span>
+                            <div class="{{orderStyles.orderInfoBody}}">
+                                <div class="{{orderStyles.orderInfoRow}}">
+                                    <span class="{{orderStyles.orderInfoText}}">Товары ({{this.cartSize}})</span>
+                                    <span class="{{textStyles.orderPrice}}">{{this.baseCost}}₽</span>
+                                </div>
+                                <div class="{{orderStyles.orderInfoRow}}">
+                                    <span class="{{orderStyles.orderInfoText}}">Скидка</span>
+                                    <span class="{{textStyles.orderDiscount}}">- {{this.discount}} ₽</span>
+                                </div>
+                                <div class="{{orderStyles.totalPriceBlock}}">
+                                    <span class="{{textStyles.smallTitle}}">Итого</span>
+                                    <span class="{{textStyles.smallTitle}}">{{this.totalCost}} ₽</span>
+                                </div>
+                            </div>
+                            <div class="{{orderStyles.space}}"></div>
+                            <div class="{{orderStyles.promo}}">
+                                <div class="{{orderStyles.promoTitleBlock}}">
+                                    <img src="/svg/percent.svg" alt="">
+                                    <div class="{{textStyles.bold}} {{orderStyles.promoTitle}}">Промокод</div>
+                                </div>
+                                <div class="{{orderStyles.inputWrapper}}">
+                                    <input class="{{orderStyles.input}} {{inputStyles.promo}}" type="text" name="promo" value="">
+                                </div>
+                                <div class="{{orderStyles.promoButtonWrapper}}">
+                                    <button class="{{buttonStyles.promo}}" id="promo-btn">
+                                        <span class="{{textStyles.bigButton}}">Применить</span>
+                                    </button>
+                                </div>
+                                <div class="{{orderStyles.promoStatusWrapper}}">
+                                    <div id="promo-status"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

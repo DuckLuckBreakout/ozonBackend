@@ -1,0 +1,13 @@
+@import '../../../constants';
+
+.blind {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #1c1c1c;
+    z-index: $blind-z-index;
+    opacity: 0.8;
+}

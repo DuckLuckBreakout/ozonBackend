@@ -1,0 +1,10 @@
+<div class="{{styles.block}}">
+    {{#each buttons}}
+        <div class="{{../styles.buttonWrapper}} {{../styles.oneButtonWrapper}}">
+            <button class="{{../buttonStyles.paginator}} {{this.name}}" page="{{this.value}}">
+                <span class="{{../textStyles.text}}">{{this.value}}</span>
+            </button>
+        </div>
+    {{/each}}
+</div>
+

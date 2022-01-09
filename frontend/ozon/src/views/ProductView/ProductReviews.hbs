@@ -1,0 +1,43 @@
+{{#each reviewsList}}
+    <div class="{{../reviewStyles.block}}">
+        <div class="{{../reviewStyles.reviewHead}}">
+            <div class="{{../reviewStyles.avatarWrapper}}">
+                {{#if this.user_avatar}}
+                    <img src="{{this.avatar}}" alt="" class="{{../imgStyles.reviewAvatar}}">
+                {{else}}
+                    <div class="{{../reviewStyles.avatar}}">
+                        <span class="{{../reviewStyles.avatarText}}">{{this.firstChar}}</span>
+                    </div>
+                {{/if}}
+            </div>
+            <div class="{{../reviewStyles.nameWrapper}}">
+                <span class="{{../reviewStyles.name}}">{{this.user_name}}</span>
+            </div>
+            <div class="{{../reviewStyles.meta}}">
+                <div class="{{../reviewStyles.date}}">{{this.date_added}}</div>
+                <div class="{{../reviewStyles.rating}}">
+                    {{#for 0 this.rating 1}}
+                        <img src="{{../../starSvg.src}}" alt="" class="{{../reviewStyles.rating}} {{../../imgStyles.smallStar}}">
+                    {{/for}}
+                    {{#for this.rating 5 1}}
+                        <img src="{{../../emptyStarSvg.src}}" alt="" class="{{../reviewStyles.rating}} {{../../imgStyles.smallStar}}">
+                    {{/for}}
+                </div>
+            </div>
+        </div>
+        <div class="{{../reviewStyles.body}}">
+            <div class="{{../reviewStyles.infoRow}}">
+                <span class="{{../reviewStyles.infoTitle}}">Достоинства</span>
+                <span class="{{../reviewStyles.infoText}}">{{this.advantages}}</span>
+            </div>
+            <div class="{{../reviewStyles.infoRow}}">
+                <span class="{{../reviewStyles.infoTitle}}">Недостатки</span>
+                <span class="{{../reviewStyles.infoText}}">{{this.disadvantages}}</span>
+            </div>
+            <div class="{{../reviewStyles.infoRow}}">
+                <span class="{{../reviewStyles.infoTitle}}">Комментарий</span>
+                <span class="{{../reviewStyles.infoText}}">{{this.comment}}</span>
+            </div>
+        </div>
+    </div>
+{{/each}}

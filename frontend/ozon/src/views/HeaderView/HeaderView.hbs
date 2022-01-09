@@ -1,0 +1,100 @@
+<div class="{{headerStyles.main}}" id="header">
+    <div class="{{headerStyles.body}}">
+        <div class="{{headerStyles.logoBlock}}">
+            <div class="{{headerStyles.logoWrapper}}">
+                {{#with logo}}
+                    <img loading="lazy" src={{src}} class="{{../imgStyles.logo}}">
+                {{/with}}
+            </div>
+        </div>
+        <div class="{{headerStyles.catalogBlock}}">
+            <button class="{{buttonStyles.catalog}} {{textStyles.bigButton}}">
+                <div class="{{headerStyles.catalogButtonBody}}">
+                    {{#with catalog}}
+                        <img loading="lazy" src={{img.0.src}} class="{{../imgStyles.headerMenu}} {{../decorators.invertColor}}">
+                        <img loading="lazy" src={{img.1.src}} class="{{../imgStyles.headerMenu}} {{../decorators.invertColor}} {{../decorators.hidden}}">
+                        <span class="{{../textStyles.bigButton}}">{{text}}</span>
+                    {{/with}}
+                </div>
+            </button>
+        </div>
+        <div class="{{headerStyles.searchBlock}}">
+            {{#with searchBlock}}
+                <form class="{{../headerStyles.searchForm}}">
+<!--                    <div class="{{../headerStyles.searchAreaBlock}}">-->
+<!--                        {{#with searchArea}}-->
+<!--                            <div title="{{text}}" class="{{../../headerStyles.searchAreaText}}">-->
+<!--                                <span class="{{../../textStyles.text}}">{{text}}</span>-->
+<!--                            </div>-->
+<!--                            <div class="{{../../headerStyles.searchAreaPointer}}">-->
+<!--                                <img loading="lazy" src={{img.src}} class="{{../../imgStyles.searchArea}} {{../../headerStyles.searchAreaPointerCsv}}">-->
+<!--                            </div>-->
+<!--                        {{/with}}-->
+<!--                    </div>-->
+                    <div class="{{../headerStyles.searchInputBlock}}">
+                        {{#with searchInput}}
+                            <input placeholder="{{placeholder}}" type={{type}} name={{name}} class="{{../../inputStyles.search}} {{../../textStyles.input}}">
+                        {{/with}}
+                    </div>
+                    <div class="{{../headerStyles.searchButtonBlock}}">
+                        {{#with searchButton}}
+                            <button type="submit" class="{{../../buttonStyles.search}}">
+                                <div class="{{../../headerStyles.searchImgWrapper}}">
+                                    <img loading="lazy" src={{img.src}} class="{{../../imgStyles.headerMenu}} {{../../decorators.invertColor}}">
+                                </div>
+                            </button>
+                        {{/with}}
+                    </div>
+                </form>
+            {{/with}}
+        </div>
+        <div class="{{headerStyles.menu}}">
+            {{#each headerMenu}}
+                <a class="{{../linkStyles.headerMenu}} {{../headerStyles.menuItem}} {{#ifEquals this.href "/favorites"}} {{../decorators.lock}} {{/ifEquals}}" href="{{this.href}}" name="{{this.name}}">
+                    {{#with this}}
+                        <img src="{{img.src}}" class="{{../imgStyles.headerMenu}}">
+                        <span class="{{../textStyles.text}}">{{text}}</span>
+                    {{/with}}
+                    {{#ifEquals this.additionalSpan true}}
+                        <span name="addSpan{{this.name}}" class="{{this.additionalSpanClass}} {{../textStyles.menuCounter}}">0</span>
+                    {{/ifEquals}}
+                </a>
+            {{/each}}
+        </div>
+    </div>
+    <div class="{{headerStyles.catalogWrapper}}">
+        <div class="{{headerStyles.catalogLeftBackground}} {{decorators.hidden}}"></div>
+        <div class="{{headerStyles.catalogRightBackground}} {{decorators.hidden}}"></div>
+        <div class="{{headerStyles.catalogList}} {{decorators.hidden}}">
+            <div class="{{headerStyles.catalogListBody}}">
+                <div class="{{headerStyles.catalogListCategories}}">
+                    {{#each catalog.categories}}
+                        <div class="{{../headerStyles.category}}">
+                            <a class="{{../linkStyles.catalogCategory}}" category="{{this.id}}" href="/items/{{this.id}}">{{this.name}}</a>
+                        </div>
+                    {{/each}}
+                </div>
+                {{#each catalog.categories}}
+                    <div class="{{../headerStyles.catalogListSubcategoriesWrapper}}  {{#ifNotEquals ../currentCategory this.id}}{{../decorators.hidden}}{{/ifNotEquals}}">
+                        <div class="{{../headerStyles.catalogListSubcategories}}">
+                            {{#each this.next}}
+                                <div class="{{../../headerStyles.catalogItemWrapper}}">
+                                    <div class="{{../../headerStyles.catalogItemBody}}">
+                                        <div class="{{../../headerStyles.subcategory}}">
+                                            <a class="{{../../linkStyles.catalogSubCategory}}" category="{{this.id}}" href="/items/{{this.id}}">{{this.name}}</a>
+                                        </div>
+                                        {{#each this.next}}
+                                            <div class="{{../../../headerStyles.subsubcategory}}">
+                                                <a class="{{../../../linkStyles.catalogSubSubCategory}}" category="{{this.id}}" href="/items/{{this.id}}">{{this.name}}</a>
+                                            </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

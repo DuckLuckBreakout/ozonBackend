@@ -1,0 +1,20 @@
+<div class="{{ordersStyles.ordersWrapper}}" id="orders-list-block">
+    <div class="{{ordersStyles.body}}">
+        <div class="{{ordersStyles.title}}">
+            <span class="{{textStyles.title}}">Ваши заказы</span>
+        </div>
+        <select class="{{ordersStyles.select}}">
+            {{#each select}}
+                <option key="{{this.key}}" direction="{{this.direction}}" {{#ifEquals this.key ../sort.key}}{{#ifEquals this.direction ../sort.direction}}selected{{/ifEquals}}{{/ifEquals}}>
+                    {{this.name}}
+                </option>
+            {{/each}}
+        </select>
+        <div class="{{ordersStyles.orders}}">
+            {{{this.ordersListHtmlString}}}
+        </div>
+        {{#ifEquals this.isEmpty true}}
+            <span class="{{textStyles.title}} {{ordersStyles.emptyCartText}}">Вы пока не сделали ни одного заказа :(</span>
+        {{/ifEquals}}
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="{{profileStyles.block}}" id="profile-page">
+    <div class="{{profileStyles.avatarBlock}}">
+        <label class="{{profileStyles.label}}">
+            <div class="{{profileStyles.avatarWrapper}}">
+                <img id="avatar-img" src="" alt="" class="{{imgStyles.profileAvatar}}">
+            </div>
+            <input id="avatar-input" type="file" hidden>
+            <div id="invalid-avatar-span" class="{{profileStyles.incorrectAvatar}}"></div>
+        </label>
+        <div class="{{profileStyles.nameWrapper}}">
+            <span id="profile-firstName" class="{{textStyles.smallTitle}}"></span>
+            <span id="profile-lastName" class="{{textStyles.smallTitle}}"></span>
+        </div>
+        <div class="{{profileStyles.exitButtonWrapper}}">
+            <button id="logout" class="{{buttonStyles.profileExit}}">
+                <span>Выйти</span>
+            </button>
+        </div>
+    </div>
+    <div class="{{profileStyles.informationBlock}}">
+        <div class="{{profileStyles.svgWrapper}}">
+            <img src="{{smileSvg.src}}" alt="" class="{{profileStyles.svg}}">
+        </div>
+        <form class="{{profileStyles.info}}" id="flname-form">
+            <span class="{{textStyles.smallTitle}}">Учётные данные</span>
+            <div class="{{profileStyles.fioWrapper}}">
+                {{#each inputFields}}
+                    <div class="{{../profileStyles.infoElem}}">
+                        <span class="{{../textStyles.profile}}">{{this.placeholder}}</span>
+                        <input type="text" name="{{this.name}}"class="{{../profileStyles.infoText}} {{../textStyles.profileInput}}" placeholder="">
+                        <div class="profile-credentials__input_error" id="{{this.name}}_error"></div>
+                    </div>
+                {{/each}}
+            </div>
+            <div class="{{profileStyles.infoElem}}">
+                <span class="{{textStyles.profile}}">{{inputEmail.placeholder}}</span>
+                <input type="text" name="{{inputEmail.name}}"class="{{profileStyles.infoText}} {{textStyles.profileInput}}" disabled placeholder="">
+                <div class="profile-credentials__input_error" id="{{inputEmail.name}}_error"></div>
+            </div>
+            <button type="submit" class="{{buttonStyles.profileChange}}">
+                <span class="{{textStyles.change}}">Изменить</span>
+            </button>
+        </form>
+    </div>
+</div>
