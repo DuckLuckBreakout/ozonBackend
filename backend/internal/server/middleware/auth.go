@@ -2,7 +2,9 @@ package middleware
 
 import (
 	"context"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/jwt_token"
 	"net/http"
+	"time"
 
 	"github.com/DuckLuckBreakout/web/backend/internal/pkg/models"
 	"github.com/DuckLuckBreakout/web/backend/internal/pkg/session"
@@ -28,7 +30,20 @@ func Auth(sm session.UseCase) func(http.Handler) http.Handler {
 				return
 			}
 
-			userId, err := sm.GetUserIdBySession(sessionCookie.Value)
+			csrfTokenFromCookie := jwt_token.JwtToken{}
+			jwtToken, err := jwt_token.ParseJwtToken(sessionCookie.Value, &csrfTokenFromCookie)
+			if err != nil || !jwtToken.Valid {
+				http_utils.SetJSONResponse(w, errors.ErrIncorrectJwtToken, http.StatusBadRequest)
+				return
+			}
+
+			t := time.Now()
+			if t.After(csrfTokenFromCookie.Expires) {
+				http_utils.SetJSONResponse(w, errors.ErrIncorrectJwtToken, http.StatusBadRequest)
+				return
+			}
+
+			userId, err := sm.GetUserIdBySession(string(csrfTokenFromCookie.Value))
 			if err != nil {
 				http_utils.SetJSONResponse(w, errors.ErrUserUnauthorized, http.StatusUnauthorized)
 				return

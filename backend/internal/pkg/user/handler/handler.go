@@ -2,6 +2,7 @@ package handler
 
 import (
 	"encoding/json"
+	"github.com/DuckLuckBreakout/web/backend/internal/server/tools/jwt_token"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -70,7 +71,12 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http_utils.SetCookie(w, models.SessionCookieName, currentSession.Value, models.ExpireSessionCookie*time.Second)
+	jwtToken, err := jwt_token.CreateJwtToken(
+		[]byte(currentSession.Value),
+		time.Now().Add(models.ExpireCsrfToken*time.Second),
+	)
+
+	http_utils.SetCookie(w, models.SessionCookieName, jwtToken, models.ExpireSessionCookie*time.Second)
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
@@ -236,7 +242,12 @@ func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	http_utils.SetCookie(w, models.SessionCookieName, currentSession.Value, models.ExpireSessionCookie*time.Second)
+	jwtToken, err := jwt_token.CreateJwtToken(
+		[]byte(currentSession.Value),
+		time.Now().Add(models.ExpireCsrfToken*time.Second),
+	)
+
+	http_utils.SetCookie(w, models.SessionCookieName, jwtToken, models.ExpireSessionCookie*time.Second)
 	http_utils.SetJSONResponseSuccess(w, http.StatusCreated)
 }
 

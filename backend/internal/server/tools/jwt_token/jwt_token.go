@@ -44,13 +44,16 @@ func ParseJwtToken(value string, claims *JwtToken) (*jwt.Token, error) {
 		return nil, errors.ErrServerSystem
 	}
 
-	jwtToken, err := jwt.ParseWithClaims(string(decodingValue), claims,
+	jwtToken, err := jwt.ParseWithClaims(
+		string(decodingValue),
+		claims,
 		func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, errors.ErrIncorrectJwtToken
 			}
 			return []byte(secretKey), nil
-		})
+		},
+	)
 
 	if err != nil {
 		return nil, errors.ErrIncorrectJwtToken
