@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api-db:
-    image: duckluckmarket/api-db:${API_DB_TAG}
+    image: duckluckbreakout/api-db:${API_DB_TAG}
     restart: unless-stopped
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
@@ -39,7 +39,7 @@ services:
   api-server:
     depends_on:
       - api-db
-    image: duckluckmarket/api-server:${API_SERVER_TAG}
+    image: duckluckbreakout/api-server:${API_SERVER_TAG}
     container_name: api_server
     restart: unless-stopped
     #    ports:
@@ -54,7 +54,7 @@ services:
   api-server-1:
     depends_on:
       - api-db
-    image: duckluckmarket/api-server:${API_SERVER_TAG}
+    image: duckluckbreakout/api-server:${API_SERVER_TAG}
     container_name: api_server_1
     restart: unless-stopped
     volumes:
@@ -67,7 +67,7 @@ services:
   api-server-2:
     depends_on:
       - api-db
-    image: duckluckmarket/api-server:${API_SERVER_TAG}
+    image: duckluckbreakout/api-server:${API_SERVER_TAG}
     container_name: api_server_2
     restart: unless-stopped
     volumes:
@@ -80,7 +80,7 @@ services:
   session-service:
     depends_on:
       - session-db
-    image: duckluckmarket/session-service:${SESSION_SERVICE_TAG}
+    image: duckluckbreakout/session-service:${SESSION_SERVICE_TAG}
     container_name: session_service
     restart: unless-stopped
     volumes:
@@ -93,7 +93,7 @@ services:
   auth-service:
     depends_on:
       - auth-db
-    image: duckluckmarket/auth-service:${AUTH_SERVICE_TAG}
+    image: duckluckbreakout/auth-service:${AUTH_SERVICE_TAG}
     container_name: auth_service
     restart: unless-stopped
     volumes:
@@ -106,7 +106,7 @@ services:
   cart-service:
     depends_on:
       - cart-db
-    image: duckluckmarket/cart-service:${CART_SERVICE_TAG}
+    image: duckluckbreakout/cart-service:${CART_SERVICE_TAG}
     container_name: cart_service
     restart: unless-stopped
     volumes:
