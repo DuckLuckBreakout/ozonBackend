@@ -2,10 +2,9 @@ package product
 
 import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category"
-	categoryRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/category/repository"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
-	productRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
@@ -23,12 +22,12 @@ func NewUseCase(productRepo product.Repository, categoryRepo category.Repository
 
 // Get product by id from repo
 func (u *ProductUseCase) GetProductById(productId *usecase.ProductId) (*usecase.Product, error) {
-	productById, err := u.ProductRepo.SelectProductById(&productRepo.DtoProductId{ProductId: productId.Id})
+	productById, err := u.ProductRepo.SelectProductById(&dto.DtoProductId{ProductId: productId.Id})
 	if err != nil {
 		return nil, errors.ErrProductNotFound
 	}
 
-	categories, err := u.CategoryRepo.GetPathToCategory(&categoryRepo.DtoCategoryId{Id: productById.Category})
+	categories, err := u.CategoryRepo.GetPathToCategory(&dto.DtoCategoryId{Id: productById.Category})
 	if err != nil {
 		return nil, errors.ErrCategoryNotFound
 	}
@@ -58,7 +57,7 @@ func (u *ProductUseCase) GetProductRecommendationsById(
 	productId *usecase.ProductId,
 	paginator *usecase.PaginatorRecommendations,
 ) ([]*usecase.RecommendationProduct, error) {
-	recommendationsByReviews, err := u.ProductRepo.SelectRecommendationsByReviews(&productRepo.DtoRecommendations{
+	recommendationsByReviews, err := u.ProductRepo.SelectRecommendationsByReviews(&dto.DtoRecommendations{
 		ProductId: productId.Id,
 		Count:     paginator.Count,
 	})
@@ -91,7 +90,7 @@ func (u *ProductUseCase) GetRangeProducts(paginator *usecase.PaginatorProducts) 
 
 	var filterString string
 	if paginator.Filter != nil {
-		filterString = u.ProductRepo.CreateFilterString(&productRepo.DtoProductFilter{
+		filterString = u.ProductRepo.CreateFilterString(&dto.DtoProductFilter{
 			MinPrice:   paginator.Filter.MinPrice,
 			MaxPrice:   paginator.Filter.MaxPrice,
 			IsNew:      paginator.Filter.IsNew,
@@ -101,17 +100,15 @@ func (u *ProductUseCase) GetRangeProducts(paginator *usecase.PaginatorProducts) 
 	}
 
 	// Max count pages in catalog
-	countPages, err := u.ProductRepo.GetCountPages(&productRepo.DtoCountPages{
-		Category:     paginator.Category,
+	countPages, err := u.ProductRepo.GetCountPages(&dto.DtoCountPages{
 		Count:        paginator.Count,
-		FilterString: filterString,
 	})
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
 	}
 
 	// Keys for sort items in catalog
-	sortString, err := u.ProductRepo.CreateSortString(&productRepo.DtoSortString{
+	sortString, err := u.ProductRepo.CreateSortString(&dto.DtoSortString{
 		SortKey:       paginator.SortKey,
 		SortDirection: paginator.SortDirection,
 	})
@@ -121,11 +118,11 @@ func (u *ProductUseCase) GetRangeProducts(paginator *usecase.PaginatorProducts) 
 
 	// Get range of products
 	products, err := u.ProductRepo.SelectRangeProducts(
-		&productRepo.DtoPaginatorProducts{
+		&dto.DtoPaginatorProducts{
 			PageNum:  paginator.PageNum,
 			Count:    paginator.Count,
 			Category: paginator.Category,
-			Filter: &productRepo.DtoProductFilter{
+			Filter: &dto.DtoProductFilter{
 				MinPrice:   paginator.Filter.MinPrice,
 				MaxPrice:   paginator.Filter.MaxPrice,
 				IsNew:      paginator.Filter.IsNew,
@@ -135,7 +132,7 @@ func (u *ProductUseCase) GetRangeProducts(paginator *usecase.PaginatorProducts) 
 			SortKey:       paginator.SortKey,
 			SortDirection: paginator.SortDirection,
 		},
-		&productRepo.DtoRageProducts{
+		&dto.DtoRageProducts{
 			SortString:   sortString,
 			FilterString: filterString,
 		})
@@ -172,7 +169,7 @@ func (u *ProductUseCase) SearchRangeProducts(searchQuery *usecase.SearchQuery) (
 
 	var filterString string
 	if searchQuery.Filter != nil {
-		filterString = u.ProductRepo.CreateFilterString(&productRepo.DtoProductFilter{
+		filterString = u.ProductRepo.CreateFilterString(&dto.DtoProductFilter{
 			MinPrice:   searchQuery.Filter.MinPrice,
 			MaxPrice:   searchQuery.Filter.MaxPrice,
 			IsNew:      searchQuery.Filter.IsNew,
@@ -183,7 +180,7 @@ func (u *ProductUseCase) SearchRangeProducts(searchQuery *usecase.SearchQuery) (
 
 	// Max count pages for this search
 	countPages, err := u.ProductRepo.GetCountSearchPages(
-		&productRepo.DtoSearchPages{
+		&dto.DtoSearchPages{
 			Category:     searchQuery.Category,
 			Count:        searchQuery.Count,
 			SearchString: searchQuery.QueryString,
@@ -195,7 +192,7 @@ func (u *ProductUseCase) SearchRangeProducts(searchQuery *usecase.SearchQuery) (
 	}
 
 	// Keys for sort items in result of search
-	sortString, err := u.ProductRepo.CreateSortString(&productRepo.DtoSortString{
+	sortString, err := u.ProductRepo.CreateSortString(&dto.DtoSortString{
 		SortKey:       searchQuery.SortKey,
 		SortDirection: searchQuery.SortDirection,
 	})
@@ -205,12 +202,12 @@ func (u *ProductUseCase) SearchRangeProducts(searchQuery *usecase.SearchQuery) (
 
 	// Get range of products
 	products, err := u.ProductRepo.SearchRangeProducts(
-		&productRepo.DtoSearchQuery{
+		&dto.DtoSearchQuery{
 			QueryString: searchQuery.QueryString,
 			PageNum:     searchQuery.PageNum,
 			Count:       searchQuery.Count,
 			Category:    searchQuery.Category,
-			Filter: &productRepo.DtoProductFilter{
+			Filter: &dto.DtoProductFilter{
 				MinPrice:   searchQuery.Filter.MinPrice,
 				MaxPrice:   searchQuery.Filter.MaxPrice,
 				IsNew:      searchQuery.Filter.IsNew,
@@ -220,7 +217,7 @@ func (u *ProductUseCase) SearchRangeProducts(searchQuery *usecase.SearchQuery) (
 			SortKey:       searchQuery.SortKey,
 			SortDirection: searchQuery.SortDirection,
 		},
-		&productRepo.DtoRageProducts{
+		&dto.DtoRageProducts{
 			SortString:   sortString,
 			FilterString: filterString,
 		},

@@ -142,9 +142,7 @@ func (r *PostgresqlRepository) GetCountPages(cntPages *dto.DtoCountPages) (int, 
 			") AS R ON P.id = R.product_id "+
 			"WHERE (c.left_node >= current_node.left_node "+
 			"AND c.right_node <= current_node.right_node "+
-			cntPages.FilterString+
 			" ) ",
-		cntPages.Category,
 	)
 
 	var countPages int
