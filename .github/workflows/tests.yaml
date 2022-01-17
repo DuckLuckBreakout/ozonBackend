@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Get full coverage
-        run: go test -coverprofile=coverage1.out -coverpkg=./backend/... -cover ./backend/...
+        run: cd backend && go test -coverprofile=coverage1.out -coverpkg=./... -cover ./...
         
       - name: Ignore some directories
         run: cat coverage1.out | grep -v mock | grep -v proto | grep -v cmd | grep -v middleware | grep -v models > cover.out
