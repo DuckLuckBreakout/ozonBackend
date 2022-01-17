@@ -2,6 +2,8 @@
 
 ![UseCase](https://user-images.githubusercontent.com/49189299/149818532-2ff952ac-0eed-4bf5-a736-3b07594b0866.png)
 
+![ER_api_server](https://user-images.githubusercontent.com/49189299/149835182-2e9260f8-d665-4fc5-abb5-bf98c8bc7aa5.png)
+
 ```
 This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
