@@ -9,7 +9,6 @@ import (
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/product"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/promo_code"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
-	userRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 	proto "github.com/DuckLuckBreakout/ozonBackend/services/cart/proto/cart"
 )
@@ -46,7 +45,7 @@ func (u *OrderUseCase) GetPreviewOrder(userId *usecase.UserId, previewCart *usec
 	previewOrder.Price = previewCart.Price
 
 	// Get info about user account for order
-	userProfile, err := u.UserRepo.SelectProfileById(&userRepo.DtoUserId{Id: userId.Id})
+	userProfile, err := u.UserRepo.SelectProfileById(&dto.DtoUserId{Id: userId.Id})
 	if err != nil {
 		return nil, errors.ErrUserNotFound
 	}
@@ -142,10 +141,7 @@ func (u *OrderUseCase) GetRangeOrders(userId *usecase.UserId, paginator *usecase
 	}
 
 	// Max count pages in catalog
-	countPages, err := u.OrderRepo.GetCountPages(&dto.DtoCountPages{
-		ProductId:         userId.Id,
-		CountOrdersOnPage: paginator.Count,
-	})
+	countPages, err := u.OrderRepo.GetCountPages(nil)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
 	}

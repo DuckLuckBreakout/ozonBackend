@@ -2,12 +2,11 @@ package usecase
 
 import (
 	"fmt"
+	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/dto"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/models/usecase"
 
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review"
-	reviewRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/review/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user"
-	userRepo "github.com/DuckLuckBreakout/ozonBackend/internal/pkg/user/repository"
 	"github.com/DuckLuckBreakout/ozonBackend/internal/server/errors"
 )
 
@@ -24,7 +23,7 @@ func NewUseCase(reviewRepo review.Repository, userRepo user.Repository) review.U
 }
 
 func (u *ReviewUseCase) GetStatisticsByProductId(productId *usecase.ProductId) (*usecase.ReviewStatistics, error) {
-	reviews, err := u.ReviewRepo.SelectStatisticsByProductId(&reviewRepo.DtoProductId{Id: productId.Id})
+	reviews, err := u.ReviewRepo.SelectStatisticsByProductId(nil)
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +33,7 @@ func (u *ReviewUseCase) GetStatisticsByProductId(productId *usecase.ProductId) (
 }
 
 func (u *ReviewUseCase) CheckReviewUserRights(userId *usecase.UserId, productId *usecase.ProductId) error {
-	rights := u.ReviewRepo.CheckReview(&reviewRepo.DtoCheckReview{
+	rights := u.ReviewRepo.CheckReview(&dto.DtoCheckReview{
 		UserId:    userId.Id,
 		ProductId: productId.Id,
 	})
@@ -46,7 +45,7 @@ func (u *ReviewUseCase) CheckReviewUserRights(userId *usecase.UserId, productId 
 }
 
 func (u *ReviewUseCase) AddNewReviewForProduct(userId *usecase.UserId, review *usecase.Review) error {
-	rights := u.ReviewRepo.CheckReview(&reviewRepo.DtoCheckReview{
+	rights := u.ReviewRepo.CheckReview(&dto.DtoCheckReview{
 		UserId:    userId.Id,
 		ProductId: uint64(review.ProductId),
 	})
@@ -55,8 +54,8 @@ func (u *ReviewUseCase) AddNewReviewForProduct(userId *usecase.UserId, review *u
 	}
 
 	_, err := u.ReviewRepo.AddReview(
-		&reviewRepo.DtoUserId{Id: userId.Id},
-		&reviewRepo.DtoReview{
+		&dto.DtoUserId{Id: userId.Id},
+		&dto.DtoReview{
 			ProductId:     review.ProductId,
 			Rating:        review.Rating,
 			Advantages:    review.Advantages,
@@ -80,16 +79,13 @@ func (u *ReviewUseCase) GetReviewsByProductId(
 	}
 
 	// Max count pages in catalog
-	countPages, err := u.ReviewRepo.GetCountPages(&reviewRepo.DtoCountPages{
-		ProductId:         productId.Id,
-		CountOrdersOnPage: paginator.Count,
-	})
+	countPages, err := u.ReviewRepo.GetCountPages(nil)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
 	}
 
 	// Keys for sort reviews in catalog
-	sortString, err := u.ReviewRepo.CreateSortString(&reviewRepo.DtoSortString{
+	sortString, err := u.ReviewRepo.CreateSortString(&dto.DtoSortString{
 		SortKey:       paginator.SortKey,
 		SortDirection: paginator.SortDirection,
 	})
@@ -99,11 +95,11 @@ func (u *ReviewUseCase) GetReviewsByProductId(
 
 	// Get range of reviews
 	reviews, err := u.ReviewRepo.SelectRangeReviews(
-		&reviewRepo.DtoRangeReviews{
+		&dto.DtoRangeReviews{
 			ProductId:  productId.Id,
 			SortString: sortString,
 		},
-		&reviewRepo.DtoPaginatorReviews{
+		&dto.DtoPaginatorReviews{
 			PageNum:       paginator.PageNum,
 			Count:         paginator.Count,
 			SortKey:       paginator.SortKey,
@@ -116,7 +112,7 @@ func (u *ReviewUseCase) GetReviewsByProductId(
 
 	// Get user data for review
 	for _, userReview := range reviews {
-		userInfo, err := u.UserRepo.SelectProfileById(&userRepo.DtoUserId{Id: uint64(userReview.UserId)})
+		userInfo, err := u.UserRepo.SelectProfileById(&dto.DtoUserId{Id: uint64(userReview.UserId)})
 		if err != nil {
 			return nil, errors.ErrInternalError
 		}
