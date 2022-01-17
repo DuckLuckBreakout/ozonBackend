@@ -1,11 +1,11 @@
 name: Build and deploy
 
 env:
-  API_DB_TAG: v1.0
-  API_SERVER_TAG: v1.0
-  SESSION_SERVICE_TAG: v1.0
-  AUTH_SERVICE_TAG: v1.0
-  CART_SERVICE_TAG: v1.0
+  API_DB_TAG: v1.1
+  API_SERVER_TAG: v1.1
+  SESSION_SERVICE_TAG: v1.1
+  AUTH_SERVICE_TAG: v1.1
+  CART_SERVICE_TAG: v1.1
 
 on:
   push:
