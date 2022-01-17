@@ -1,0 +1,16 @@
+{
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Meety API.",
+        "title": "Meety",
+        "contact": {},
+        "version": "0.1.0"
+    },
+    "host": "meetyapp.ru",
+    "basePath": "/api/v1",
+    "paths": {}
+}
