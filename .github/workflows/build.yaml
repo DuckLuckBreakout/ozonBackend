@@ -1,0 +1,50 @@
+name: Build and deploy
+
+env:
+  API_DB_TAG: v1.1
+  API_SERVER_TAG: v1.1
+  SESSION_SERVICE_TAG: v1.1
+  AUTH_SERVICE_TAG: v1.1
+  CART_SERVICE_TAG: v1.1
+
+on:
+  push:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Build Docker api-server image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api-server:${{ env.API_SERVER_TAG }} --target api-server .
+      - name: Push the api_server image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/api-server:${{ env.API_SERVER_TAG }}
+      - name: Build Docker api-db image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/api-db:${{ env.API_DB_TAG }} --target api-db .
+      - name: Push the api-db image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/api-db:${{ env.API_DB_TAG }}
+      - name: Build Docker session-service image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/session-service:${{ env.SESSION_SERVICE_TAG }} --target session-service .
+      - name: Push the session-service image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/session-service:${{ env.SESSION_SERVICE_TAG }}
+      - name: Build Docker cart-service image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ env.CART_SERVICE_TAG }} --target cart-service .
+      - name: Push the cart-service image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/cart-service:${{ env.CART_SERVICE_TAG }}
+      - name: Build Docker auth-service image
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ env.AUTH_SERVICE_TAG }} --target auth-service .
+      - name: Push the auth-service image
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/auth-service:${{ env.AUTH_SERVICE_TAG }}
+      - name: Upload dependencies
+        uses: actions/upload-artifact@v2
+        with:
+          name: Backend
+          path: |
+            ./docker-compose.yml
+            ./log
+            ./scripts
+            ./uploads
