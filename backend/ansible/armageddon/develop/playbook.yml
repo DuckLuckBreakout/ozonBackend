@@ -1,8 +1,0 @@
-- name: "Make armageddon"
-  hosts: develop
-  become: yes
-  tasks:
-    - name: "Start armageddon"
-      shell:
-        cmd: make armageddon
-        chdir: /home/ubuntu/duckluckmarket/Backend/
