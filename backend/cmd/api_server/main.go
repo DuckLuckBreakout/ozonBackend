@@ -278,14 +278,14 @@ func main() {
 	authMux.HandleFunc("/api/v1/notification", notificationHandler.SubscribeUser).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/notification", notificationHandler.UnsubscribeUser).Methods("DELETE", "OPTIONS")
 
-// 	mainRouter := echo.New()
-// 	mainRouter.GET("/api/*", echoSwagger.EchoWrapHandler())
-// 	go func() {
-// 		mainRouter.Start(fmt.Sprintf("%s:%s",
-// 			os.Getenv("API_SERVER_HOST"),
-// 			os.Getenv("API_SWAGGER_SERVER_PORT")),
-// 		)
-// 	}()
+	mainRouter := echo.New()
+	mainRouter.GET("/api/*", echoSwagger.EchoWrapHandler())
+	go func() {
+		mainRouter.Start(fmt.Sprintf("%s:%s",
+			os.Getenv("API_SERVER_HOST"),
+			os.Getenv("API_SWAGGER_SERVER_PORT")),
+		)
+	}()
 
 	server := &http.Server{
 		Addr: fmt.Sprintf("%s:%s",
