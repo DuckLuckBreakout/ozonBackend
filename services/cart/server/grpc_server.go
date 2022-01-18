@@ -33,7 +33,9 @@ func (s *CartServer) AddProduct(ctx context.Context,
 		}
 	}()
 
-	err = s.CartUCase.AddProduct(cartArticle.UserId, &models.CartArticle{
+	err = s.CartUCase.AddProduct(
+		&models.UserId{Id: cartArticle.UserId},
+		&models.CartArticle{
 		ProductPosition: models.ProductPosition{
 			Count: cartArticle.Position.Count,
 		},
@@ -59,7 +61,8 @@ func (s *CartServer) DeleteProduct(ctx context.Context,
 		}
 	}()
 
-	err = s.CartUCase.DeleteProduct(productIdentifier.UserId,
+	err = s.CartUCase.DeleteProduct(
+		&models.UserId{Id: productIdentifier.UserId},
 		&models.ProductIdentifier{
 			ProductId: productIdentifier.ProductId,
 		})
@@ -81,14 +84,17 @@ func (s *CartServer) ChangeProduct(ctx context.Context,
 		}
 	}()
 
-	err = s.CartUCase.ChangeProduct(cartArticle.UserId, &models.CartArticle{
-		ProductPosition: models.ProductPosition{
-			Count: cartArticle.Position.Count,
+	err = s.CartUCase.ChangeProduct(
+		&models.UserId{Id: cartArticle.UserId},
+		&models.CartArticle{
+			ProductPosition: models.ProductPosition{
+				Count: cartArticle.Position.Count,
+			},
+			ProductIdentifier: models.ProductIdentifier{
+				ProductId: cartArticle.ProductId,
+			},
 		},
-		ProductIdentifier: models.ProductIdentifier{
-			ProductId: cartArticle.ProductId,
-		},
-	})
+	)
 
 	if err != nil {
 		return &empty.Empty{}, errors.CreateError(err)
@@ -107,7 +113,7 @@ func (s *CartServer) GetPreviewCart(ctx context.Context,
 		}
 	}()
 
-	userCart, err := s.CartUCase.GetPreviewCart(userId.UserId)
+	userCart, err := s.CartUCase.GetPreviewCart(&models.UserId{Id: userId.UserId})
 
 	if err != nil {
 		return nil, errors.CreateError(err)
@@ -134,7 +140,7 @@ func (s *CartServer) DeleteCart(ctx context.Context,
 		}
 	}()
 
-	err = s.CartUCase.DeleteCart(userId.UserId)
+	err = s.CartUCase.DeleteCart(&models.UserId{Id: userId.UserId})
 
 	if err != nil {
 		return &empty.Empty{}, errors.CreateError(err)

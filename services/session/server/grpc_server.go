@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"github.com/DuckLuckBreakout/ozonBackend/services/session/pkg/models"
 
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/grpc_utils"
 	"github.com/DuckLuckBreakout/ozonBackend/pkg/tools/logger"
@@ -52,7 +53,7 @@ func (s *SessionServer) CreateNewSession(ctx context.Context,
 		}
 	}()
 
-	userSession, err := s.SessionUCase.CreateNewSession(userId.Id)
+	userSession, err := s.SessionUCase.CreateNewSession(&models.UserId{Id: userId.Id})
 	if err != nil {
 		return nil, errors.CreateError(err)
 	}
