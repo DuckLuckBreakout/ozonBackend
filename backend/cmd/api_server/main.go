@@ -53,13 +53,17 @@ import (
 	auth_service "github.com/DuckLuckBreakout/web/backend/services/auth/proto/user"
 	cart_service "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 	session_service "github.com/DuckLuckBreakout/web/backend/services/session/proto/session"
+	_ "github.com/DuckLuckBreakout/api/api_server"
 
+	
+	
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
+	
 )
 
 func InitApiServer() {
