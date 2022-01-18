@@ -18,7 +18,15 @@ func NewHandler() csrf_token.Handler {
 	return &CsrfTokenHandler{}
 }
 
-// Get new csrf token for client
+// GetCsrfToken godoc
+// @Summary Получение csrf токена.
+// @Description Получение csrf токена.
+// @Accept json
+// @Produce json
+// @Success 200 {object} usecase.CsrfToken "Токен csrf успешно сгенирован."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /csrf [GET]
 func (h *CsrfTokenHandler) GetCsrfToken(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

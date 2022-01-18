@@ -1,0 +1,2340 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/admin/order/status": {
+            "post": {
+                "description": "Изменение статуса пользовательского заказа.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Изменение статуса заказ.",
+                "parameters": [
+                    {
+                        "description": "Данные заказа.",
+                        "name": "UpdateOrder",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiUpdateOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Статус успешно изменён.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/cart": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получение пользовательской корзины.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение корзины.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товары из пользовательской корзины успешно получены.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiPreviewCart"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Удаление пользовательской корзины.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Удаление корзины.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товары из пользовательской корзины успешно удалены.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/cart/product": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Изменение продуктов в пользовательской корзине.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Изменение продуктов в корзине.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные товара.",
+                        "name": "CartArticle",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiCartArticle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно удалён.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Добавление товара в корзину юзера.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Добавление товара в корзину.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные товара.",
+                        "name": "CartArticle",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiCartArticle"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно добавлен.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Удаление товара из корзины юзера.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Удаление товара из корзины.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные товара.",
+                        "name": "ProductIdentifier",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiProductIdentifier"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно удалён.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/category": {
+            "get": {
+                "description": "Получение каталога категорий.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение каталога категорий.",
+                "responses": {
+                    "200": {
+                        "description": "Каталог категорий успешно получен.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/errors.Error"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/category/{id}": {
+            "get": {
+                "description": "Получение подкатегории.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение подкатегории.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id подкатегории",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Каталог категорий успешно получен.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/errors.Error"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/csrf": {
+            "get": {
+                "description": "Получение csrf токена.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение csrf токена.",
+                "responses": {
+                    "200": {
+                        "description": "Токен csrf успешно сгенирован.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.CsrfToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получение превью избранных товаров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение превью избранного.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Получение превью списка избранных товаров.",
+                        "name": "PaginatorFavorites",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/usecase.PaginatorFavorites"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список товаров успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.UserFavorites"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/favorites/product/{id}": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Добавление товара в список избранных товаров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Добавление товара в избранное.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Id товара",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно добавлен в избранное.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Удаление товара из списка избранных товаров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Удаление товара из избранного.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Id товара",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно удалён из избранного.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/notification": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Подписка пользователя на пуши.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Подписка пользователя на пуши.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Получение данных для отправки пуша.",
+                        "name": "NotificationCredentials",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiNotificationCredentials"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Пользователь успешно подписан на пуш уведомления.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Отписка пользователя от пушей.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Отписка пользователя от пушей.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Получение данных для отправки пуша.",
+                        "name": "UserIdentifier",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiUserIdentifier"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Пользователь успешно отписан от пуш уведомлений.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/notification/key": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получение публичного ключа для пушей.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение публичного ключа для пушей.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Публичный ключ успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.NotificationPublicKey"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/order": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получение заказа на основании корзины.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение заказа на основании корзины.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Заказ успешно получен на основании корзины.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.PreviewOrder"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Оформление пользовательского заказа.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Оформление заказа.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные заказа.",
+                        "name": "Order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiOrder"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Заказ успешно оформлен.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.OrderNumber"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/recommendations/{id}": {
+            "post": {
+                "description": "Получение превью товаров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение превью товаров.",
+                "parameters": [
+                    {
+                        "description": "Параметры пагинатора.",
+                        "name": "PaginatorProducts",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiPaginatorProducts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Превью товаров получены успешно.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.RangeProducts"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/search": {
+            "post": {
+                "description": "Поиск товаров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Поиск товаров.",
+                "parameters": [
+                    {
+                        "description": "Поисковый запрос.",
+                        "name": "SearchQuery",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiSearchQuery"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Результат поиска.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.RangeProducts"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "description": "Получение информации о товаре.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение товара.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id товара",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Информация о товаре успешно получена.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/promo": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Применение промокода к заказу.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Применение промокода к заказу.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Параметры применения промокода.",
+                        "name": "PromoCodeGroup",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiPromoCodeGroup"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Стоимость товаров со скидкой.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiDiscountedPrice"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/review/product": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Добавление нового отзыва.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Добавление нового отзыва.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные отзыва.",
+                        "name": "Review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiReview"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Отзыв успешно добавлен.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/review/product/{id}": {
+            "post": {
+                "description": "Получение отзывов для определённого товара.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение отзывов для определённого товара.",
+                "parameters": [
+                    {
+                        "description": "Данные товара.",
+                        "name": "PaginatorReviews",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiPaginatorReviews"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Отзывы успешно получены.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiRangeReviews"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/review/rights/product/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Проверка прав для написания отзыва.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Проверка прав для написания отзыва.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Id товара",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Проверка прав для написания отзыва.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiReviewStatistics"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/review/statistics/product/{id}": {
+            "post": {
+                "description": "Получение подробного рейтинга товара.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение подробного рейтинга товара.",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Id товара",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Получение подробного рейтинга.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiReviewStatistics"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "description": "Авторизация пользователя.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Авторизация.",
+                "parameters": [
+                    {
+                        "description": "Данные пользователя.",
+                        "name": "Review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiLoginUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jwt auth токен успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.Session"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Выход из аккаунта пользователя.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Выход.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Выход из аккаунта успешно выполнен.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/order": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получение заказов пользователя.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение заказов.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Параметры пагинатора.",
+                        "name": "PaginatorOrders",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiPaginatorOrders"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список заказов данного пользователя успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.RangeOrders"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/profile": {
+            "get": {
+                "description": "Получение пользовательского профиля.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение профиля.",
+                "responses": {
+                    "200": {
+                        "description": "Профиль пользователя успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiProfileUser"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Обновление пользовательских данных.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Обновление профиля.",
+                "parameters": [
+                    {
+                        "description": "Обновление пользовательских данных.",
+                        "name": "UpdateUser",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiUpdateUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные пользователя успешно обновлены.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/profile/avatar": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Получение пользовательского аватара.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Получение аватара.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Аватар пользователя успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiAvatar"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Обновление пользовательского аватара.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Обновление аватара.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "file",
+                        "description": "Аватарка пользователя.",
+                        "name": "avatar",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Аватар пользователя успешно обновлён.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signup": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Регистрация нового пользователя.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Регистрация.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Данные пользователя.",
+                        "name": "Review",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.ApiSignupUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Jwt auth токен успешно получен.",
+                        "schema": {
+                            "$ref": "#/definitions/usecase.Session"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "api.ApiAvatar": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiCartArticle": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "product_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiDiscountedPrice": {
+            "type": "object",
+            "properties": {
+                "total_base_cost": {
+                    "type": "integer"
+                },
+                "total_cost": {
+                    "type": "integer"
+                },
+                "total_discount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiLoginUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiNotificationCredentials": {
+            "type": "object",
+            "properties": {
+                "endpoint": {
+                    "type": "string"
+                },
+                "keys": {
+                    "$ref": "#/definitions/api.ApiNotificationKeys"
+                }
+            }
+        },
+        "api.ApiNotificationKeys": {
+            "type": "object",
+            "properties": {
+                "auth": {
+                    "type": "string"
+                },
+                "p256dh": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiOrder": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "$ref": "#/definitions/api.ApiOrderAddress"
+                },
+                "promo_code": {
+                    "type": "string"
+                },
+                "recipient": {
+                    "$ref": "#/definitions/api.ApiOrderRecipient"
+                }
+            }
+        },
+        "api.ApiOrderAddress": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiOrderRecipient": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiPaginatorOrders": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "page_num": {
+                    "type": "integer"
+                },
+                "sort_direction": {
+                    "type": "string"
+                },
+                "sort_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiPaginatorProducts": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "integer"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "filter": {
+                    "$ref": "#/definitions/api.ApiProductFilter"
+                },
+                "page_num": {
+                    "type": "integer"
+                },
+                "sort_direction": {
+                    "type": "string"
+                },
+                "sort_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiPaginatorRecommendations": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiPaginatorReviews": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "page_num": {
+                    "type": "integer"
+                },
+                "sort_direction": {
+                    "type": "string"
+                },
+                "sort_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiPreviewCart": {
+            "type": "object",
+            "properties": {
+                "price": {
+                    "$ref": "#/definitions/usecase.TotalPrice"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.PreviewCartArticle"
+                    }
+                }
+            }
+        },
+        "api.ApiProductFilter": {
+            "type": "object",
+            "properties": {
+                "is_discount": {
+                    "type": "boolean"
+                },
+                "is_new": {
+                    "type": "boolean"
+                },
+                "is_rating": {
+                    "type": "boolean"
+                },
+                "max_price": {
+                    "type": "integer"
+                },
+                "min_price": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiProductIdentifier": {
+            "type": "object",
+            "properties": {
+                "product_id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiProfileUser": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "$ref": "#/definitions/api.ApiAvatar"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiPromoCodeGroup": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "promo_code": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiRangeReviews": {
+            "type": "object",
+            "properties": {
+                "list_reviews": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.ViewReview"
+                    }
+                },
+                "max_count_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiReview": {
+            "type": "object",
+            "properties": {
+                "advantages": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "disadvantages": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "rating": {
+                    "type": "integer"
+                }
+            }
+        },
+        "api.ApiReviewStatistics": {
+            "type": "object",
+            "properties": {
+                "stars": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "api.ApiSearchQuery": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "integer"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "filter": {
+                    "$ref": "#/definitions/api.ApiProductFilter"
+                },
+                "page_num": {
+                    "type": "integer"
+                },
+                "query_string": {
+                    "type": "string"
+                },
+                "sort_direction": {
+                    "type": "string"
+                },
+                "sort_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiSignupUser": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiUpdateOrder": {
+            "type": "object",
+            "properties": {
+                "order_id": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiUpdateUser": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.ApiUserIdentifier": {
+            "type": "object",
+            "properties": {
+                "endpoint": {
+                    "type": "string"
+                }
+            }
+        },
+        "errors.Error": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.CartProductPrice": {
+            "type": "object",
+            "properties": {
+                "base_cost": {
+                    "type": "integer"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "total_cost": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.CategoriesCatalog": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "next": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.CategoriesCatalog"
+                    }
+                }
+            }
+        },
+        "usecase.CsrfToken": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.NotificationPublicKey": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.OrderAddress": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.OrderNumber": {
+            "type": "object",
+            "properties": {
+                "number": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.OrderRecipient": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "first_name": {
+                    "type": "string"
+                },
+                "last_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.PaginatorFavorites": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "page_num": {
+                    "type": "integer"
+                },
+                "sort_direction": {
+                    "type": "string"
+                },
+                "sort_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.PlacedOrder": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "$ref": "#/definitions/usecase.OrderAddress"
+                },
+                "date_added": {
+                    "type": "string"
+                },
+                "date_delivery": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "order_number": {
+                    "$ref": "#/definitions/usecase.OrderNumber"
+                },
+                "product_images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.PreviewOrderedProducts"
+                    }
+                },
+                "status": {
+                    "type": "string"
+                },
+                "total_cost": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.PreviewCartArticle": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "preview_image": {
+                    "type": "string"
+                },
+                "price": {
+                    "$ref": "#/definitions/usecase.CartProductPrice"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.PreviewOrder": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "$ref": "#/definitions/usecase.OrderAddress"
+                },
+                "price": {
+                    "$ref": "#/definitions/usecase.TotalPrice"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.PreviewOrderedProducts"
+                    }
+                },
+                "recipient": {
+                    "$ref": "#/definitions/usecase.OrderRecipient"
+                }
+            }
+        },
+        "usecase.PreviewOrderedProducts": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "preview_image": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.Product": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "integer"
+                },
+                "category_path": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.CategoriesCatalog"
+                    }
+                },
+                "count_reviews": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "price": {
+                    "$ref": "#/definitions/usecase.ProductPrice"
+                },
+                "properties": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.ProductPrice": {
+            "type": "object",
+            "properties": {
+                "base_cost": {
+                    "type": "integer"
+                },
+                "discount": {
+                    "type": "integer"
+                },
+                "total_cost": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.RangeFavorites": {
+            "type": "object",
+            "properties": {
+                "list_preview_products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.ViewFavorite"
+                    }
+                },
+                "max_count_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.RangeOrders": {
+            "type": "object",
+            "properties": {
+                "list_placed_orders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.PlacedOrder"
+                    }
+                },
+                "max_count_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.RangeProducts": {
+            "type": "object",
+            "properties": {
+                "list_preview_products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/usecase.ViewProduct"
+                    }
+                },
+                "max_count_pages": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.RecommendationProduct": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "preview_image": {
+                    "type": "string"
+                },
+                "price": {
+                    "$ref": "#/definitions/usecase.ProductPrice"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.Session": {
+            "type": "object",
+            "properties": {
+                "userData": {
+                    "$ref": "#/definitions/usecase.UserId"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.TotalPrice": {
+            "type": "object",
+            "properties": {
+                "total_base_cost": {
+                    "type": "integer"
+                },
+                "total_cost": {
+                    "type": "integer"
+                },
+                "total_discount": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.UserFavorites": {
+            "type": "object",
+            "properties": {
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "usecase.UserId": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "usecase.ViewFavorite": {
+            "type": "object",
+            "properties": {
+                "count_reviews": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "preview_image": {
+                    "type": "string"
+                },
+                "price": {
+                    "$ref": "#/definitions/usecase.ProductPrice"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.ViewProduct": {
+            "type": "object",
+            "properties": {
+                "count_reviews": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "preview_image": {
+                    "type": "string"
+                },
+                "price": {
+                    "$ref": "#/definitions/usecase.ProductPrice"
+                },
+                "rating": {
+                    "type": "number"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "usecase.ViewReview": {
+            "type": "object",
+            "properties": {
+                "advantages": {
+                    "type": "string"
+                },
+                "comment": {
+                    "type": "string"
+                },
+                "date_added": {
+                    "type": "string"
+                },
+                "disadvantages": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "integer"
+                },
+                "user_avatar": {
+                    "type": "string"
+                },
+                "user_name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -25,6 +25,18 @@ func NewHandler(notificationUCase notification.UseCase) notification.Handler {
 	}
 }
 
+// SubscribeUser godoc
+// @Summary Подписка пользователя на пуши.
+// @Description Подписка пользователя на пуши.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param NotificationCredentials body api.ApiNotificationCredentials true "Получение данных для отправки пуша."
+// @Success 200 {object} errors.Error "Пользователь успешно подписан на пуш уведомления."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /notification [POST]
 func (h *NotificationHandler) SubscribeUser(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -76,6 +88,18 @@ func (h *NotificationHandler) SubscribeUser(w http.ResponseWriter, r *http.Reque
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
+// UnsubscribeUser godoc
+// @Summary Отписка пользователя от пушей.
+// @Description Отписка пользователя от пушей.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param UserIdentifier body api.ApiUserIdentifier true "Получение данных для отправки пуша."
+// @Success 200 {object} errors.Error "Пользователь успешно отписан от пуш уведомлений."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /notification [DELETE]
 func (h *NotificationHandler) UnsubscribeUser(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -117,6 +141,17 @@ func (h *NotificationHandler) UnsubscribeUser(w http.ResponseWriter, r *http.Req
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
+// GetNotificationPublicKey godoc
+// @Summary Получение публичного ключа для пушей.
+// @Description Получение публичного ключа для пушей.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Success 200 {object} usecase.NotificationPublicKey "Публичный ключ успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /notification/key [GET]
 func (h *NotificationHandler) GetNotificationPublicKey(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

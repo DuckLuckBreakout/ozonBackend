@@ -24,7 +24,18 @@ func NewHandler(cartUCase cart.UseCase) cart.Handler {
 	}
 }
 
-// Add product in user cart
+// AddProductInCart godoc
+// @Summary Добавление товара в корзину.
+// @Description Добавление товара в корзину юзера.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param CartArticle body api.ApiCartArticle true "Данные товара."
+// @Success 200 {object} errors.Error "Товар успешно добавлен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /cart/product [POST]
 func (h *CartHandler) AddProductInCart(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -77,7 +88,18 @@ func (h *CartHandler) AddProductInCart(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Delete product from user cart
+// DeleteProductInCart godoc
+// @Summary Удаление товара из корзины.
+// @Description Удаление товара из корзины юзера.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param ProductIdentifier body api.ApiProductIdentifier true "Данные товара."
+// @Success 200 {object} errors.Error "Товар успешно удалён."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /cart/product [DELETE]
 func (h *CartHandler) DeleteProductInCart(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -125,7 +147,18 @@ func (h *CartHandler) DeleteProductInCart(w http.ResponseWriter, r *http.Request
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Change product characteristics in user cart
+// ChangeProductInCart godoc
+// @Summary Изменение продуктов в корзине.
+// @Description Изменение продуктов в пользовательской корзине.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param CartArticle body api.ApiCartArticle true "Данные товара."
+// @Success 200 {object} errors.Error "Товар успешно удалён."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /cart/product [PUT]
 func (h *CartHandler) ChangeProductInCart(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -178,7 +211,17 @@ func (h *CartHandler) ChangeProductInCart(w http.ResponseWriter, r *http.Request
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Get all preview products from user cart
+// GetProductsFromCart godoc
+// @Summary Получение корзины.
+// @Description Получение пользовательской корзины.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Success 200 {object} api.ApiPreviewCart "Товары из пользовательской корзины успешно получены."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /cart [GET]
 func (h *CartHandler) GetProductsFromCart(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -202,7 +245,17 @@ func (h *CartHandler) GetProductsFromCart(w http.ResponseWriter, r *http.Request
 	}, http.StatusOK)
 }
 
-// Delete user cart
+// DeleteProductsFromCart godoc
+// @Summary Удаление корзины.
+// @Description Удаление пользовательской корзины.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Success 200 {object} errors.Error "Товары из пользовательской корзины успешно удалены."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /cart [DELETE]
 func (h *CartHandler) DeleteProductsFromCart(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

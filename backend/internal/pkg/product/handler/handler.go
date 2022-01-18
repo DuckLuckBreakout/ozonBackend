@@ -27,7 +27,16 @@ func NewHandler(UCase product.UseCase) product.Handler {
 	}
 }
 
-// Get product info by id
+// GetProduct godoc
+// @Summary Получение товара.
+// @Description Получение информации о товаре.
+// @Accept json
+// @Produce json
+// @Param id query int true "Id товара"
+// @Success 200 {object} usecase.Product "Информация о товаре успешно получена."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /product/{id} [GET]
 func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -53,7 +62,17 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponse(w, productById, http.StatusOK)
 }
 
-// Get product recommendations by id
+// GetProductRecommendations godoc
+// @Summary Получение рекомендаций.
+// @Description Получение рекомендаций.
+// @Accept json
+// @Produce json
+// @Param id query int true "Id товара"
+// @Param PaginatorRecommendations body api.ApiPaginatorRecommendations true "Параметры пагинатора."
+// @Success 200 {array} usecase.RecommendationProduct "Информация о товаре успешно получена."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /product/recommendations/{id} [POST]
 func (h *ProductHandler) GetProductRecommendations(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -106,7 +125,16 @@ func (h *ProductHandler) GetProductRecommendations(w http.ResponseWriter, r *htt
 	http_utils.SetJSONResponse(w, listProducts, http.StatusOK)
 }
 
-// Get range of preview products
+// GetListPreviewProducts godoc
+// @Summary Получение превью товаров.
+// @Description Получение превью товаров.
+// @Accept json
+// @Produce json
+// @Param PaginatorProducts body api.ApiPaginatorProducts true "Параметры пагинатора."
+// @Success 200 {object} usecase.RangeProducts "Превью товаров получены успешно."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /product/recommendations/{id} [POST]
 func (h *ProductHandler) GetListPreviewProducts(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -160,7 +188,16 @@ func (h *ProductHandler) GetListPreviewProducts(w http.ResponseWriter, r *http.R
 	http_utils.SetJSONResponse(w, listPreviewProducts, http.StatusOK)
 }
 
-// Search range of preview products
+// SearchListPreviewProducts godoc
+// @Summary Поиск товаров.
+// @Description Поиск товаров.
+// @Accept json
+// @Produce json
+// @Param SearchQuery body api.ApiSearchQuery true "Поисковый запрос."
+// @Success 200 {object} usecase.RangeProducts "Результат поиска."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /product/search [POST]
 func (h *ProductHandler) SearchListPreviewProducts(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

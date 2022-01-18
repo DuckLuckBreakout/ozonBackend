@@ -1,0 +1,1504 @@
+definitions:
+  api.ApiAvatar:
+    properties:
+      url:
+        type: string
+    type: object
+  api.ApiCartArticle:
+    properties:
+      count:
+        type: integer
+      product_id:
+        type: integer
+    type: object
+  api.ApiDiscountedPrice:
+    properties:
+      total_base_cost:
+        type: integer
+      total_cost:
+        type: integer
+      total_discount:
+        type: integer
+    type: object
+  api.ApiLoginUser:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  api.ApiNotificationCredentials:
+    properties:
+      endpoint:
+        type: string
+      keys:
+        $ref: '#/definitions/api.ApiNotificationKeys'
+    type: object
+  api.ApiNotificationKeys:
+    properties:
+      auth:
+        type: string
+      p256dh:
+        type: string
+    type: object
+  api.ApiOrder:
+    properties:
+      address:
+        $ref: '#/definitions/api.ApiOrderAddress'
+      promo_code:
+        type: string
+      recipient:
+        $ref: '#/definitions/api.ApiOrderRecipient'
+    type: object
+  api.ApiOrderAddress:
+    properties:
+      address:
+        type: string
+    type: object
+  api.ApiOrderRecipient:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  api.ApiPaginatorOrders:
+    properties:
+      count:
+        type: integer
+      page_num:
+        type: integer
+      sort_direction:
+        type: string
+      sort_key:
+        type: string
+    type: object
+  api.ApiPaginatorProducts:
+    properties:
+      category:
+        type: integer
+      count:
+        type: integer
+      filter:
+        $ref: '#/definitions/api.ApiProductFilter'
+      page_num:
+        type: integer
+      sort_direction:
+        type: string
+      sort_key:
+        type: string
+    type: object
+  api.ApiPaginatorRecommendations:
+    properties:
+      count:
+        type: integer
+    type: object
+  api.ApiPaginatorReviews:
+    properties:
+      count:
+        type: integer
+      page_num:
+        type: integer
+      sort_direction:
+        type: string
+      sort_key:
+        type: string
+    type: object
+  api.ApiPreviewCart:
+    properties:
+      price:
+        $ref: '#/definitions/usecase.TotalPrice'
+      products:
+        items:
+          $ref: '#/definitions/usecase.PreviewCartArticle'
+        type: array
+    type: object
+  api.ApiProductFilter:
+    properties:
+      is_discount:
+        type: boolean
+      is_new:
+        type: boolean
+      is_rating:
+        type: boolean
+      max_price:
+        type: integer
+      min_price:
+        type: integer
+    type: object
+  api.ApiProductIdentifier:
+    properties:
+      product_id:
+        type: integer
+    type: object
+  api.ApiProfileUser:
+    properties:
+      avatar:
+        $ref: '#/definitions/api.ApiAvatar'
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  api.ApiPromoCodeGroup:
+    properties:
+      products:
+        items:
+          type: integer
+        type: array
+      promo_code:
+        type: string
+    type: object
+  api.ApiRangeReviews:
+    properties:
+      list_reviews:
+        items:
+          $ref: '#/definitions/usecase.ViewReview'
+        type: array
+      max_count_pages:
+        type: integer
+    type: object
+  api.ApiReview:
+    properties:
+      advantages:
+        type: string
+      comment:
+        type: string
+      disadvantages:
+        type: string
+      is_public:
+        type: boolean
+      product_id:
+        type: integer
+      rating:
+        type: integer
+    type: object
+  api.ApiReviewStatistics:
+    properties:
+      stars:
+        items:
+          type: integer
+        type: array
+    type: object
+  api.ApiSearchQuery:
+    properties:
+      category:
+        type: integer
+      count:
+        type: integer
+      filter:
+        $ref: '#/definitions/api.ApiProductFilter'
+      page_num:
+        type: integer
+      query_string:
+        type: string
+      sort_direction:
+        type: string
+      sort_key:
+        type: string
+    type: object
+  api.ApiSignupUser:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  api.ApiUpdateOrder:
+    properties:
+      order_id:
+        type: integer
+      status:
+        type: string
+    type: object
+  api.ApiUpdateUser:
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  api.ApiUserIdentifier:
+    properties:
+      endpoint:
+        type: string
+    type: object
+  errors.Error:
+    properties:
+      error:
+        type: string
+    type: object
+  usecase.CartProductPrice:
+    properties:
+      base_cost:
+        type: integer
+      discount:
+        type: integer
+      total_cost:
+        type: integer
+    type: object
+  usecase.CategoriesCatalog:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      next:
+        items:
+          $ref: '#/definitions/usecase.CategoriesCatalog'
+        type: array
+    type: object
+  usecase.CsrfToken:
+    properties:
+      token:
+        type: string
+    type: object
+  usecase.NotificationPublicKey:
+    properties:
+      key:
+        type: string
+    type: object
+  usecase.OrderAddress:
+    properties:
+      address:
+        type: string
+    type: object
+  usecase.OrderNumber:
+    properties:
+      number:
+        type: string
+    type: object
+  usecase.OrderRecipient:
+    properties:
+      email:
+        type: string
+      first_name:
+        type: string
+      last_name:
+        type: string
+    type: object
+  usecase.PaginatorFavorites:
+    properties:
+      count:
+        type: integer
+      page_num:
+        type: integer
+      sort_direction:
+        type: string
+      sort_key:
+        type: string
+    type: object
+  usecase.PlacedOrder:
+    properties:
+      address:
+        $ref: '#/definitions/usecase.OrderAddress'
+      date_added:
+        type: string
+      date_delivery:
+        type: string
+      id:
+        type: integer
+      order_number:
+        $ref: '#/definitions/usecase.OrderNumber'
+      product_images:
+        items:
+          $ref: '#/definitions/usecase.PreviewOrderedProducts'
+        type: array
+      status:
+        type: string
+      total_cost:
+        type: integer
+    type: object
+  usecase.PreviewCartArticle:
+    properties:
+      count:
+        type: integer
+      id:
+        type: integer
+      preview_image:
+        type: string
+      price:
+        $ref: '#/definitions/usecase.CartProductPrice'
+      title:
+        type: string
+    type: object
+  usecase.PreviewOrder:
+    properties:
+      address:
+        $ref: '#/definitions/usecase.OrderAddress'
+      price:
+        $ref: '#/definitions/usecase.TotalPrice'
+      products:
+        items:
+          $ref: '#/definitions/usecase.PreviewOrderedProducts'
+        type: array
+      recipient:
+        $ref: '#/definitions/usecase.OrderRecipient'
+    type: object
+  usecase.PreviewOrderedProducts:
+    properties:
+      id:
+        type: integer
+      preview_image:
+        type: string
+    type: object
+  usecase.Product:
+    properties:
+      category:
+        type: integer
+      category_path:
+        items:
+          $ref: '#/definitions/usecase.CategoriesCatalog'
+        type: array
+      count_reviews:
+        type: integer
+      description:
+        type: string
+      id:
+        type: integer
+      images:
+        items:
+          type: string
+        type: array
+      price:
+        $ref: '#/definitions/usecase.ProductPrice'
+      properties:
+        type: string
+      rating:
+        type: number
+      title:
+        type: string
+    type: object
+  usecase.ProductPrice:
+    properties:
+      base_cost:
+        type: integer
+      discount:
+        type: integer
+      total_cost:
+        type: integer
+    type: object
+  usecase.RangeFavorites:
+    properties:
+      list_preview_products:
+        items:
+          $ref: '#/definitions/usecase.ViewFavorite'
+        type: array
+      max_count_pages:
+        type: integer
+    type: object
+  usecase.RangeOrders:
+    properties:
+      list_placed_orders:
+        items:
+          $ref: '#/definitions/usecase.PlacedOrder'
+        type: array
+      max_count_pages:
+        type: integer
+    type: object
+  usecase.RangeProducts:
+    properties:
+      list_preview_products:
+        items:
+          $ref: '#/definitions/usecase.ViewProduct'
+        type: array
+      max_count_pages:
+        type: integer
+    type: object
+  usecase.RecommendationProduct:
+    properties:
+      id:
+        type: integer
+      preview_image:
+        type: string
+      price:
+        $ref: '#/definitions/usecase.ProductPrice'
+      title:
+        type: string
+    type: object
+  usecase.Session:
+    properties:
+      userData:
+        $ref: '#/definitions/usecase.UserId'
+      value:
+        type: string
+    type: object
+  usecase.TotalPrice:
+    properties:
+      total_base_cost:
+        type: integer
+      total_cost:
+        type: integer
+      total_discount:
+        type: integer
+    type: object
+  usecase.UserFavorites:
+    properties:
+      products:
+        items:
+          type: integer
+        type: array
+    type: object
+  usecase.UserId:
+    properties:
+      id:
+        type: integer
+    type: object
+  usecase.ViewFavorite:
+    properties:
+      count_reviews:
+        type: integer
+      id:
+        type: integer
+      preview_image:
+        type: string
+      price:
+        $ref: '#/definitions/usecase.ProductPrice'
+      rating:
+        type: number
+      title:
+        type: string
+    type: object
+  usecase.ViewProduct:
+    properties:
+      count_reviews:
+        type: integer
+      id:
+        type: integer
+      preview_image:
+        type: string
+      price:
+        $ref: '#/definitions/usecase.ProductPrice'
+      rating:
+        type: number
+      title:
+        type: string
+    type: object
+  usecase.ViewReview:
+    properties:
+      advantages:
+        type: string
+      comment:
+        type: string
+      date_added:
+        type: string
+      disadvantages:
+        type: string
+      rating:
+        type: integer
+      user_avatar:
+        type: string
+      user_name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /admin/order/status:
+    post:
+      consumes:
+      - application/json
+      description: Изменение статуса пользовательского заказа.
+      parameters:
+      - description: Данные заказа.
+        in: body
+        name: UpdateOrder
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiUpdateOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Статус успешно изменён.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Изменение статуса заказ.
+  /cart:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление пользовательской корзины.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товары из пользовательской корзины успешно удалены.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Удаление корзины.
+    get:
+      consumes:
+      - application/json
+      description: Получение пользовательской корзины.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товары из пользовательской корзины успешно получены.
+          schema:
+            $ref: '#/definitions/api.ApiPreviewCart'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Получение корзины.
+  /cart/product:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление товара из корзины юзера.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные товара.
+        in: body
+        name: ProductIdentifier
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiProductIdentifier'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товар успешно удалён.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Удаление товара из корзины.
+    post:
+      consumes:
+      - application/json
+      description: Добавление товара в корзину юзера.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные товара.
+        in: body
+        name: CartArticle
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiCartArticle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товар успешно добавлен.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Добавление товара в корзину.
+    put:
+      consumes:
+      - application/json
+      description: Изменение продуктов в пользовательской корзине.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные товара.
+        in: body
+        name: CartArticle
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiCartArticle'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товар успешно удалён.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Изменение продуктов в корзине.
+  /category:
+    get:
+      consumes:
+      - application/json
+      description: Получение каталога категорий.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Каталог категорий успешно получен.
+          schema:
+            items:
+              $ref: '#/definitions/errors.Error'
+            type: array
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение каталога категорий.
+  /category/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Получение подкатегории.
+      parameters:
+      - description: Id подкатегории
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Каталог категорий успешно получен.
+          schema:
+            items:
+              $ref: '#/definitions/errors.Error'
+            type: array
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение подкатегории.
+  /csrf:
+    get:
+      consumes:
+      - application/json
+      description: Получение csrf токена.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Токен csrf успешно сгенирован.
+          schema:
+            $ref: '#/definitions/usecase.CsrfToken'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение csrf токена.
+  /favorites:
+    post:
+      consumes:
+      - application/json
+      description: Получение превью избранных товаров.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Получение превью списка избранных товаров.
+        in: body
+        name: PaginatorFavorites
+        required: true
+        schema:
+          $ref: '#/definitions/usecase.PaginatorFavorites'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Список товаров успешно получен.
+          schema:
+            $ref: '#/definitions/usecase.UserFavorites'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Получение превью избранного.
+  /favorites/product/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаление товара из списка избранных товаров.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Id товара
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товар успешно удалён из избранного.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Удаление товара из избранного.
+    post:
+      consumes:
+      - application/json
+      description: Добавление товара в список избранных товаров.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Id товара
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Товар успешно добавлен в избранное.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Добавление товара в избранное.
+  /notification:
+    delete:
+      consumes:
+      - application/json
+      description: Отписка пользователя от пушей.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Получение данных для отправки пуша.
+        in: body
+        name: UserIdentifier
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiUserIdentifier'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Пользователь успешно отписан от пуш уведомлений.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Отписка пользователя от пушей.
+    post:
+      consumes:
+      - application/json
+      description: Подписка пользователя на пуши.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Получение данных для отправки пуша.
+        in: body
+        name: NotificationCredentials
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiNotificationCredentials'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Пользователь успешно подписан на пуш уведомления.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Подписка пользователя на пуши.
+  /notification/key:
+    get:
+      consumes:
+      - application/json
+      description: Получение публичного ключа для пушей.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Публичный ключ успешно получен.
+          schema:
+            $ref: '#/definitions/usecase.NotificationPublicKey'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Получение публичного ключа для пушей.
+  /order:
+    get:
+      consumes:
+      - application/json
+      description: Получение заказа на основании корзины.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Заказ успешно получен на основании корзины.
+          schema:
+            $ref: '#/definitions/usecase.PreviewOrder'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Получение заказа на основании корзины.
+    post:
+      consumes:
+      - application/json
+      description: Оформление пользовательского заказа.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные заказа.
+        in: body
+        name: Order
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiOrder'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Заказ успешно оформлен.
+          schema:
+            $ref: '#/definitions/usecase.OrderNumber'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Оформление заказа.
+  /product/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Получение информации о товаре.
+      parameters:
+      - description: Id товара
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Информация о товаре успешно получена.
+          schema:
+            $ref: '#/definitions/usecase.Product'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение товара.
+  /product/recommendations/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Получение превью товаров.
+      parameters:
+      - description: Параметры пагинатора.
+        in: body
+        name: PaginatorProducts
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiPaginatorProducts'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Превью товаров получены успешно.
+          schema:
+            $ref: '#/definitions/usecase.RangeProducts'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение превью товаров.
+  /product/search:
+    post:
+      consumes:
+      - application/json
+      description: Поиск товаров.
+      parameters:
+      - description: Поисковый запрос.
+        in: body
+        name: SearchQuery
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiSearchQuery'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Результат поиска.
+          schema:
+            $ref: '#/definitions/usecase.RangeProducts'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Поиск товаров.
+  /promo:
+    post:
+      consumes:
+      - application/json
+      description: Применение промокода к заказу.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Параметры применения промокода.
+        in: body
+        name: PromoCodeGroup
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiPromoCodeGroup'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Стоимость товаров со скидкой.
+          schema:
+            $ref: '#/definitions/api.ApiDiscountedPrice'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Применение промокода к заказу.
+  /review/product:
+    post:
+      consumes:
+      - application/json
+      description: Добавление нового отзыва.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные отзыва.
+        in: body
+        name: Review
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiReview'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Отзыв успешно добавлен.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Добавление нового отзыва.
+  /review/product/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Получение отзывов для определённого товара.
+      parameters:
+      - description: Данные товара.
+        in: body
+        name: PaginatorReviews
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiPaginatorReviews'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Отзывы успешно получены.
+          schema:
+            $ref: '#/definitions/api.ApiRangeReviews'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение отзывов для определённого товара.
+  /review/rights/product/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Проверка прав для написания отзыва.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Id товара
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Проверка прав для написания отзыва.
+          schema:
+            $ref: '#/definitions/api.ApiReviewStatistics'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Проверка прав для написания отзыва.
+  /review/statistics/product/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Получение подробного рейтинга товара.
+      parameters:
+      - description: Id товара
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Получение подробного рейтинга.
+          schema:
+            $ref: '#/definitions/api.ApiReviewStatistics'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение подробного рейтинга товара.
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Авторизация пользователя.
+      parameters:
+      - description: Данные пользователя.
+        in: body
+        name: Review
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiLoginUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Jwt auth токен успешно получен.
+          schema:
+            $ref: '#/definitions/usecase.Session'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Авторизация.
+  /user/logout:
+    delete:
+      consumes:
+      - application/json
+      description: Выход из аккаунта пользователя.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Выход из аккаунта успешно выполнен.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Выход.
+  /user/order:
+    post:
+      consumes:
+      - application/json
+      description: Получение заказов пользователя.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Параметры пагинатора.
+        in: body
+        name: PaginatorOrders
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiPaginatorOrders'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Список заказов данного пользователя успешно получен.
+          schema:
+            $ref: '#/definitions/usecase.RangeOrders'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Получение заказов.
+  /user/profile:
+    get:
+      consumes:
+      - application/json
+      description: Получение пользовательского профиля.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Профиль пользователя успешно получен.
+          schema:
+            $ref: '#/definitions/api.ApiProfileUser'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Получение профиля.
+    put:
+      consumes:
+      - application/json
+      description: Обновление пользовательских данных.
+      parameters:
+      - description: Обновление пользовательских данных.
+        in: body
+        name: UpdateUser
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiUpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Данные пользователя успешно обновлены.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      summary: Обновление профиля.
+  /user/profile/avatar:
+    get:
+      consumes:
+      - application/json
+      description: Получение пользовательского аватара.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Аватар пользователя успешно получен.
+          schema:
+            $ref: '#/definitions/api.ApiAvatar'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Получение аватара.
+    put:
+      consumes:
+      - application/json
+      description: Обновление пользовательского аватара.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Аватарка пользователя.
+        in: formData
+        name: avatar
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Аватар пользователя успешно обновлён.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Обновление аватара.
+  /user/signup:
+    post:
+      consumes:
+      - application/json
+      description: Регистрация нового пользователя.
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Данные пользователя.
+        in: body
+        name: Review
+        required: true
+        schema:
+          $ref: '#/definitions/api.ApiSignupUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Jwt auth токен успешно получен.
+          schema:
+            $ref: '#/definitions/usecase.Session'
+        "400":
+          description: Некорректное тело запроса.
+          schema:
+            $ref: '#/definitions/errors.Error'
+        "500":
+          description: Непредвиденная ошибка сервера.
+          schema:
+            $ref: '#/definitions/errors.Error'
+      security:
+      - ApiKeyAuth: []
+      summary: Регистрация.
+swagger: "2.0"

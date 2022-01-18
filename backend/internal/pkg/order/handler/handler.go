@@ -27,6 +27,17 @@ func NewHandler(orderUCase order.UseCase, cartUCase cart.UseCase) order.Handler 
 	}
 }
 
+// GetOrderFromCart godoc
+// @Summary Получение заказа на основании корзины.
+// @Description Получение заказа на основании корзины.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Success 200 {object} usecase.PreviewOrder "Заказ успешно получен на основании корзины."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /order [GET]
 func (h *OrderHandler) GetOrderFromCart(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -54,6 +65,18 @@ func (h *OrderHandler) GetOrderFromCart(w http.ResponseWriter, r *http.Request) 
 	http_utils.SetJSONResponse(w, previewOrder, http.StatusOK)
 }
 
+// AddCompletedOrder godoc
+// @Summary Оформление заказа.
+// @Description Оформление пользовательского заказа.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param Order body api.ApiOrder true "Данные заказа."
+// @Success 200 {object} usecase.OrderNumber "Заказ успешно оформлен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /order [POST]
 func (h *OrderHandler) AddCompletedOrder(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -106,6 +129,18 @@ func (h *OrderHandler) AddCompletedOrder(w http.ResponseWriter, r *http.Request)
 	http_utils.SetJSONResponse(w, orderNumber, http.StatusOK)
 }
 
+// GetUserOrders godoc
+// @Summary Получение заказов.
+// @Description Получение заказов пользователя.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param PaginatorOrders body api.ApiPaginatorOrders true "Параметры пагинатора."
+// @Success 200 {object} usecase.RangeOrders "Список заказов данного пользователя успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/order [POST]
 func (h *OrderHandler) GetUserOrders(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

@@ -26,6 +26,18 @@ func NewHandler(favoritesUCase favorites.UseCase) favorites.Handler {
 	}
 }
 
+// AddProductToFavorites godoc
+// @Summary Добавление товара в избранное.
+// @Description Добавление товара в список избранных товаров.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param id query int true "Id товара"
+// @Success 200 {object} errors.Error "Товар успешно добавлен в избранное."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /favorites/product/{id} [POST]
 func (h *FavoritesHandler) AddProductToFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -55,6 +67,18 @@ func (h *FavoritesHandler) AddProductToFavorites(w http.ResponseWriter, r *http.
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
+// DeleteProductFromFavorites godoc
+// @Summary Удаление товара из избранного.
+// @Description Удаление товара из списка избранных товаров.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param id query int true "Id товара"
+// @Success 200 {object} errors.Error "Товар успешно удалён из избранного."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /favorites/product/{id} [DELETE]
 func (h *FavoritesHandler) DeleteProductFromFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -84,6 +108,18 @@ func (h *FavoritesHandler) DeleteProductFromFavorites(w http.ResponseWriter, r *
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
+// GetListPreviewFavorites godoc
+// @Summary Получение превью избранного.
+// @Description Получение превью избранных товаров.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param PaginatorFavorites body usecase.PaginatorFavorites true "Получение превью списка избранных товаров."
+// @Success 200 {object} usecase.RangeFavorites "Список товаров успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /favorites [POST]
 func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -127,6 +163,18 @@ func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *htt
 	http_utils.SetJSONResponse(w, listPreviewFavorites, http.StatusOK)
 }
 
+// GetUserFavorites godoc
+// @Summary Получение превью избранного.
+// @Description Получение превью избранных товаров.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param PaginatorFavorites body usecase.PaginatorFavorites true "Получение превью списка избранных товаров."
+// @Success 200 {object} usecase.UserFavorites "Список товаров успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /favorites [POST]
 func (h *FavoritesHandler) GetUserFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

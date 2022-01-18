@@ -28,7 +28,16 @@ func NewHandler(userUCase user.UseCase, sessionUCase session.UseCase) user.Handl
 	}
 }
 
-// Handle login user
+// Login godoc
+// @Summary Авторизация.
+// @Description Авторизация пользователя.
+// @Accept json
+// @Produce json
+// @Param Review body api.ApiLoginUser true "Данные пользователя."
+// @Success 200 {object} usecase.Session "Jwt auth токен успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/login [POST]
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -78,7 +87,16 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Handle update user profile
+// UpdateProfile godoc
+// @Summary Обновление профиля.
+// @Description Обновление пользовательских данных.
+// @Accept json
+// @Produce json
+// @Param UpdateUser body api.ApiUpdateUser true "Обновление пользовательских данных."
+// @Success 200 {object} errors.Error "Данные пользователя успешно обновлены."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/profile [PUT]
 func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -126,7 +144,18 @@ func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Handle update avatar in user profile
+// UpdateProfileAvatar godoc
+// @Summary Обновление аватара.
+// @Description Обновление пользовательского аватара.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param avatar formData file true "Аватарка пользователя."
+// @Success 200 {object} errors.Error "Аватар пользователя успешно обновлён."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/profile/avatar [PUT]
 func (h *UserHandler) UpdateProfileAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -161,7 +190,17 @@ func (h *UserHandler) UpdateProfileAvatar(w http.ResponseWriter, r *http.Request
 	http_utils.SetJSONResponse(w, api.ApiAvatar{Url: fileUrl}, http.StatusOK)
 }
 
-// Handle get user avatar
+// GetProfileAvatar godoc
+// @Summary Получение аватара.
+// @Description Получение пользовательского аватара.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Success 200 {object} api.ApiAvatar "Аватар пользователя успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/profile/avatar [GET]
 func (h *UserHandler) GetProfileAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -182,7 +221,15 @@ func (h *UserHandler) GetProfileAvatar(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponse(w, api.ApiAvatar{Url: fileUrl}, http.StatusOK)
 }
 
-// Handle get profile of current user
+// GetProfile godoc
+// @Summary Получение профиля.
+// @Description Получение пользовательского профиля.
+// @Accept json
+// @Produce json
+// @Success 200 {object} api.ApiProfileUser "Профиль пользователя успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/profile [GET]
 func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -212,7 +259,18 @@ func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	}, http.StatusOK)
 }
 
-// Handle signup user
+// Signup godoc
+// @Summary Регистрация.
+// @Description Регистрация нового пользователя.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param Review body api.ApiSignupUser true "Данные пользователя."
+// @Success 200 {object} usecase.Session "Jwt auth токен успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/signup [POST]
 func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -262,7 +320,17 @@ func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponseSuccess(w, http.StatusCreated)
 }
 
-// Handle logout user
+// Logout godoc
+// @Summary Выход.
+// @Description Выход из аккаунта пользователя.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Success 200 {object} errors.Error "Выход из аккаунта успешно выполнен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /user/logout [DELETE]
 func (h *UserHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

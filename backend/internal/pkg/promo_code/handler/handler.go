@@ -24,6 +24,18 @@ func NewHandler(UCase promo_code.UseCase) promo_code.Handler {
 	}
 }
 
+// ApplyPromoCodeToOrder godoc
+// @Summary Применение промокода к заказу.
+// @Description Применение промокода к заказу.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param PromoCodeGroup body api.ApiPromoCodeGroup true "Параметры применения промокода."
+// @Success 200 {object} api.ApiDiscountedPrice "Стоимость товаров со скидкой."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /promo [POST]
 func (h *PromoCodeHandler) ApplyPromoCodeToOrder(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

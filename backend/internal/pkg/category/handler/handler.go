@@ -23,7 +23,15 @@ func NewHandler(UCase category.UseCase) category.Handler {
 	}
 }
 
-// Get preview category catalog
+// GetCatalogCategories godoc
+// @Summary Получение каталога категорий.
+// @Description Получение каталога категорий.
+// @Accept json
+// @Produce json
+// @Success 200 {array} errors.Error "Каталог категорий успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /category [GET]
 func (h *CategoryHandler) GetCatalogCategories(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -42,7 +50,16 @@ func (h *CategoryHandler) GetCatalogCategories(w http.ResponseWriter, r *http.Re
 	http_utils.SetJSONResponse(w, categories, http.StatusOK)
 }
 
-// Get subcategories of category
+// GetSubCategories godoc
+// @Summary Получение подкатегории.
+// @Description Получение подкатегории.
+// @Accept json
+// @Produce json
+// @Param id query int true "Id подкатегории"
+// @Success 200 {array}  errors.Error "Каталог категорий успешно получен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /category/{id} [GET]
 func (h *CategoryHandler) GetSubCategories(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

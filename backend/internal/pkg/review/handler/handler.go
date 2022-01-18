@@ -27,7 +27,16 @@ func NewHandler(reviewUCase review.UseCase) review.Handler {
 	}
 }
 
-// Get statistics about reviews for product
+// GetReviewStatistics godoc
+// @Summary Получение подробного рейтинга товара.
+// @Description Получение подробного рейтинга товара.
+// @Accept json
+// @Produce json
+// @Param id query int true "Id товара"
+// @Success 200 {object} api.ApiReviewStatistics "Получение подробного рейтинга."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /review/statistics/product/{id} [POST]
 func (h *ReviewHandler) GetReviewStatistics(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -55,7 +64,18 @@ func (h *ReviewHandler) GetReviewStatistics(w http.ResponseWriter, r *http.Reque
 	}, http.StatusOK)
 }
 
-// Check rights for write new review
+// CheckReviewRights godoc
+// @Summary Проверка прав для написания отзыва.
+// @Description Проверка прав для написания отзыва.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param id query int true "Id товара"
+// @Success 200 {object} api.ApiReviewStatistics "Проверка прав для написания отзыва."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /review/rights/product/{id} [GET]
 func (h *ReviewHandler) CheckReviewRights(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -86,7 +106,18 @@ func (h *ReviewHandler) CheckReviewRights(w http.ResponseWriter, r *http.Request
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Add new review for product
+// AddNewReview godoc
+// @Summary Добавление нового отзыва.
+// @Description Добавление нового отзыва.
+// @Accept json
+// @Produce json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Authorization"
+// @Param Review body api.ApiReview true "Данные отзыва."
+// @Success 200 {object} errors.Error "Отзыв успешно добавлен."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /review/product [POST]
 func (h *ReviewHandler) AddNewReview(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -138,7 +169,16 @@ func (h *ReviewHandler) AddNewReview(w http.ResponseWriter, r *http.Request) {
 	http_utils.SetJSONResponseSuccess(w, http.StatusOK)
 }
 
-// Get all reviews for product
+// GetReviewsForProduct godoc
+// @Summary Получение отзывов для определённого товара.
+// @Description Получение отзывов для определённого товара.
+// @Accept json
+// @Produce json
+// @Param PaginatorReviews body api.ApiPaginatorReviews true "Данные товара."
+// @Success 200 {object} api.ApiRangeReviews "Отзывы успешно получены."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /review/product/{id} [POST]
 func (h *ReviewHandler) GetReviewsForProduct(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {

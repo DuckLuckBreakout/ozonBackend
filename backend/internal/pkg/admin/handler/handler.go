@@ -24,6 +24,16 @@ func NewHandler(adminUCase admin.UseCase) admin.Handler {
 	}
 }
 
+// ChangeOrderStatus godoc
+// @Summary Изменение статуса заказ.
+// @Description Изменение статуса пользовательского заказа.
+// @Accept json
+// @Produce json
+// @Param UpdateOrder body api.ApiUpdateOrder true "Данные заказа."
+// @Success 200 {object} errors.Error "Статус успешно изменён."
+// @Failure 400 {object} errors.Error "Некорректное тело запроса."
+// @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Router /admin/order/status [POST]
 func (h *AdminHandler) ChangeOrderStatus(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
