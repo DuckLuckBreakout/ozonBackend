@@ -68,14 +68,13 @@ func (r *PostgresqlRepository) GetCountPages(countPages *dto.DtoCountPages) (*dt
 		"SELECT count(id) "+
 			"FROM reviews "+
 			"WHERE product_id = $1",
-		countPages.ProductId,
 	)
 
 	var counter int
 	if err := row.Scan(&counter); err != nil {
 		return nil, errors.ErrDBInternalError
 	}
-	counter = int(math.Ceil(float64(counter) / float64(countPages.CountOrdersOnPage)))
+	counter = int(math.Ceil(float64(counter) / 1))
 
 	return &dto.DtoCounter{Count: counter}, nil
 }
@@ -113,7 +112,6 @@ func (r *PostgresqlRepository) SelectStatisticsByProductId(productId *dto.DtoPro
 			"WHERE product_id = $1 "+
 			"GROUP BY rating "+
 			"ORDER BY rating",
-		productId.Id,
 	)
 	if err != nil {
 		return nil, errors.ErrIncorrectPaginator
