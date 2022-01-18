@@ -53,7 +53,7 @@ import (
 	auth_service "github.com/DuckLuckBreakout/web/backend/services/auth/proto/user"
 	cart_service "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 	session_service "github.com/DuckLuckBreakout/web/backend/services/session/proto/session"
-	_ "github.com/DuckLuckBreakout/backend/api/api_server"
+	_ "github.com/DuckLuckBreakout/web/backend/api/api_server"
 
 	
 	
