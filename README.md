@@ -1,4 +1,6 @@
 # ozonBackend
+[![Build And Deploy Status](https://github.com/DuckLuckBreakout/web/actions/workflows/build.yaml/badge.svg)](https://github.com/DuckLuckBreakout/web/actions/workflows/build.yaml)
+[![Build And Deploy Status](https://github.com/DuckLuckBreakout/web/actions/workflows/s3.yaml/badge.svg)](https://github.com/DuckLuckBreakout/web/actions/workflows/s3.yaml)
 
 ![UseCase](https://user-images.githubusercontent.com/49189299/149818532-2ff952ac-0eed-4bf5-a736-3b07594b0866.png)
 
