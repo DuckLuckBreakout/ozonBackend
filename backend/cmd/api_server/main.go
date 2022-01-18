@@ -281,7 +281,7 @@ func main() {
 	go func() {
 		mainRouter.Start(fmt.Sprintf("%s:%s",
 			os.Getenv("API_SERVER_HOST"),
-			os.Getenv("API_SERVER_PORT")),
+			os.Getenv("API_SWAGGER_SERVER_PORT")),
 		)
 	}()
 
