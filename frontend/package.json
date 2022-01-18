@@ -10,7 +10,6 @@
     "start": "webpack && node ozon/server/index.mjs",
     "start-dev": "webpack --env=dev --watch & node ozon/server/index.mjs",
     "generate-doc": "jsdoc -c jsdoc-conf.json",
-    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
