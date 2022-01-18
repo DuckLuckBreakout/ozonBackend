@@ -269,7 +269,7 @@ func main() {
 	authMux.HandleFunc("/api/v1/order", orderHandler.AddCompletedOrder).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/review/product", reviewHandler.AddNewReview).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/review/rights/product/{id:[0-9]+}", reviewHandler.CheckReviewRights).Methods("GET", "OPTIONS")
-	authMux.HandleFunc("/api/v1/favorites/product/{id:[0-9]+}", favoritesHandler.AddProductToFavorites).Methods("POST", "OPTIONS")
+	authMux.HandleFunc("/api/v1/favorites/product/{id:[0-9]+}", favoritesHandler.AddProductToFavorites).Methods("PATCH", "OPTIONS")
 	authMux.HandleFunc("/api/v1/favorites/product/{id:[0-9]+}", favoritesHandler.DeleteProductFromFavorites).Methods("DELETE", "OPTIONS")
 	authMux.HandleFunc("/api/v1/favorites", favoritesHandler.GetListPreviewFavorites).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/favorites", favoritesHandler.GetUserFavorites).Methods("GET", "OPTIONS")
