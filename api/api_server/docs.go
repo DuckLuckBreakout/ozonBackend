@@ -32,6 +32,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "admin"
+                ],
                 "summary": "Изменение статуса заказ.",
                 "parameters": [
                     {
@@ -80,6 +83,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "cart"
+                ],
                 "summary": "Получение корзины.",
                 "parameters": [
                     {
@@ -123,6 +129,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "cart"
                 ],
                 "summary": "Удаление корзины.",
                 "parameters": [
@@ -169,6 +178,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "cart"
                 ],
                 "summary": "Изменение продуктов в корзине.",
                 "parameters": [
@@ -223,6 +235,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "cart"
+                ],
                 "summary": "Добавление товара в корзину.",
                 "parameters": [
                     {
@@ -276,6 +291,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "cart"
+                ],
                 "summary": "Удаление товара из корзины.",
                 "parameters": [
                     {
@@ -326,6 +344,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "category"
+                ],
                 "summary": "Получение каталога категорий.",
                 "responses": {
                     "200": {
@@ -360,6 +381,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "category"
                 ],
                 "summary": "Получение подкатегории.",
                 "parameters": [
@@ -405,6 +429,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "csrf"
+                ],
                 "summary": "Получение csrf токена.",
                 "responses": {
                     "200": {
@@ -441,6 +468,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "favorites"
                 ],
                 "summary": "Получение превью избранного.",
                 "parameters": [
@@ -484,57 +514,6 @@ var doc = `{
             }
         },
         "/favorites/product/{id}": {
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Добавление товара в список избранных товаров.",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Добавление товара в избранное.",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Authorization",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Id товара",
-                        "name": "id",
-                        "in": "query",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Товар успешно добавлен в избранное.",
-                        "schema": {
-                            "$ref": "#/definitions/errors.Error"
-                        }
-                    },
-                    "400": {
-                        "description": "Некорректное тело запроса.",
-                        "schema": {
-                            "$ref": "#/definitions/errors.Error"
-                        }
-                    },
-                    "500": {
-                        "description": "Непредвиденная ошибка сервера.",
-                        "schema": {
-                            "$ref": "#/definitions/errors.Error"
-                        }
-                    }
-                }
-            },
             "delete": {
                 "security": [
                     {
@@ -547,6 +526,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "favorites"
                 ],
                 "summary": "Удаление товара из избранного.",
                 "parameters": [
@@ -585,6 +567,60 @@ var doc = `{
                         }
                     }
                 }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Добавление товара в список избранных товаров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "favorites"
+                ],
+                "summary": "Добавление товара в избранное.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Id товара",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно добавлен в избранное.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "400": {
+                        "description": "Некорректное тело запроса.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    },
+                    "500": {
+                        "description": "Непредвиденная ошибка сервера.",
+                        "schema": {
+                            "$ref": "#/definitions/errors.Error"
+                        }
+                    }
+                }
             }
         },
         "/notification": {
@@ -600,6 +636,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "notification"
                 ],
                 "summary": "Подписка пользователя на пуши.",
                 "parameters": [
@@ -653,6 +692,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "notification"
                 ],
                 "summary": "Отписка пользователя от пушей.",
                 "parameters": [
@@ -709,6 +751,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "notification"
+                ],
                 "summary": "Получение публичного ключа для пушей.",
                 "parameters": [
                     {
@@ -755,6 +800,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "order"
+                ],
                 "summary": "Получение заказа на основании корзины.",
                 "parameters": [
                     {
@@ -798,6 +846,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "order"
                 ],
                 "summary": "Оформление заказа.",
                 "parameters": [
@@ -849,6 +900,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "product"
+                ],
                 "summary": "Получение превью товаров.",
                 "parameters": [
                     {
@@ -892,6 +946,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "product"
+                ],
                 "summary": "Поиск товаров.",
                 "parameters": [
                     {
@@ -934,6 +991,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "product"
                 ],
                 "summary": "Получение товара.",
                 "parameters": [
@@ -980,6 +1040,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "promo"
                 ],
                 "summary": "Применение промокода к заказу.",
                 "parameters": [
@@ -1036,6 +1099,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "review"
+                ],
                 "summary": "Добавление нового отзыва.",
                 "parameters": [
                     {
@@ -1086,6 +1152,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "review"
+                ],
                 "summary": "Получение отзывов для определённого товара.",
                 "parameters": [
                     {
@@ -1133,6 +1202,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "review"
                 ],
                 "summary": "Проверка прав для написания отзыва.",
                 "parameters": [
@@ -1182,6 +1254,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "review"
+                ],
                 "summary": "Получение подробного рейтинга товара.",
                 "parameters": [
                     {
@@ -1223,6 +1298,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "user"
+                ],
                 "summary": "Авторизация.",
                 "parameters": [
                     {
@@ -1239,7 +1317,7 @@ var doc = `{
                     "200": {
                         "description": "Jwt auth токен успешно получен.",
                         "schema": {
-                            "$ref": "#/definitions/usecase.Session"
+                            "$ref": "#/definitions/api.Token"
                         }
                     },
                     "400": {
@@ -1270,6 +1348,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "summary": "Выход.",
                 "parameters": [
@@ -1316,6 +1397,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "order"
                 ],
                 "summary": "Получение заказов.",
                 "parameters": [
@@ -1367,6 +1451,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "user"
+                ],
                 "summary": "Получение профиля.",
                 "responses": {
                     "200": {
@@ -1396,6 +1483,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "summary": "Обновление профиля.",
                 "parameters": [
@@ -1445,6 +1535,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "user"
+                ],
                 "summary": "Получение аватара.",
                 "parameters": [
                     {
@@ -1488,6 +1581,9 @@ var doc = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "user"
                 ],
                 "summary": "Обновление аватара.",
                 "parameters": [
@@ -1542,6 +1638,9 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "user"
+                ],
                 "summary": "Регистрация.",
                 "parameters": [
                     {
@@ -1565,7 +1664,7 @@ var doc = `{
                     "200": {
                         "description": "Jwt auth токен успешно получен.",
                         "schema": {
-                            "$ref": "#/definitions/usecase.Session"
+                            "$ref": "#/definitions/api.Token"
                         }
                     },
                     "400": {
@@ -1940,6 +2039,17 @@ var doc = `{
                 }
             }
         },
+        "api.Token": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string"
+                },
+                "refreshToken": {
+                    "type": "string"
+                }
+            }
+        },
         "errors.Error": {
             "type": "object",
             "properties": {
@@ -2239,17 +2349,6 @@ var doc = `{
                 }
             }
         },
-        "usecase.Session": {
-            "type": "object",
-            "properties": {
-                "userData": {
-                    "$ref": "#/definitions/usecase.UserId"
-                },
-                "value": {
-                    "type": "string"
-                }
-            }
-        },
         "usecase.TotalPrice": {
             "type": "object",
             "properties": {
@@ -2272,14 +2371,6 @@ var doc = `{
                     "items": {
                         "type": "integer"
                     }
-                }
-            }
-        },
-        "usecase.UserId": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
                 }
             }
         },
@@ -2369,12 +2460,12 @@ type swaggerInfo struct {
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = swaggerInfo{
-	Version:     "",
-	Host:        "",
-	BasePath:    "",
-	Schemes:     []string{},
-	Title:       "",
-	Description: "",
+	Version:     "0.1.0",
+	Host:        "duckluckbreakout.xyz",
+	BasePath:    "/api/v1",
+	Schemes:     []string{"http", "https"},
+	Title:       "Ozon",
+	Description: "Ozon API.",
 }
 
 type s struct{}

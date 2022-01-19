@@ -1,3 +1,4 @@
+basePath: /api/v1
 definitions:
   api.ApiAvatar:
     properties:
@@ -227,6 +228,13 @@ definitions:
       endpoint:
         type: string
     type: object
+  api.Token:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
   errors.Error:
     properties:
       error:
@@ -420,13 +428,6 @@ definitions:
       title:
         type: string
     type: object
-  usecase.Session:
-    properties:
-      userData:
-        $ref: '#/definitions/usecase.UserId'
-      value:
-        type: string
-    type: object
   usecase.TotalPrice:
     properties:
       total_base_cost:
@@ -442,11 +443,6 @@ definitions:
         items:
           type: integer
         type: array
-    type: object
-  usecase.UserId:
-    properties:
-      id:
-        type: integer
     type: object
   usecase.ViewFavorite:
     properties:
@@ -495,8 +491,12 @@ definitions:
       user_name:
         type: string
     type: object
+host: duckluckbreakout.xyz
 info:
   contact: {}
+  description: Ozon API.
+  title: Ozon
+  version: 0.1.0
 paths:
   /admin/order/status:
     post:
@@ -526,6 +526,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Изменение статуса заказ.
+      tags:
+      - admin
   /cart:
     delete:
       consumes:
@@ -555,6 +557,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Удаление корзины.
+      tags:
+      - cart
     get:
       consumes:
       - application/json
@@ -583,6 +587,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Получение корзины.
+      tags:
+      - cart
   /cart/product:
     delete:
       consumes:
@@ -618,6 +624,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Удаление товара из корзины.
+      tags:
+      - cart
     post:
       consumes:
       - application/json
@@ -652,6 +660,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Добавление товара в корзину.
+      tags:
+      - cart
     put:
       consumes:
       - application/json
@@ -686,6 +696,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Изменение продуктов в корзине.
+      tags:
+      - cart
   /category:
     get:
       consumes:
@@ -709,6 +721,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение каталога категорий.
+      tags:
+      - category
   /category/{id}:
     get:
       consumes:
@@ -738,6 +752,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение подкатегории.
+      tags:
+      - category
   /csrf:
     get:
       consumes:
@@ -759,6 +775,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение csrf токена.
+      tags:
+      - csrf
   /favorites:
     post:
       consumes:
@@ -794,6 +812,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Получение превью избранного.
+      tags:
+      - favorites
   /favorites/product/{id}:
     delete:
       consumes:
@@ -828,7 +848,9 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Удаление товара из избранного.
-    post:
+      tags:
+      - favorites
+    patch:
       consumes:
       - application/json
       description: Добавление товара в список избранных товаров.
@@ -861,6 +883,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Добавление товара в избранное.
+      tags:
+      - favorites
   /notification:
     delete:
       consumes:
@@ -896,6 +920,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Отписка пользователя от пушей.
+      tags:
+      - notification
     post:
       consumes:
       - application/json
@@ -930,6 +956,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Подписка пользователя на пуши.
+      tags:
+      - notification
   /notification/key:
     get:
       consumes:
@@ -959,6 +987,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Получение публичного ключа для пушей.
+      tags:
+      - notification
   /order:
     get:
       consumes:
@@ -988,6 +1018,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Получение заказа на основании корзины.
+      tags:
+      - order
     post:
       consumes:
       - application/json
@@ -1022,6 +1054,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Оформление заказа.
+      tags:
+      - order
   /product/{id}:
     get:
       consumes:
@@ -1049,6 +1083,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение товара.
+      tags:
+      - product
   /product/recommendations/{id}:
     post:
       consumes:
@@ -1077,6 +1113,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение превью товаров.
+      tags:
+      - product
   /product/search:
     post:
       consumes:
@@ -1105,6 +1143,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Поиск товаров.
+      tags:
+      - product
   /promo:
     post:
       consumes:
@@ -1140,6 +1180,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Применение промокода к заказу.
+      tags:
+      - promo
   /review/product:
     post:
       consumes:
@@ -1175,6 +1217,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Добавление нового отзыва.
+      tags:
+      - review
   /review/product/{id}:
     post:
       consumes:
@@ -1203,6 +1247,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение отзывов для определённого товара.
+      tags:
+      - review
   /review/rights/product/{id}:
     get:
       consumes:
@@ -1237,6 +1283,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Проверка прав для написания отзыва.
+      tags:
+      - review
   /review/statistics/product/{id}:
     post:
       consumes:
@@ -1264,6 +1312,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение подробного рейтинга товара.
+      tags:
+      - review
   /user/login:
     post:
       consumes:
@@ -1282,7 +1332,7 @@ paths:
         "200":
           description: Jwt auth токен успешно получен.
           schema:
-            $ref: '#/definitions/usecase.Session'
+            $ref: '#/definitions/api.Token'
         "400":
           description: Некорректное тело запроса.
           schema:
@@ -1292,6 +1342,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Авторизация.
+      tags:
+      - user
   /user/logout:
     delete:
       consumes:
@@ -1321,6 +1373,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Выход.
+      tags:
+      - user
   /user/order:
     post:
       consumes:
@@ -1356,6 +1410,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Получение заказов.
+      tags:
+      - order
   /user/profile:
     get:
       consumes:
@@ -1377,6 +1433,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Получение профиля.
+      tags:
+      - user
     put:
       consumes:
       - application/json
@@ -1404,6 +1462,8 @@ paths:
           schema:
             $ref: '#/definitions/errors.Error'
       summary: Обновление профиля.
+      tags:
+      - user
   /user/profile/avatar:
     get:
       consumes:
@@ -1433,6 +1493,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Получение аватара.
+      tags:
+      - user
     put:
       consumes:
       - application/json
@@ -1466,6 +1528,8 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Обновление аватара.
+      tags:
+      - user
   /user/signup:
     post:
       consumes:
@@ -1489,7 +1553,7 @@ paths:
         "200":
           description: Jwt auth токен успешно получен.
           schema:
-            $ref: '#/definitions/usecase.Session'
+            $ref: '#/definitions/api.Token'
         "400":
           description: Некорректное тело запроса.
           schema:
@@ -1501,4 +1565,9 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: Регистрация.
+      tags:
+      - user
+schemes:
+- http
+- https
 swagger: "2.0"
