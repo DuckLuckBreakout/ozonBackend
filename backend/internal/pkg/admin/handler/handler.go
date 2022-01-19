@@ -33,6 +33,7 @@ func NewHandler(adminUCase admin.UseCase) admin.Handler {
 // @Success 200 {object} errors.Error "Статус успешно изменён."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags admin
 // @Router /admin/order/status [POST]
 func (h *AdminHandler) ChangeOrderStatus(w http.ResponseWriter, r *http.Request) {
 	var err error

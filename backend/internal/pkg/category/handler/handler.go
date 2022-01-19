@@ -31,6 +31,7 @@ func NewHandler(UCase category.UseCase) category.Handler {
 // @Success 200 {array} errors.Error "Каталог категорий успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags category
 // @Router /category [GET]
 func (h *CategoryHandler) GetCatalogCategories(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -59,6 +60,7 @@ func (h *CategoryHandler) GetCatalogCategories(w http.ResponseWriter, r *http.Re
 // @Success 200 {array}  errors.Error "Каталог категорий успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags category
 // @Router /category/{id} [GET]
 func (h *CategoryHandler) GetSubCategories(w http.ResponseWriter, r *http.Request) {
 	var err error

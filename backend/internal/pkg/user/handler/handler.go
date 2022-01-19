@@ -34,9 +34,10 @@ func NewHandler(userUCase user.UseCase, sessionUCase session.UseCase) user.Handl
 // @Accept json
 // @Produce json
 // @Param Review body api.ApiLoginUser true "Данные пользователя."
-// @Success 200 {object} usecase.Session "Jwt auth токен успешно получен."
+// @Success 200 {object} api.Token "Jwt auth токен успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/login [POST]
 func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -96,6 +97,7 @@ func (h *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} errors.Error "Данные пользователя успешно обновлены."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/profile [PUT]
 func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -155,6 +157,7 @@ func (h *UserHandler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} errors.Error "Аватар пользователя успешно обновлён."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/profile/avatar [PUT]
 func (h *UserHandler) UpdateProfileAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -200,6 +203,7 @@ func (h *UserHandler) UpdateProfileAvatar(w http.ResponseWriter, r *http.Request
 // @Success 200 {object} api.ApiAvatar "Аватар пользователя успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/profile/avatar [GET]
 func (h *UserHandler) GetProfileAvatar(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -229,6 +233,7 @@ func (h *UserHandler) GetProfileAvatar(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} api.ApiProfileUser "Профиль пользователя успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/profile [GET]
 func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -267,9 +272,10 @@ func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Authorization"
 // @Param Review body api.ApiSignupUser true "Данные пользователя."
-// @Success 200 {object} usecase.Session "Jwt auth токен успешно получен."
+// @Success 200 {object} api.Token "Jwt auth токен успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/signup [POST]
 func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -330,6 +336,7 @@ func (h *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} errors.Error "Выход из аккаунта успешно выполнен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags user
 // @Router /user/logout [DELETE]
 func (h *UserHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	var err error

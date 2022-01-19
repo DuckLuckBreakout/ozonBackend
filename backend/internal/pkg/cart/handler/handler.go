@@ -35,6 +35,7 @@ func NewHandler(cartUCase cart.UseCase) cart.Handler {
 // @Success 200 {object} errors.Error "Товар успешно добавлен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags cart
 // @Router /cart/product [POST]
 func (h *CartHandler) AddProductInCart(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -99,6 +100,7 @@ func (h *CartHandler) AddProductInCart(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} errors.Error "Товар успешно удалён."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags cart
 // @Router /cart/product [DELETE]
 func (h *CartHandler) DeleteProductInCart(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -158,6 +160,7 @@ func (h *CartHandler) DeleteProductInCart(w http.ResponseWriter, r *http.Request
 // @Success 200 {object} errors.Error "Товар успешно удалён."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags cart
 // @Router /cart/product [PUT]
 func (h *CartHandler) ChangeProductInCart(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -221,6 +224,7 @@ func (h *CartHandler) ChangeProductInCart(w http.ResponseWriter, r *http.Request
 // @Success 200 {object} api.ApiPreviewCart "Товары из пользовательской корзины успешно получены."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags cart
 // @Router /cart [GET]
 func (h *CartHandler) GetProductsFromCart(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -255,6 +259,7 @@ func (h *CartHandler) GetProductsFromCart(w http.ResponseWriter, r *http.Request
 // @Success 200 {object} errors.Error "Товары из пользовательской корзины успешно удалены."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags cart
 // @Router /cart [DELETE]
 func (h *CartHandler) DeleteProductsFromCart(w http.ResponseWriter, r *http.Request) {
 	var err error

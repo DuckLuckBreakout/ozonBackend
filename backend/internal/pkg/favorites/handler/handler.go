@@ -37,7 +37,8 @@ func NewHandler(favoritesUCase favorites.UseCase) favorites.Handler {
 // @Success 200 {object} errors.Error "Товар успешно добавлен в избранное."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
-// @Router /favorites/product/{id} [POST]
+// @Tags favorites
+// @Router /favorites/product/{id} [PATCH]
 func (h *FavoritesHandler) AddProductToFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
 	defer func() {
@@ -78,6 +79,7 @@ func (h *FavoritesHandler) AddProductToFavorites(w http.ResponseWriter, r *http.
 // @Success 200 {object} errors.Error "Товар успешно удалён из избранного."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags favorites
 // @Router /favorites/product/{id} [DELETE]
 func (h *FavoritesHandler) DeleteProductFromFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -119,6 +121,7 @@ func (h *FavoritesHandler) DeleteProductFromFavorites(w http.ResponseWriter, r *
 // @Success 200 {object} usecase.RangeFavorites "Список товаров успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags favorites
 // @Router /favorites [POST]
 func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -174,6 +177,7 @@ func (h *FavoritesHandler) GetListPreviewFavorites(w http.ResponseWriter, r *htt
 // @Success 200 {object} usecase.UserFavorites "Список товаров успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags favorites
 // @Router /favorites [POST]
 func (h *FavoritesHandler) GetUserFavorites(w http.ResponseWriter, r *http.Request) {
 	var err error

@@ -35,6 +35,7 @@ func NewHandler(UCase promo_code.UseCase) promo_code.Handler {
 // @Success 200 {object} api.ApiDiscountedPrice "Стоимость товаров со скидкой."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags promo
 // @Router /promo [POST]
 func (h *PromoCodeHandler) ApplyPromoCodeToOrder(w http.ResponseWriter, r *http.Request) {
 	var err error

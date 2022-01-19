@@ -36,6 +36,7 @@ func NewHandler(notificationUCase notification.UseCase) notification.Handler {
 // @Success 200 {object} errors.Error "Пользователь успешно подписан на пуш уведомления."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags notification
 // @Router /notification [POST]
 func (h *NotificationHandler) SubscribeUser(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -99,6 +100,7 @@ func (h *NotificationHandler) SubscribeUser(w http.ResponseWriter, r *http.Reque
 // @Success 200 {object} errors.Error "Пользователь успешно отписан от пуш уведомлений."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags notification
 // @Router /notification [DELETE]
 func (h *NotificationHandler) UnsubscribeUser(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -151,6 +153,7 @@ func (h *NotificationHandler) UnsubscribeUser(w http.ResponseWriter, r *http.Req
 // @Success 200 {object} usecase.NotificationPublicKey "Публичный ключ успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags notification
 // @Router /notification/key [GET]
 func (h *NotificationHandler) GetNotificationPublicKey(w http.ResponseWriter, r *http.Request) {
 	var err error

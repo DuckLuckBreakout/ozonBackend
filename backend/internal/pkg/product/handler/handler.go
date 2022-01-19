@@ -36,6 +36,7 @@ func NewHandler(UCase product.UseCase) product.Handler {
 // @Success 200 {object} usecase.Product "Информация о товаре успешно получена."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags product
 // @Router /product/{id} [GET]
 func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -72,6 +73,7 @@ func (h *ProductHandler) GetProduct(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {array} usecase.RecommendationProduct "Информация о товаре успешно получена."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags product
 // @Router /product/recommendations/{id} [POST]
 func (h *ProductHandler) GetProductRecommendations(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -134,6 +136,7 @@ func (h *ProductHandler) GetProductRecommendations(w http.ResponseWriter, r *htt
 // @Success 200 {object} usecase.RangeProducts "Превью товаров получены успешно."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags product
 // @Router /product/recommendations/{id} [POST]
 func (h *ProductHandler) GetListPreviewProducts(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -197,6 +200,7 @@ func (h *ProductHandler) GetListPreviewProducts(w http.ResponseWriter, r *http.R
 // @Success 200 {object} usecase.RangeProducts "Результат поиска."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags product
 // @Router /product/search [POST]
 func (h *ProductHandler) SearchListPreviewProducts(w http.ResponseWriter, r *http.Request) {
 	var err error

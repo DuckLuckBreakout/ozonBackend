@@ -37,6 +37,7 @@ func NewHandler(orderUCase order.UseCase, cartUCase cart.UseCase) order.Handler 
 // @Success 200 {object} usecase.PreviewOrder "Заказ успешно получен на основании корзины."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags order
 // @Router /order [GET]
 func (h *OrderHandler) GetOrderFromCart(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -76,6 +77,7 @@ func (h *OrderHandler) GetOrderFromCart(w http.ResponseWriter, r *http.Request) 
 // @Success 200 {object} usecase.OrderNumber "Заказ успешно оформлен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags order
 // @Router /order [POST]
 func (h *OrderHandler) AddCompletedOrder(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -140,6 +142,7 @@ func (h *OrderHandler) AddCompletedOrder(w http.ResponseWriter, r *http.Request)
 // @Success 200 {object} usecase.RangeOrders "Список заказов данного пользователя успешно получен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags order
 // @Router /user/order [POST]
 func (h *OrderHandler) GetUserOrders(w http.ResponseWriter, r *http.Request) {
 	var err error

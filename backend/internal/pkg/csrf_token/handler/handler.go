@@ -26,6 +26,7 @@ func NewHandler() csrf_token.Handler {
 // @Success 200 {object} usecase.CsrfToken "Токен csrf успешно сгенирован."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags csrf
 // @Router /csrf [GET]
 func (h *CsrfTokenHandler) GetCsrfToken(w http.ResponseWriter, r *http.Request) {
 	var err error

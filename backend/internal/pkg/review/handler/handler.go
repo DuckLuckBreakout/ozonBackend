@@ -36,6 +36,7 @@ func NewHandler(reviewUCase review.UseCase) review.Handler {
 // @Success 200 {object} api.ApiReviewStatistics "Получение подробного рейтинга."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags review
 // @Router /review/statistics/product/{id} [POST]
 func (h *ReviewHandler) GetReviewStatistics(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -75,6 +76,7 @@ func (h *ReviewHandler) GetReviewStatistics(w http.ResponseWriter, r *http.Reque
 // @Success 200 {object} api.ApiReviewStatistics "Проверка прав для написания отзыва."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags review
 // @Router /review/rights/product/{id} [GET]
 func (h *ReviewHandler) CheckReviewRights(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -117,6 +119,7 @@ func (h *ReviewHandler) CheckReviewRights(w http.ResponseWriter, r *http.Request
 // @Success 200 {object} errors.Error "Отзыв успешно добавлен."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags review
 // @Router /review/product [POST]
 func (h *ReviewHandler) AddNewReview(w http.ResponseWriter, r *http.Request) {
 	var err error
@@ -178,6 +181,7 @@ func (h *ReviewHandler) AddNewReview(w http.ResponseWriter, r *http.Request) {
 // @Success 200 {object} api.ApiRangeReviews "Отзывы успешно получены."
 // @Failure 400 {object} errors.Error "Некорректное тело запроса."
 // @Failure 500 {object} errors.Error "Непредвиденная ошибка сервера."
+// @Tags review
 // @Router /review/product/{id} [POST]
 func (h *ReviewHandler) GetReviewsForProduct(w http.ResponseWriter, r *http.Request) {
 	var err error
