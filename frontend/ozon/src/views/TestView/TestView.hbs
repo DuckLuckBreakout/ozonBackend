@@ -1,0 +1,50 @@
+<div class="{{styles.block}}" id="test-block">
+    <form class="form"> <br>
+        Name:
+        <input name="name" type="text"> <br>
+
+        Project:
+        <select name="project">
+            {{#each projects}}
+                <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+        </select> <br>
+
+        Type:
+        <select name="type">
+            {{#each types}}
+                <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+        </select> <br>
+
+        Linked ticket:
+        <input name="linkedNum" type="number"> <br>
+
+        Author:
+        <select name="author">
+            {{#each authors}}
+                <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+        </select> <br>
+
+        Executor:
+        <select name="executor">
+            {{#each executors}}
+                <option value="{{this.name}}">{{this.name}}</option>
+            {{/each}}
+        </select> <br>
+
+        Description: <input name="description" type="text"> <br>
+
+        Complexity: <input  name="complexity" type="number"> <br>
+
+        File: <input name="file" type="file"> <br>
+        <button class="sbmt">Submit</button>
+        <input type="submit" value="Create">
+    </form>
+    <div>
+        Tickets: <br>
+        <div id="tickets"></div>
+    </div>
+</div>
+

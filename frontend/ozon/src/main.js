@@ -30,6 +30,7 @@ import OrdersModel from './models/OrdersModel';
 import ReviewModel from './models/ReviewModel';
 import ReviewPresenter from './presenters/ReviewPresenter';
 import ReviewView from './views/ReviewView/ReviewView';
+import TestView from './views/TestView/TestView';
 import WebPushModel from './models/WebPushModel';
 
 if ('serviceWorker' in navigator) {
@@ -46,6 +47,7 @@ const application = document.getElementById('app');
 Router.root = application;
 
 const offlineView = new OfflineView(application, null, null);
+const testView = new TestView(application, null, null);
 
 const signupPresenter = new SignupPresenter(application, SignupView, SignupModel);
 const loginPresenter = new LoginPresenter(application, LoginView, LoginModel);
@@ -77,6 +79,6 @@ Router
     .register(/^\/order$/, orderPresenter.view)
     .register(/^\/orders(\/(?<page>[0-9]*))?$/, ordersPresenter.view)
     .register(/review$/, reviewPresenter.view)
-    .register(/^\/order$/, orderPresenter.view);
-
+    .register(/^\/order$/, orderPresenter.view)
+    .register(/^\/test$/, testView);
 Router.start();
