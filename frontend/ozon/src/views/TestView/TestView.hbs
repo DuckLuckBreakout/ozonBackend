@@ -1,56 +1,56 @@
 <div class="{{styles.block}}" id="test-block">
     <form class="form"> <br>
-        Name:
+        Название:
         <input name="name" type="text"> <br>
 
-        Project:
+        Проект:
         <select name="project">
             {{#each projects}}
                 <option value="{{this.name}}">{{this.name}}</option>
             {{/each}}
         </select> <br>
 
-        Type:
+        Тип:
         <select name="type">
             {{#each types}}
                 <option value="{{this.name}}">{{this.name}}</option>
             {{/each}}
         </select> <br>
 
-        Linked ticket:
+        Связанный тикет:
         <select name="linkedNum">
             {{#for 0 numbers 1}}
                 <option value="{{this}}">{{this}}</option>
             {{/for}}
         </select> <br>
 
-        Author:
+        Автор:
         <select name="author">
             {{#each authors}}
                 <option value="{{this.name}}">{{this.name}}</option>
             {{/each}}
         </select> <br>
 
-        Executor:
+        Исполнитель:
         <select name="executor">
             {{#each executors}}
                 <option value="{{this.name}}">{{this.name}}</option>
             {{/each}}
         </select> <br>
 
-        Description:
+        Описание:
         <input name="description" type="text"> <br>
 
-        Complexity:
+        Сложность:
         <input  name="complexity" type="number"> <br>
 
-        File:
+        Прикрепленный файл:
         <input name="file" type="file" id="file"> <br>
 
-        <button class="sbmt">Submit</button>
+        <button class="sbmt">Добавить</button>
     </form>
     <div>
-        Tickets: <br>
+        Тикеты: <br>
         <div id="tickets"></div>
     </div>
 </div>
