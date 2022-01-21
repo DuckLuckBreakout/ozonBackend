@@ -3,6 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	"github.com/labstack/echo/v4"
+	echoSwagger "github.com/swaggo/echo-swagger"
 	"log"
 	"net/http"
 	"os"
@@ -51,13 +53,15 @@ import (
 	auth_service "github.com/DuckLuckBreakout/web/backend/services/auth/proto/user"
 	cart_service "github.com/DuckLuckBreakout/web/backend/services/cart/proto/cart"
 	session_service "github.com/DuckLuckBreakout/web/backend/services/session/proto/session"
-
+	
+	
 	"github.com/go-redis/redis/v8"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"google.golang.org/grpc"
+	
 )
 
 func InitApiServer() {
@@ -267,12 +271,21 @@ func main() {
 	authMux.HandleFunc("/api/v1/order", orderHandler.AddCompletedOrder).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/review/product", reviewHandler.AddNewReview).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/review/rights/product/{id:[0-9]+}", reviewHandler.CheckReviewRights).Methods("GET", "OPTIONS")
-	authMux.HandleFunc("/api/v1/favorites/product/{id:[0-9]+}", favoritesHandler.AddProductToFavorites).Methods("POST", "OPTIONS")
+	authMux.HandleFunc("/api/v1/favorites/product/{id:[0-9]+}", favoritesHandler.AddProductToFavorites).Methods("PATCH", "OPTIONS")
 	authMux.HandleFunc("/api/v1/favorites/product/{id:[0-9]+}", favoritesHandler.DeleteProductFromFavorites).Methods("DELETE", "OPTIONS")
 	authMux.HandleFunc("/api/v1/favorites", favoritesHandler.GetListPreviewFavorites).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/favorites", favoritesHandler.GetUserFavorites).Methods("GET", "OPTIONS")
 	authMux.HandleFunc("/api/v1/notification", notificationHandler.SubscribeUser).Methods("POST", "OPTIONS")
 	authMux.HandleFunc("/api/v1/notification", notificationHandler.UnsubscribeUser).Methods("DELETE", "OPTIONS")
+
+	mainRouter := echo.New()
+	mainRouter.GET("/api/*", echoSwagger.EchoWrapHandler())
+	go func() {
+		mainRouter.Start(fmt.Sprintf("%s:%s",
+			os.Getenv("API_SERVER_HOST"),
+			os.Getenv("API_SWAGGER_SERVER_PORT")),
+		)
+	}()
 
 	server := &http.Server{
 		Addr: fmt.Sprintf("%s:%s",

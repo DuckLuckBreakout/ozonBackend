@@ -65,4 +65,8 @@ init_db:
 	sudo -u postgres psql -f scripts/postgresql/init_api_db.sql
 	sudo -u postgres psql -f scripts/postgresql/init_auth_db.sql
 
+.PHONY: init_api
+init_api:
+	@sh $GOPATH/bin/swag init -g backend/cmd/api_server/main.go --output api/api_server
+
 .DEFAULT_GOAL := build

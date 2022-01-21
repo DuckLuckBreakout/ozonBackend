@@ -32,7 +32,7 @@ class HeaderView extends BaseView {
      */
     render = () => {
         this.parent.innerHTML = '';
-        const logo = new Img({src: '/svg/header/logo.svg'});
+        const logo = new Img({src: '/svg/header/logo.png'});
         const headerMenu = [
             {
                 text: 'Войти',

@@ -1,5 +1,4 @@
-
-name: Build and deploy
+name: Build backend
 
 env:
   API_DB_TAG: v1.0

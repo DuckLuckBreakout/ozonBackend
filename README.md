@@ -1,9 +1,34 @@
-# ozonBackend
+[![Build And Deploy Status](https://github.com/DuckLuckBreakout/web/actions/workflows/build.yaml/badge.svg)](https://github.com/DuckLuckBreakout/web/actions/workflows/build.yaml)
+[![Build And Deploy Status](https://github.com/DuckLuckBreakout/web/actions/workflows/s3.yaml/badge.svg)](https://github.com/DuckLuckBreakout/web/actions/workflows/s3.yaml)
 
+# Цель работы
+Разработка копии маркетплейса [Ozon](https://www.ozon.ru).
+
+# Требования к функционалу
+- Регистрация и авторизация;
+- Просмотр списка товаров;
+- Фильтрация списка товаров;
+- Сортировка списка товаров;
+- Поиск товара;
+- Просмотр страницы товара;
+- Просмотр рейтинга товара;
+- Написание отзыва о товаре;
+- Оценка товара;
+- Добавление товара в корзиу;
+- Удаление товара из корзины;
+- Оформление заказа;
+- Просмотр истории заказов;
+- Просмотр рекомендованных товаров;
+- Просмотр каталога категорий;
+- Редактирование профиля.
+
+# UseCase диаграмма
 ![UseCase](https://user-images.githubusercontent.com/49189299/149818532-2ff952ac-0eed-4bf5-a736-3b07594b0866.png)
 
+# ER диаграмма
 ![ER_api_server](https://user-images.githubusercontent.com/49189299/149835182-2e9260f8-d665-4fc5-abb5-bf98c8bc7aa5.png)
 
+# Результаты запуска ApacheBench
 ```
 This is ApacheBench, Version 2.3 <$Revision: 1843412 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/

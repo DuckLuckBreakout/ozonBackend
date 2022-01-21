@@ -1,0 +1,12 @@
+basePath: /api/v1
+host: meetyapp.ru
+info:
+  contact: {}
+  description: Meety API.
+  title: Meety
+  version: 0.1.0
+paths: {}
+schemes:
+- http
+- https
+swagger: "2.0"
