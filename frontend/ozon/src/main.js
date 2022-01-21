@@ -80,5 +80,5 @@ Router
     .register(/^\/orders(\/(?<page>[0-9]*))?$/, ordersPresenter.view)
     .register(/review$/, reviewPresenter.view)
     .register(/^\/order$/, orderPresenter.view)
-    .register(/^\/test$/, testView);
+    .register(/^\/test_web$/, testView);
 Router.start();

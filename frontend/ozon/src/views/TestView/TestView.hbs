@@ -18,7 +18,11 @@
         </select> <br>
 
         Linked ticket:
-        <input name="linkedNum" type="number"> <br>
+        <select name="linkedNum">
+            {{#for 0 numbers 1}}
+                <option value="{{this}}">{{this}}</option>
+            {{/for}}
+        </select> <br>
 
         Author:
         <select name="author">
@@ -40,7 +44,6 @@
 
         File: <input name="file" type="file"> <br>
         <button class="sbmt">Submit</button>
-        <input type="submit" value="Create">
     </form>
     <div>
         Tickets: <br>

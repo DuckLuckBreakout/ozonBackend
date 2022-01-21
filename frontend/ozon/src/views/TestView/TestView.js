@@ -1,5 +1,4 @@
 import BaseView from '../BaseView.js';
-import Events from '../../utils/bus/events';
 import testTemplate from './TestView.hbs';
 import Input from '../Common/Input/Input';
 import testStyles from './TestView.scss';
@@ -7,13 +6,6 @@ import textStyles from './../Common/TextArea/TextArea.scss';
 import imgStyles from './../Common/Img/Img.scss';
 import buttonStyles from './../Common/Button/Button.scss';
 import linkStyles from './../Common/Link/Link.scss';
-import Router from '../../utils/router/Router';
-import Bus from '../../utils/bus/bus';
-import Popup from '../Common/Popup/Popup';
-import Blind from '../Common/Blind/Blind';
-import popupStyles from '../Common/Popup/Popup.scss';
-import decorators from '../decorators.scss';
-import Img from '../Common/Img/Img';
 
 
 
@@ -101,6 +93,7 @@ class TestView extends BaseView {
             types: this.ticketTypes,
             authors: this.users,
             executors: this.users,
+            numbers: this.backlog.length,
             styles: testStyles,
             textStyles: textStyles,
             buttonStyles: buttonStyles,
@@ -110,6 +103,7 @@ class TestView extends BaseView {
         this.cache = new DOMParser().parseFromString(template, 'text/html').getElementById('test-block');
         const form = this.cache.getElementsByClassName('form')[0];
         const backlog = this.backlog;
+        const view = this;
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const formData = new FormData(form);
@@ -124,12 +118,13 @@ class TestView extends BaseView {
                     description: formData.get('description'),
                     complexity: formData.get('complexity'),
                     file: formData.get('file'),
+                    number: view.backlog.length,
                 }),
             );
-
-            document.getElementById('tickets').innerHTML = JSON.stringify(backlog, null, 0);
+            view.render();
         });
         this.parent.appendChild(this.cache);
+        document.getElementById('tickets').innerHTML = JSON.stringify(this.backlog, null, 0);
     };
 }
 
