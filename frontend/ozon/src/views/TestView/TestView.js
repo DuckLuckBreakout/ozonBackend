@@ -28,7 +28,7 @@ class User {
 }
 
 class Ticket {
-    constructor({number=-1, name='', project='', type='', linkedNum=-1, author='', executor='', description='', complexity='', attachments=''}) {
+    constructor({number=-1, name='', project='', type='', linkedNum=-1, author='', executor='', description='', complexity=-1, attachments=''}) {
         this.number = number;
         this.name = name;
         this.project = project;
@@ -107,6 +107,7 @@ class TestView extends BaseView {
         form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             const formData = new FormData(form);
+            console.log()
             backlog.push(
                 new Ticket({
                     name: formData.get('name'),
@@ -117,7 +118,7 @@ class TestView extends BaseView {
                     executor: formData.get('executor'),
                     description: formData.get('description'),
                     complexity: formData.get('complexity'),
-                    file: formData.get('file'),
+                    attachments: document.getElementById('file').value,
                     number: view.backlog.length,
                 }),
             );
